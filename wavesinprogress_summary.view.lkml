@@ -264,13 +264,13 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
     sql: ${TABLE}.Status ;;
   }
 
-  dimension: total_qty {
-    type: number
+  measure: total_qty {
+    type: sum
     sql: ${TABLE}.TotalQty ;;
   }
 
-  dimension: order_count {
-    type: number
+  measure: order_count {
+    type: sum
     sql: ${TABLE}.OrderCount ;;
   }
 
@@ -349,48 +349,48 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
     sql: ${TABLE}.PackInProgress ;;
   }
 
-  dimension: cases {
-    type: number
+  measure: cases {
+    type: sum
     sql: ${TABLE}.Cases ;;
   }
 
-  dimension: cases_picked {
-    type: number
+  measure: cases_picked {
+    type: sum
     sql: ${TABLE}.CasesPicked ;;
   }
 
-  dimension: cases_staged {
-    type: number
+  measure: cases_staged {
+    type: sum
     sql: ${TABLE}.CasesStaged ;;
   }
 
-  dimension: picked_units {
-    type: number
+  measure: picked_units {
+    type: sum
     sql: ${TABLE}.PickedUnits ;;
   }
 
-  dimension: staged_units {
-    type: number
+  measure: staged_units {
+    type: sum
     sql: ${TABLE}.StagedUnits ;;
   }
 
-  dimension: totes {
-    type: number
+  measure: totes {
+    type: sum
     sql: ${TABLE}.Totes ;;
   }
 
-  dimension: pre_sort_units {
-    type: number
+  measure: pre_sort_units {
+    type: sum
     sql: ${TABLE}.PreSortUnits ;;
   }
 
-  dimension: cartons {
-    type: number
+  measure: cartons {
+    type: sum
     sql: ${TABLE}.Cartons ;;
   }
 
-  dimension: put_units {
-    type: number
+  measure: put_units {
+    type: sum
     sql: ${TABLE}.PutUnits ;;
   }
 
@@ -399,50 +399,50 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
     sql: ${TABLE}.SOTDate ;;
   }
 
-  dimension: stores {
-    type: number
+  measure: stores {
+    type: sum
     sql: ${TABLE}.Stores ;;
   }
 
-  dimension: sotshipments {
-    type: number
+  measure: sotshipments {
+    type: sum
     sql: ${TABLE}.SOTShipments ;;
   }
 
-  dimension: sotunits {
-    type: number
+  measure: sotunits {
+    type: sum
     sql: ${TABLE}.SOTUnits ;;
   }
 
-  dimension: shipments {
-    type: number
+  measure: shipments {
+    type: sum
     sql: ${TABLE}.Shipments ;;
   }
 
-  dimension: allocated_units {
-    type: number
+  measure: allocated_units {
+    type: sum
     sql: ${TABLE}.AllocatedUnits ;;
   }
 
-  measure: Pick_percent {
-    type: sum
-    sql: ${cases_picked}/${cases} ;;
-  }
-
-  measure: PreSort_percent {
-    type: sum
-    sql: ${pre_sort_units}/${total_qty} ;;
-  }
-
-  measure: Put_percent {
-    type: sum
-    sql: ${put_units}/${total_qty} ;;
-  }
-
-  measure: Stage_percent {
-    type: sum
-    sql: ${cases_staged}/${cases} ;;
-  }
+#   measure: Pick_percent {
+#     type: sum
+#     sql: sum(${cases_picked})/sum(${cases}) ;;
+#   }
+#
+#   measure: PreSort_percent {
+#     type: sum
+#     sql: ${pre_sort_units}/${total_qty} ;;
+#   }
+#
+#   measure: Put_percent {
+#     type: sum
+#     sql: ${put_units}/${total_qty} ;;
+#   }
+#
+#   measure: Stage_percent {
+#     type: sum
+#     sql: ${cases_staged}/${cases} ;;
+#   }
 
   set: detail {
     fields: [
