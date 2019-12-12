@@ -423,7 +423,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
     sql: ${TABLE}.AllocatedUnits ;;
   }
 
-  measure: pick% {
+  measure: pick_Percentage {
     type: average
     sql: ${cases_picked}/${cases} ;;
   }
