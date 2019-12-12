@@ -423,6 +423,26 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
     sql: ${TABLE}.AllocatedUnits ;;
   }
 
+  measure: pick% {
+    type: average
+    sql: ${cases_picked}/${cases} ;;
+  }
+
+  measure: PreSort% {
+    type: average
+    sql: ${pre_sort_units}/${total_qty} ;;
+  }
+
+  measure: Put%{
+    type: average
+    sql: ${put_units}/${total_qty} ;;
+  }
+
+  measure: Stage%{
+    type: average
+    sql: ${cases_staged}/${cases} ;;
+  }
+
   set: detail {
     fields: [
       wave_number,
