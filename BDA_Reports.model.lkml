@@ -18,6 +18,7 @@ explore: bda_data {
 # Waves In Progress
 
 explore: casestopick {
+  label: "Waves in progress Reports"
   join: wavesinprogress_summary {
     relationship: many_to_one
     type: left_outer
