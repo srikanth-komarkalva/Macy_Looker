@@ -392,7 +392,30 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 
   dimension: process_area {
     type: string
+    hidden: yes
     sql: ${TABLE}.ProcessArea ;;
+  }
+
+  dimension: process_area_full {
+    label: "Process Area"
+    sql:
+        case ${process_area}
+        WHEN "BTY" THEN "Beauty"
+        WHEN "BLK" THEN "Bulk"
+        WHEN "GOR" THEN "Gourmet"
+        WHEN "FRG" THEN "Fragile"
+        WHEN "JWL" THEN "Jewelry"
+        WHEN "OVR" THEN "Oversize"
+        WHEN "PTC" THEN "Pick To Carton"
+        WHEN "SPK" THEN "Store Pack"
+        WHEN "BYP" THEN "Bypass"
+        WHEN "CDP" THEN "CDP"
+        WHEN "OSC" THEN "Open Sort Count"
+        WHEN "UNK" THEN "Unknown"
+        WHEN "HAF" THEN "Hold & Flow"
+        WHEN "BKG" THEN "Backstage"
+        END
+        ;;
   }
 
   dimension: po_nbr {
@@ -401,6 +424,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: rcpt_nbr {
+    primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
   }

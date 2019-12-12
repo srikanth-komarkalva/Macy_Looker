@@ -254,6 +254,7 @@ GROUP BY  ProcessArea
 
   dimension: process_area {
     type: string
+    hidden: yes
     sql: ${TABLE}.ProcessArea ;;
   }
 
@@ -263,6 +264,7 @@ GROUP BY  ProcessArea
   }
 
   dimension: rcpt_nbr {
+    primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
   }
@@ -272,8 +274,9 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.RcvdQty ;;
   }
 
-  dimension: prep_today {
-    type: number
+  measure: prep_today {
+    label: "Tkt Prep WIP"
+    type: sum
     sql: ${TABLE}.Prep_Today ;;
   }
 
@@ -297,8 +300,9 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
-  dimension: put_today {
-    type: number
+  measure: put_today {
+    label: "Put Away WIP"
+    type: sum
     sql: ${TABLE}.Put_Today ;;
   }
 
@@ -322,8 +326,9 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Put_Day4 ;;
   }
 
-  dimension: pack_today {
-    type: number
+  measure: pack_today {
+    label: "PTL WIP"
+    type: sum
     sql: ${TABLE}.Pack_Today ;;
   }
 
