@@ -254,6 +254,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   }
 
   dimension: wave_number {
+    primary_key: yes
     type: string
     sql: ${TABLE}.WaveNumber ;;
   }
@@ -423,23 +424,23 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
     sql: ${TABLE}.AllocatedUnits ;;
   }
 
-  measure: pick_Percentage {
-    type: average
+  measure: Pick_percent {
+    type: sum
     sql: ${cases_picked}/${cases} ;;
   }
 
-  measure: PreSort% {
-    type: average
+  measure: PreSort_percent {
+    type: sum
     sql: ${pre_sort_units}/${total_qty} ;;
   }
 
-  measure: Put%{
-    type: average
+  measure: Put_percent {
+    type: sum
     sql: ${put_units}/${total_qty} ;;
   }
 
-  measure: Stage%{
-    type: average
+  measure: Stage_percent {
+    type: sum
     sql: ${cases_staged}/${cases} ;;
   }
 

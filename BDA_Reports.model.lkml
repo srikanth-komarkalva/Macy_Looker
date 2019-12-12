@@ -9,7 +9,6 @@ include: "*.view.lkml"                       # include all views in this project
 explore: bda_data {
   label: "BDA Reports"
   join: wip_summary {
-#     view_label: ""
     relationship: many_to_one
     type: left_outer
     sql_on: ${bda_data.rcpt_nbr} = ${wip_summary.rcpt_nbr} ;;
@@ -21,6 +20,7 @@ explore: bda_data {
 explore: casestopick {
   join: wavesinprogress_summary {
     relationship: many_to_one
+    type: left_outer
     sql_on: ${casestopick.wave_number} = ${wavesinprogress_summary.wave_number} ;;
   }
 }
