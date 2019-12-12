@@ -9,6 +9,7 @@ include: "*.view.lkml"                       # include all views in this project
 explore: bda_data {
   label: "BDA Reports"
   join: wip_summary {
+#     view_label: ""
     relationship: many_to_one
     sql_on: ${bda_data.rcpt_nbr} = ${wip_summary.rcpt_nbr} ;;
   }

@@ -363,6 +363,28 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: ${TABLE}.ShiftDate ;;
   }
 
+#   dimension_group: shift_date_timestamp {
+#     type: time
+#     sql: ${shift_date} ;;
+#   }
+
+  dimension_group: ShiftStartDatetime {
+    type: time
+    sql: ${TABLE}.ShiftStartDatetime ;;
+  }
+
+  dimension_group: ShiftEndDatetime {
+    type: time
+    sql: ${TABLE}.ShiftEndDatetime ;;
+  }
+
+  dimension_group: ShiftDateFilter {
+    type: duration
+    sql_start: ${ShiftStartDatetime_time} ;;
+    sql_end: ${ShiftEndDatetime_time} ;;
+    intervals: [day]
+  }
+
   dimension: shift_name {
     type: string
     sql: ${TABLE}.ShiftName ;;
