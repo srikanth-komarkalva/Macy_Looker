@@ -41,8 +41,7 @@ view: bda_data {
                                       , created_time AS CreatedTime
                                       , RANK() OVER (PARTITION BY entity_id, entity_type ORDER BY id) AS Rank
                             FROM      `mtech-dc2-prod.inventory.entity`
-                            WHERE     /*created_time >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 32 DAY)
-                                      AND */version_id = 0
+                            WHERE     version_id = 0
 
                             UNION ALL
 
@@ -52,8 +51,7 @@ view: bda_data {
                                       , '9999-12-31' AS CreatedTime
                                       , COUNT(DISTINCT id) + 1 AS Rank
                             FROM      `mtech-dc2-prod.inventory.entity`
-                            WHERE     /*created_time >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 32 DAY)
-                                      AND */version_id = 0
+                            WHERE     version_id = 0
                             GROUP BY  entity_id, entity_type
                             )
 

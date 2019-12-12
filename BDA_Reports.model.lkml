@@ -11,6 +11,7 @@ explore: bda_data {
   join: wip_summary {
 #     view_label: ""
     relationship: many_to_one
+    type: left_outer
     sql_on: ${bda_data.rcpt_nbr} = ${wip_summary.rcpt_nbr} ;;
   }
 }
