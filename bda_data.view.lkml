@@ -1,6 +1,9 @@
 view: bda_data {
   label: "BDA Reports"
   derived_table: {
+    persist_for: "1 hour"
+    partition_keys: ["ShiftDate"]
+    cluster_keys: ["ProcessArea","PoNbr"]
     sql: WITH  shiftTimings AS   (
                         SELECT  StartTime
                                 , DurationInSec
