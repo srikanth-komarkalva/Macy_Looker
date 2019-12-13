@@ -6,6 +6,15 @@ include: "*.view.lkml"                       # include all views in this project
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
 #
+
+datagroup: macys_datagroup {
+  ###Can be set to match your etl process
+#   sql_trigger: SELECT max(completed_at) FROM public.etl_jobs ;;
+  max_cache_age: "1 hour"
+}
+
+persist_with: macys_datagroup
+
 explore: bda_data {
   label: "BDA Reports"
   join: wip_summary {
