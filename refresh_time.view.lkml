@@ -1,6 +1,6 @@
 view: refresh_time {
   derived_table: {
-    sql: SELECT CURRENT_DATETIME("America/New_York") AS CURR_DATETIME_EST
+    sql: SELECT TIMESTAMP(CURRENT_DATETIME("America/New_York")) AS CURR_DATETIME_EST
       ,DATE(CURRENT_DATETIME("America/New_York")) AS CURR_DATE_EST
       ,FORMAT_TIME("%T %p",CURRENT_TIME("America/New_York")) AS CURR_TIME_EST
       ,CASE
@@ -14,7 +14,7 @@ view: refresh_time {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
   }
 
   dimension_group: curr_datetime_est {

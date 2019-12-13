@@ -249,7 +249,7 @@ GROUP BY  ProcessArea
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
   }
 
   dimension: process_area {
