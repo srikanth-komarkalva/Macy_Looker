@@ -63,6 +63,11 @@ view: casestopick {
     sql: ${TABLE}.CaseNumber ;;
   }
 
+  measure: count_of_case_number{
+    type: count_distinct
+    sql: ${case_number} ;;
+  }
+
   dimension: case_status {
     type: string
     sql: ${TABLE}.CaseStatus ;;
