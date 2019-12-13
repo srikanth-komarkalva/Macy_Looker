@@ -14,7 +14,7 @@ view: refresh_time {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
   }
 
   dimension_group: curr_datetime_est {

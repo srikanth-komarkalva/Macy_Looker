@@ -39,7 +39,7 @@ view: casestopick {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+#     drill_fields: [detail*]
   }
 
   dimension: wave_number {
