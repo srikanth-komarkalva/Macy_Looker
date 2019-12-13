@@ -256,6 +256,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   dimension: wave_number {
     primary_key: yes
     type: string
+    label: "Wave"
     sql: ${TABLE}.WaveNumber ;;
   }
 
@@ -280,6 +281,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   }
 
   dimension: wave_type {
+    label: "Wave Group"
     type: string
     sql: ${TABLE}.WaveType ;;
   }
@@ -355,6 +357,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   }
 
   measure: cases_picked {
+    label: "Picked"
     type: sum
     sql: ${TABLE}.CasesPicked ;;
   }
@@ -395,6 +398,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   }
 
   dimension: sotdate {
+    label: "SOT Date"
     type: string
     sql: ${TABLE}.SOTDate ;;
   }
