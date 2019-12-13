@@ -25,3 +25,5 @@ explore: casestopick {
     sql_on: ${casestopick.wave_number} = ${wavesinprogress_summary.wave_number} ;;
   }
 }
+
+explore: refresh_time {}
