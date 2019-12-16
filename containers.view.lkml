@@ -41,7 +41,7 @@ view: containers {
         and cr.enabled = 1
 
       Order by 1,2,4
-      ;
+      )
        ;;
   }
 
