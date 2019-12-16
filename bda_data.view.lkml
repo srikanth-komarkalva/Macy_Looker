@@ -1,6 +1,11 @@
+include: "BDA_Reports.model.lkml"
+
 view: bda_data {
   label: "BDA Reports"
   derived_table: {
+    datagroup_trigger: macys_datagroup
+    partition_keys: ["ShiftDate"]
+    cluster_keys: ["ProcessArea","PoNbr"]
     sql: WITH  shiftTimings AS   (
                         SELECT  StartTime
                                 , DurationInSec
@@ -358,7 +363,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 
   dimension: shift_date {
     type: date
-    sql: ${TABLE}.ShiftDate ;;
+    sql: cast(${TABLE}.ShiftDate as date) ;;
   }
 
 #   dimension_group: shift_date_timestamp {
