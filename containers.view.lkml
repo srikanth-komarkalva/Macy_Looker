@@ -52,6 +52,7 @@ view: containers {
 
   dimension: wave_number {
     type: string
+    primary_key: yes
     sql: ${TABLE}.waveNumber ;;
   }
 
@@ -90,6 +91,15 @@ view: containers {
     sql: ${TABLE}.location ;;
   }
 
+  measure: count_of_UPC {
+    type: count_distinct
+    sql: ${upc} ;;
+  }
+
+  measure: Sum_of_units {
+    type: sum
+    sql: ${units} ;;
+  }
   set: detail {
     fields: [
       wave_number,
