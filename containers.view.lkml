@@ -1,6 +1,6 @@
 view: containers {
   derived_table: {
-    sql: select
+    sql: select(
         Distinct
         cea.attribute_value waveNumber
         , e.entity_id container
@@ -41,7 +41,7 @@ view: containers {
         and cr.enabled = 1
 
       Order by 1,2,4
-      ;
+      ;)
        ;;
   }
 
