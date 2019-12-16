@@ -36,5 +36,14 @@ explore: casestopick {
   }
 }
 
+#preSortDashboard
+explore: containers {
+  label: "Waves in progress Reports"
+  join: presortdashboard {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${containers.wave_number} = ${presortdashboard.wave_number} ;;
+  }
+}
 # Last Refresh time
 explore: refresh_time {}
