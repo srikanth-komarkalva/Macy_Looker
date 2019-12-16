@@ -90,6 +90,15 @@ view: containers {
     sql: ${TABLE}.location ;;
   }
 
+  measure: count_of_UPC {
+    type: count_distinct
+    sql: ${upc} ;;
+  }
+
+  measure: Sum_of_units {
+    type: sum
+    sql: ${units} ;;
+  }
   set: detail {
     fields: [
       wave_number,

@@ -39,7 +39,7 @@ explore: casestopick {
 #preSortDashboard
 
 explore: containers {
-  label: "Waves in progress Reports"
+  label: "preSortDasboard"
   join: presortdashboard {
     relationship: many_to_one
     type: left_outer
