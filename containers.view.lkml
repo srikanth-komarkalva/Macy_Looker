@@ -63,7 +63,7 @@ view: containers {
 
   dimension: macys_logo {
     type: string
-    sql: ${TABLE}.CaseStatus;;
+    sql: ${container_type};;
     html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" /> ;;
   }
 
