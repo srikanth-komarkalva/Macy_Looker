@@ -38,7 +38,7 @@ view: presortdashboard {
 
           and wc.version_id = (select min(version_Id) from `mtech-dc2-prod.waving.wave_config` where id = wc.id)
           and wc.enabled = 1
-      )
+      ),
       waveActivity as
       (
       select
