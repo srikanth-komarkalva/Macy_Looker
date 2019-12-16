@@ -52,6 +52,7 @@ view: containers {
 
   dimension: wave_number {
     type: string
+    primary_key: yes
     sql: ${TABLE}.waveNumber ;;
   }
 
