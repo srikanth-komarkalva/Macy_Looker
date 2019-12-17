@@ -1,8 +1,8 @@
 view: wavesinprogress_summary {
   derived_table: {
     datagroup_trigger: macys_datagroup
-    partition_keys: ["waveNumber"]
-    cluster_keys: ["sotdate"]
+#     partition_keys: ["sotdate"]
+#     cluster_keys: ["sotdate"]
     sql: WITH    entity_container AS (
                             SELECT    id AS EntityId
                                       , entity_id AS Container
