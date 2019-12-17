@@ -1,8 +1,8 @@
 view: presortdashboard {
   derived_table: {
-    datagroup_trigger: macys_datagroup
-#     partition_keys: ["waveNumber"]
-#     cluster_keys: ["statusDesc","waveType"]
+#     datagroup_trigger: macys_datagroup
+#     partition_keys: ["staged"]
+#     cluster_keys: ["waveNumber","waveType"]
 
     sql: --Get Active Waves in Staged, Presort Ready,Presort In Progress, anything else in area
       with WaveData as
