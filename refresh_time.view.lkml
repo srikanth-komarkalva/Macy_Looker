@@ -1,5 +1,8 @@
 view: refresh_time {
   derived_table: {
+    datagroup_trigger: macys_datagroup
+    partition_keys: ["CURR_DATETIME_EST"]
+    cluster_keys: ["CURR_DATE_EST","CURR_TIME_EST"]
     sql: SELECT TIMESTAMP(CURRENT_DATETIME("America/New_York")) AS CURR_DATETIME_EST
       ,DATE(CURRENT_DATETIME("America/New_York")) AS CURR_DATE_EST
       ,FORMAT_TIME("%T %p",CURRENT_TIME("America/New_York")) AS CURR_TIME_EST
