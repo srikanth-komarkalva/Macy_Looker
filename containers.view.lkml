@@ -1,8 +1,8 @@
 view: containers {
   derived_table: {
-    datagroup_trigger: macys_datagroup
-    partition_keys: ["updatedTime"]
-    cluster_keys: ["waveNumber","container","status"]
+#     datagroup_trigger: macys_datagroup
+#     partition_keys: ["updatedTime"]
+#     cluster_keys: ["waveNumber","container","status"]
 
     sql: select
         Distinct
