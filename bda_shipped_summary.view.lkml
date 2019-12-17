@@ -1,5 +1,9 @@
 view: bda_shipped_summary {
   derived_table: {
+    datagroup_trigger: macys_datagroup
+    partition_keys: ["ShiftDate"]
+    cluster_keys: ["Division"]
+
     sql: WITH  shiftTimings AS (
                         SELECT  StartTime
                                 , DurationInSec

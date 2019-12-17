@@ -1,5 +1,6 @@
 view: casestopick {
   derived_table: {
+    datagroup_trigger: macys_datagroup
     sql: Select
           cea.attribute_value WaveNumber
           , a.id TaskNumber
