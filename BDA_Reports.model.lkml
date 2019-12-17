@@ -11,7 +11,7 @@ datagroup: macys_datagroup {
   ###Can be set to match your etl process
 #   sql_trigger: SELECT max(completed_at) FROM public.etl_jobs ;;
   sql_trigger: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
-  max_cache_age: "2 hour"
+  max_cache_age: "1 hour"
 }
 
 persist_with: macys_datagroup
