@@ -299,6 +299,7 @@ GROUP BY  ProcessArea
   }
 
   measure: rcvd_qty {
+    label: "Received Units"
     type: sum
     sql: ${TABLE}.RcvdQty ;;
   }
@@ -326,6 +327,11 @@ GROUP BY  ProcessArea
   measure: prep_day4 {
     type: sum
     sql: ${TABLE}.Prep_Day4 ;;
+  }
+
+  measure: prep_Total {
+    type: number
+    sql: ${prep_day1}+${prep_day2}+${prep_day3}+${prep_day4}+${prep_today} ;;
   }
 
   measure: put_today {
