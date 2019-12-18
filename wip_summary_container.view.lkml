@@ -293,6 +293,7 @@ GROUP BY  ProcessArea
   }
 
   dimension: rcpt_nbr {
+    primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
   }
