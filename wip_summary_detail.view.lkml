@@ -288,12 +288,14 @@ GROUP BY  ProcessArea
   }
 
   dimension: po_nbr {
+    label: "PO"
     type: string
     sql: ${TABLE}.PoNbr ;;
   }
 
   dimension: rcpt_nbr {
     primary_key: yes
+    label: "Receipt"
     type: string
     sql: ${TABLE}.RcptNbr ;;
   }
@@ -305,31 +307,37 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_today {
+    label: "TKT / Prep Today"
     type: sum
     sql: ${TABLE}.Prep_Today ;;
   }
 
   measure: prep_day1 {
+    label: "TKT / Prep Day 1"
     type: sum
     sql: ${TABLE}.Prep_Day1 ;;
   }
 
   measure: prep_day2 {
+    label: "TKT / Prep Day 2"
     type: sum
     sql: ${TABLE}.Prep_Day2 ;;
   }
 
   measure: prep_day3 {
+    label: "TKT / Prep Day 3"
     type: sum
     sql: ${TABLE}.Prep_Day3 ;;
   }
 
   measure: prep_day4 {
+    label: "TKT / Prep Day 4"
     type: sum
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
   measure: prep_Total {
+    label: "TKT / Prep Pending"
     type: number
     sql: ${prep_day1}+${prep_day2}+${prep_day3}+${prep_day4}+${prep_today} ;;
   }
@@ -365,31 +373,37 @@ GROUP BY  ProcessArea
   }
 
   measure: Putaway_Total {
+    label: "Putaway Pending"
     type: number
     sql: ${put_day1}+${put_day2}+${put_day3}+${put_day4}+${put_today} ;;
   }
 
   measure: put_pack_Total{
+    label: "Put/Pack Pending"
     type: number
     sql: ${pack_day1}+${pack_day2}+${pack_day3}+${pack_day4}+${pack_today} ;;
   }
 
   measure: Pick_Total {
+    label: "Pick Pending"
     type: number
     sql: ${pick_day1}+${pick_day2}+${pick_day3}+${pick_day4}+${pick_today} ;;
   }
 
   measure: PreSort_Total {
+    label: "PreSort Pending"
     type: number
     sql: ${presort_day1}+${presort_day2}+${presort_day3}+${presort_day4}+${presort_today} ;;
   }
 
   measure: Ship_Total {
+    label: "Shipped Pending"
     type: number
     sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
   }
 
   measure: Total_Pending{
+    label: "Total Pending"
     type: number
     sql: ${prep_Total}+${Putaway_Total}+${put_pack_Total}+${Pick_Total}+${PreSort_Total}+${Ship_Total} ;;
   }
