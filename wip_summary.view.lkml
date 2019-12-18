@@ -274,29 +274,39 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.RcvdQty ;;
   }
 
-  measure: prep_today {
-    type: sum
+  dimension: prep_today {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Prep_Today ;;
   }
 
-  measure: prep_day1 {
-    type: sum
+  dimension: prep_day1 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Prep_Day1 ;;
   }
 
-  measure: prep_day2 {
-    type: sum
+  dimension: prep_day2 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Prep_Day2 ;;
   }
 
-  measure: prep_day3 {
-    type: sum
+  dimension: prep_day3 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Prep_Day3 ;;
   }
 
-  measure: prep_day4 {
-    type: sum
+  dimension: prep_day4 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Prep_Day4 ;;
+  }
+  measure: Ticketed_Prepped_WIP_Units {
+    label: "Tkt Prep WIP"
+    type: sum
+    sql: ${prep_day1} + ${prep_day2} + ${prep_day3} + ${prep_day4} + ${prep_today} ;;
   }
 
   dimension: put_today {
@@ -330,108 +340,133 @@ GROUP BY  ProcessArea
   }
 
   measure: Put_away_wip {
-    label: "Put Away WIP"
+    label: "Putaway WIP"
     type: sum
     sql: ${put_today} + ${put_day1} + ${put_day2} + ${put_day3} + ${put_day4} ;;
   }
 
-  measure: pack_today {
-    type: sum
+  dimension: pack_today {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pack_Today ;;
   }
 
-  measure: pack_day1 {
-    type: sum
+  dimension: pack_day1 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pack_Day1 ;;
   }
 
-  measure: pack_day2 {
-    type: sum
+  dimension: pack_day2 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pack_Day2 ;;
   }
 
-  measure: pack_day3 {
-    type: sum
+  dimension: pack_day3 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pack_Day3 ;;
   }
 
-  measure: pack_day4 {
-    type: sum
+  dimension: pack_day4 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pack_Day4 ;;
   }
-
-  measure: pick_today {
+  measure: Put_Pack_WIP_Units {
+    label: "PTL WIP"
     type: sum
+    sql: ${pack_day1} + ${pack_day2} + ${pack_day3} + ${pack_day4} + ${pack_today} ;;
+  }
+
+  dimension: pick_today {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pick_Today ;;
   }
 
-  measure: pick_day1 {
-    type: sum
+  dimension: pick_day1 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pick_Day1 ;;
   }
 
-  measure: pick_day2 {
-    type: sum
+  dimension: pick_day2 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pick_Day2 ;;
   }
 
-  measure: pick_day3 {
-    type: sum
+  dimension: pick_day3 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pick_Day3 ;;
   }
 
-  measure: pick_day4 {
-    type: sum
+  dimension: pick_day4 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Pick_Day4 ;;
   }
 
-  measure: presort_today {
-    type: sum
+  dimension: presort_today {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Presort_Today ;;
   }
 
-  measure: presort_day1 {
-    type: sum
+  dimension: presort_day1 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Presort_Day1 ;;
   }
 
-  measure: presort_day2 {
-    type: sum
+  dimension: presort_day2 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Presort_Day2 ;;
   }
 
-  measure: presort_day3 {
-    type: sum
+  dimension: presort_day3 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Presort_Day3 ;;
   }
 
-  measure: presort_day4 {
-    type: sum
+  dimension: presort_day4 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Presort_Day4 ;;
   }
 
-  measure: ship_today {
+  dimension: ship_today {
+    hidden: yes
     type: number
     sql: ${TABLE}.Ship_Today;;
   }
 
-  measure: ship_day1 {
-    type: sum
+  dimension: ship_day1 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Ship_Day1 ;;
   }
 
-  measure: ship_day2 {
-    type: sum
+  dimension: ship_day2 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Ship_Day2 ;;
   }
 
-  measure: ship_day3 {
-    type: sum
+  dimension: ship_day3 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Ship_Day3 ;;
   }
 
-  measure: ship_day4 {
-    type: sum
+  dimension: ship_day4 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Ship_Day4 ;;
   }
 measure: sum_of_ship{
