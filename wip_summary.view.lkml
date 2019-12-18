@@ -280,22 +280,22 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_day1 {
-    type: number
+    type: sum
     sql: ${TABLE}.Prep_Day1 ;;
   }
 
   measure: prep_day2 {
-    type: number
+    type: sum
     sql: ${TABLE}.Prep_Day2 ;;
   }
 
   measure: prep_day3 {
-    type: number
+    type: sum
     sql: ${TABLE}.Prep_Day3 ;;
   }
 
   measure: prep_day4 {
-    type: number
+    type: sum
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
@@ -305,22 +305,22 @@ GROUP BY  ProcessArea
   }
 
   measure: put_day1 {
-    type: number
+    type: sum
     sql: ${TABLE}.Put_Day1 ;;
   }
 
   measure: put_day2 {
-    type: number
+    type: sum
     sql: ${TABLE}.Put_Day2 ;;
   }
 
   measure: put_day3 {
-    type: number
+    type: sum
     sql: ${TABLE}.Put_Day3 ;;
   }
 
   measure: put_day4 {
-    type: number
+    type: sum
     sql: ${TABLE}.Put_Day4 ;;
   }
 
@@ -330,22 +330,22 @@ GROUP BY  ProcessArea
   }
 
   measure: pack_day1 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pack_Day1 ;;
   }
 
   measure: pack_day2 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pack_Day2 ;;
   }
 
   measure: pack_day3 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pack_Day3 ;;
   }
 
   measure: pack_day4 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pack_Day4 ;;
   }
 
@@ -355,22 +355,22 @@ GROUP BY  ProcessArea
   }
 
   measure: pick_day1 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pick_Day1 ;;
   }
 
   measure: pick_day2 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pick_Day2 ;;
   }
 
   measure: pick_day3 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pick_Day3 ;;
   }
 
   measure: pick_day4 {
-    type: number
+    type: sum
     sql: ${TABLE}.Pick_Day4 ;;
   }
 
@@ -380,22 +380,22 @@ GROUP BY  ProcessArea
   }
 
   measure: presort_day1 {
-    type: number
+    type: sum
     sql: ${TABLE}.Presort_Day1 ;;
   }
 
   measure: presort_day2 {
-    type: number
+    type: sum
     sql: ${TABLE}.Presort_Day2 ;;
   }
 
   measure: presort_day3 {
-    type: number
+    type: sum
     sql: ${TABLE}.Presort_Day3 ;;
   }
 
   measure: presort_day4 {
-    type: number
+    type: sum
     sql: ${TABLE}.Presort_Day4 ;;
   }
 
@@ -405,22 +405,22 @@ GROUP BY  ProcessArea
   }
 
   measure: ship_day1 {
-    type: number
+    type: sum
     sql: ${TABLE}.Ship_Day1 ;;
   }
 
   measure: ship_day2 {
-    type: number
+    type: sum
     sql: ${TABLE}.Ship_Day2 ;;
   }
 
   measure: ship_day3 {
-    type: number
+    type: sum
     sql: ${TABLE}.Ship_Day3 ;;
   }
 
   measure: ship_day4 {
-    type: number
+    type: sum
     sql: ${TABLE}.Ship_Day4 ;;
   }
 
