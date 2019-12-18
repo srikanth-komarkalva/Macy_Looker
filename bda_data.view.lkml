@@ -363,9 +363,11 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 
   dimension: shift_date {
     type: date
-    sql: cast(${TABLE}.ShiftDate as date) ;;
+#     sql: ${TABLE}.ShiftDate ;;
+    sql: cast(${TABLE}.ShiftDate as timestamp) ;;
 
   }
+
   dimension: Shift_date_formatted {
     sql: ${shift_date} ;;
     html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
@@ -376,22 +378,42 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 #     sql: ${shift_date} ;;
 #   }
 
-  dimension_group: ShiftStartDatetime {
-    type: time
-    sql: ${TABLE}.ShiftStartDatetime ;;
-  }
-
-  dimension_group: ShiftEndDatetime {
-    type: time
-    sql: ${TABLE}.ShiftEndDatetime ;;
-  }
-
-  dimension_group: ShiftDateFilter {
-    type: duration
-    sql_start: ${ShiftStartDatetime_time} ;;
-    sql_end: ${ShiftEndDatetime_time} ;;
-    intervals: [day]
-  }
+#   dimension_group: ShiftStartDatetime {
+#     type: time
+#     sql: ${TABLE}.ShiftStartDatetime ;;
+#   }
+#
+#   dimension_group: ShiftEndDatetime {
+#     type: time
+#     sql: ${TABLE}.ShiftEndDatetime ;;
+#   }
+#
+# # Date Range logic start
+#
+#   filter: date_filter {
+#     type: date
+#     description: "To be used with dimension date filter"
+#   }
+#
+#   dimension: is_date_filter_date {
+#     type: yesno
+#     sql: cast(${ShiftStartDatetime_date} as date) >= {% date_start date_filter %}
+#         AND cast(${ShiftEndDatetime_date} as date) < {% date_end date_filter %} ;;
+#   }
+#
+#   dimension_group: in_date_filter {
+#     type: duration
+#     sql_start: {% date_start date_filter %} ;;
+#     sql_end:   {% date_end date_filter %} ;;
+#   }
+#
+#   dimension_group: in_shift_date_range {
+#     type: duration
+#     sql_start: {% date_start ShiftStartDatetime_date %} ;;
+#     sql_end:   {% date_end   ShiftEndDatetime_date %} ;;
+#   }
+#
+# # Date Range logic end
 
   dimension: shift_name {
     type: string
