@@ -539,6 +539,11 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     type: number
     sql: ${TABLE}.IsMidDay ;;
   }
+  dimension: macys_logo {
+    type: string
+    sql: ${shift_date}
+    html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" /> ;;
+  }
 
   set: detail {
     fields: [
