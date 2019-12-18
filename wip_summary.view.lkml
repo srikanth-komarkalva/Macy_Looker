@@ -279,149 +279,147 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Prep_Today ;;
   }
 
-  dimension: prep_day1 {
+  measure: prep_day1 {
     type: number
     sql: ${TABLE}.Prep_Day1 ;;
   }
 
-  dimension: prep_day2 {
+  measure: prep_day2 {
     type: number
     sql: ${TABLE}.Prep_Day2 ;;
   }
 
-  dimension: prep_day3 {
+  measure: prep_day3 {
     type: number
     sql: ${TABLE}.Prep_Day3 ;;
   }
 
-  dimension: prep_day4 {
+  measure: prep_day4 {
     type: number
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
   measure: put_today {
-    label: "Put Away WIP"
-    type: sum
+    type: number
     sql: ${TABLE}.Put_Today ;;
   }
 
-  dimension: put_day1 {
+  measure: put_day1 {
     type: number
     sql: ${TABLE}.Put_Day1 ;;
   }
 
-  dimension: put_day2 {
+  measure: put_day2 {
     type: number
     sql: ${TABLE}.Put_Day2 ;;
   }
 
-  dimension: put_day3 {
+  measure: put_day3 {
     type: number
     sql: ${TABLE}.Put_Day3 ;;
   }
 
-  dimension: put_day4 {
+  measure: put_day4 {
     type: number
     sql: ${TABLE}.Put_Day4 ;;
   }
 
   measure: pack_today {
-    label: "PTL WIP"
-    type: sum
+    type: number
     sql: ${TABLE}.Pack_Today ;;
   }
 
-  dimension: pack_day1 {
+  measure: pack_day1 {
     type: number
     sql: ${TABLE}.Pack_Day1 ;;
   }
 
-  dimension: pack_day2 {
+  measure: pack_day2 {
     type: number
     sql: ${TABLE}.Pack_Day2 ;;
   }
 
-  dimension: pack_day3 {
+  measure: pack_day3 {
     type: number
     sql: ${TABLE}.Pack_Day3 ;;
   }
 
-  dimension: pack_day4 {
+  measure: pack_day4 {
     type: number
     sql: ${TABLE}.Pack_Day4 ;;
   }
 
-  dimension: pick_today {
+  measure: pick_today {
     type: number
     sql: ${TABLE}.Pick_Today ;;
   }
 
-  dimension: pick_day1 {
+  measure: pick_day1 {
     type: number
     sql: ${TABLE}.Pick_Day1 ;;
   }
 
-  dimension: pick_day2 {
+  measure: pick_day2 {
     type: number
     sql: ${TABLE}.Pick_Day2 ;;
   }
 
-  dimension: pick_day3 {
+  measure: pick_day3 {
     type: number
     sql: ${TABLE}.Pick_Day3 ;;
   }
 
-  dimension: pick_day4 {
+  measure: pick_day4 {
     type: number
     sql: ${TABLE}.Pick_Day4 ;;
   }
 
-  dimension: presort_today {
+  measure: presort_today {
     type: number
     sql: ${TABLE}.Presort_Today ;;
   }
 
-  dimension: presort_day1 {
+  measure: presort_day1 {
     type: number
     sql: ${TABLE}.Presort_Day1 ;;
   }
 
-  dimension: presort_day2 {
+  measure: presort_day2 {
     type: number
     sql: ${TABLE}.Presort_Day2 ;;
   }
 
-  dimension: presort_day3 {
+  measure: presort_day3 {
     type: number
     sql: ${TABLE}.Presort_Day3 ;;
   }
 
-  dimension: presort_day4 {
+  measure: presort_day4 {
     type: number
     sql: ${TABLE}.Presort_Day4 ;;
   }
 
-  dimension: ship_today {
+  measure: ship_today {
     type: number
     sql: ${TABLE}.Ship_Today ;;
   }
 
-  dimension: ship_day1 {
+  measure: ship_day1 {
     type: number
     sql: ${TABLE}.Ship_Day1 ;;
   }
 
-  dimension: ship_day2 {
+  measure: ship_day2 {
     type: number
     sql: ${TABLE}.Ship_Day2 ;;
   }
 
-  dimension: ship_day3 {
+  measure: ship_day3 {
     type: number
     sql: ${TABLE}.Ship_Day3 ;;
   }
 
-  dimension: ship_day4 {
+  measure: ship_day4 {
     type: number
     sql: ${TABLE}.Ship_Day4 ;;
   }
