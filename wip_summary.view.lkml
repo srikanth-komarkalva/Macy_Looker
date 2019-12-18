@@ -424,6 +424,7 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Ship_Day4 ;;
   }
 
+
   set: detail {
     fields: [
       process_area,
