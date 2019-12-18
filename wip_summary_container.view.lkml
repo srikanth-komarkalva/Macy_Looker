@@ -349,6 +349,11 @@ GROUP BY  ProcessArea
     sql: ${presort_day1}+${presort_day2}+${presort_day3}+${presort_day4}+${presort_today} ;;
   }
 
+  measure: Ship_Total {
+    type: number
+    sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
+  }
+
   measure: put_today {
     type: sum
     sql: ${TABLE}.Put_Today ;;
