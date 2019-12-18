@@ -378,7 +378,6 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 #     type: time
 #     sql: ${shift_date} ;;
 #   }
-
 #   dimension_group: ShiftStartDatetime {
 #     type: time
 #     sql: ${TABLE}.ShiftStartDatetime ;;

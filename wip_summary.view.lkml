@@ -299,29 +299,40 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
-  measure: put_today {
-    type: sum
+  dimension: put_today {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Put_Today ;;
   }
 
-  measure: put_day1 {
-    type: sum
+  dimension: put_day1 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Put_Day1 ;;
   }
 
-  measure: put_day2 {
-    type: sum
+  dimension: put_day2 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Put_Day2 ;;
   }
 
-  measure: put_day3 {
-    type: sum
+  dimension: put_day3 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Put_Day3 ;;
   }
 
-  measure: put_day4 {
-    type: sum
+  dimension: put_day4 {
+    hidden: yes
+    type: number
     sql: ${TABLE}.Put_Day4 ;;
+  }
+
+  measure: Put_away_wip {
+    label: "Put Away WIP"
+    type: sum
+    sql: ${put_today} + ${put_day1} + ${put_day2} + ${put_day3} + ${put_day4} ;;
   }
 
   measure: pack_today {
