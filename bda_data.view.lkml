@@ -444,6 +444,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 
   measure: ordered_qty {
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.OrderedQty ;;
   }
 
