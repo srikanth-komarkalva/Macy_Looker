@@ -363,7 +363,15 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 
   dimension: shift_date {
     type: date
-    sql: cast(${TABLE}.ShiftDate as date) ;;
+#     sql: ${TABLE}.ShiftDate ;;
+    sql: cast(${TABLE}.ShiftDate as timestamp) ;;
+
+  }
+
+  dimension: Shift_date_formatted {
+    label: "Date >> Shift >> Process PO / Wave"
+    sql: ${shift_date} ;;
+    html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
   }
 
 #   dimension_group: shift_date_timestamp {
@@ -371,24 +379,45 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 #     sql: ${shift_date} ;;
 #   }
 
-  dimension_group: ShiftStartDatetime {
-    type: time
-    sql: ${TABLE}.ShiftStartDatetime ;;
-  }
-
-  dimension_group: ShiftEndDatetime {
-    type: time
-    sql: ${TABLE}.ShiftEndDatetime ;;
-  }
-
-  dimension_group: ShiftDateFilter {
-    type: duration
-    sql_start: ${ShiftStartDatetime_time} ;;
-    sql_end: ${ShiftEndDatetime_time} ;;
-    intervals: [day]
-  }
+#   dimension_group: ShiftStartDatetime {
+#     type: time
+#     sql: ${TABLE}.ShiftStartDatetime ;;
+#   }
+#
+#   dimension_group: ShiftEndDatetime {
+#     type: time
+#     sql: ${TABLE}.ShiftEndDatetime ;;
+#   }
+#
+# # Date Range logic start
+#
+#   filter: date_filter {
+#     type: date
+#     description: "To be used with dimension date filter"
+#   }
+#
+#   dimension: is_date_filter_date {
+#     type: yesno
+#     sql: cast(${ShiftStartDatetime_date} as date) >= {% date_start date_filter %}
+#         AND cast(${ShiftEndDatetime_date} as date) < {% date_end date_filter %} ;;
+#   }
+#
+#   dimension_group: in_date_filter {
+#     type: duration
+#     sql_start: {% date_start date_filter %} ;;
+#     sql_end:   {% date_end date_filter %} ;;
+#   }
+#
+#   dimension_group: in_shift_date_range {
+#     type: duration
+#     sql_start: {% date_start ShiftStartDatetime_date %} ;;
+#     sql_end:   {% date_end   ShiftEndDatetime_date %} ;;
+#   }
+#
+# # Date Range logic end
 
   dimension: shift_name {
+    label: "Shift"
     type: string
     sql: ${TABLE}.ShiftName ;;
   }
@@ -422,11 +451,13 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: po_nbr {
+    label: "PO"
     type: string
     sql: ${TABLE}.PoNbr ;;
   }
 
   dimension: rcpt_nbr {
+    label: "Received"
     primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
@@ -438,47 +469,65 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   measure: ordered_qty {
+    label: "Ordered"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.OrderedQty ;;
   }
 
   measure: rcvd_qty {
+    label: "Received"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.RcvdQty ;;
   }
 
   measure: tktd_qty {
+    label: "Ticketed"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.TktdQty ;;
   }
 
   measure: prpd_qty {
+    label: "Prepped"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PrpdQty ;;
   }
 
   measure: ptl_qty {
+    label: "PTL"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PtlQty ;;
   }
 
   measure: ptwy_qty {
+    label: "Putaway"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PtwyQty ;;
   }
 
   measure: pckd_qty {
+    label: "Picked"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PckdQty ;;
   }
 
   measure: psrt_qty {
+    label: "PreSort"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PsrtQty ;;
   }
 
   measure: shpd_qty {
+    label: "Shipped"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.ShpdQty ;;
   }
 
