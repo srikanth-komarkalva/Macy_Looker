@@ -275,7 +275,6 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_today {
-    label: "Tkt Prep WIP"
     type: sum
     sql: ${TABLE}.Prep_Today ;;
   }
