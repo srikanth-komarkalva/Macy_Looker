@@ -465,48 +465,65 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   measure: ordered_qty {
+    label: "Ordered"
     type: sum
-    value_format:"##,#0"
+    value_format:"#,##0"
     sql: ${TABLE}.OrderedQty ;;
   }
 
   measure: rcvd_qty {
+    label: "Received"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.RcvdQty ;;
   }
 
   measure: tktd_qty {
+    label: "Ticketed"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.TktdQty ;;
   }
 
   measure: prpd_qty {
+    label: "Prepped"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PrpdQty ;;
   }
 
   measure: ptl_qty {
+    label: "PTL"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PtlQty ;;
   }
 
   measure: ptwy_qty {
+    label: "Putaway"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PtwyQty ;;
   }
 
   measure: pckd_qty {
+    label: "Picked"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PckdQty ;;
   }
 
   measure: psrt_qty {
+    label: "PreSort"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.PsrtQty ;;
   }
 
   measure: shpd_qty {
+    label: "Shipped"
     type: sum
+    value_format:"#,##0"
     sql: ${TABLE}.ShpdQty ;;
   }
 
