@@ -325,7 +325,7 @@ GROUP BY  ProcessArea
   }
 
   measure: pack_today {
-    type: number
+    type: sum
     sql: ${TABLE}.Pack_Today ;;
   }
 
@@ -350,7 +350,7 @@ GROUP BY  ProcessArea
   }
 
   measure: pick_today {
-    type: number
+    type: sum
     sql: ${TABLE}.Pick_Today ;;
   }
 
@@ -375,7 +375,7 @@ GROUP BY  ProcessArea
   }
 
   measure: presort_today {
-    type: number
+    type: sum
     sql: ${TABLE}.Presort_Today ;;
   }
 
@@ -400,7 +400,7 @@ GROUP BY  ProcessArea
   }
 
   measure: ship_today {
-    type: number
+    type: sum
     sql: ${TABLE}.Ship_Today ;;
   }
 
