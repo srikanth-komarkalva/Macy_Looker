@@ -300,7 +300,7 @@ GROUP BY  ProcessArea
   }
 
   measure: put_today {
-    type: number
+    type: sum
     sql: ${TABLE}.Put_Today ;;
   }
 
