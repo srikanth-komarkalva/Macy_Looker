@@ -369,6 +369,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: Shift_date_formatted {
+    label: "Date >> Shift >> Process PO / Wave"
     sql: ${shift_date} ;;
     html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
   }
@@ -416,6 +417,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 # # Date Range logic end
 
   dimension: shift_name {
+    label: "Shift"
     type: string
     sql: ${TABLE}.ShiftName ;;
   }
@@ -449,11 +451,13 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: po_nbr {
+    label: "PO"
     type: string
     sql: ${TABLE}.PoNbr ;;
   }
 
   dimension: rcpt_nbr {
+    label: "Received"
     primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
