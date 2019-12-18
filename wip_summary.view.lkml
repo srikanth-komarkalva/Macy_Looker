@@ -469,10 +469,11 @@ GROUP BY  ProcessArea
     type: number
     sql: ${TABLE}.Ship_Day4 ;;
   }
-measure: sum_of_ship{
-  type: number
-  sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
-}
+
+  measure: sum_of_ship {
+    type: sum
+    sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
+  }
 
   set: detail {
     fields: [
