@@ -540,6 +540,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: ${TABLE}.IsMidDay ;;
   }
 
+
   set: detail {
     fields: [
       shift_date,
