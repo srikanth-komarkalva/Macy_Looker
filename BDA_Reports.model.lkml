@@ -24,6 +24,7 @@ explore: bda_data {
     sql_on: ${bda_data.rcpt_nbr} = ${wip_summary.rcpt_nbr} ;;
   }
   join: wip_process_area_desc {
+    view_label: "Process_Area_Desc"
     relationship: many_to_one
     type: left_outer
     sql_on: ${bda_data.process_area}=${wip_process_area_desc.proc_area_short_desc} ;;
