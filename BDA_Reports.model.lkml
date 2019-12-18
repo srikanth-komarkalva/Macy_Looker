@@ -23,6 +23,11 @@ explore: bda_data {
     type: left_outer
     sql_on: ${bda_data.rcpt_nbr} = ${wip_summary.rcpt_nbr} ;;
   }
+  join: wip_process_area_desc {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${bda_data.process_area}=${wip_process_area_desc.proc_area_short_desc} ;;
+  }
 }
 
 # Waves In Progress
