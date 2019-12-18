@@ -41,6 +41,7 @@ view: wip_process_area_desc {
   }
 
   dimension: proc_area_long_desc {
+    label: "Process_Area"
     type: string
     sql: ${TABLE}.Proc_Area_Long_Desc ;;
   }
