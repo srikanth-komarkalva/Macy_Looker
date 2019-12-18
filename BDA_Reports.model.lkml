@@ -48,3 +48,22 @@ explore: containers {
 }
 # Last Refresh time
 explore: refresh_time {}
+
+
+#WIP Summary
+
+explore: wip_summary_container {
+  label: "WIP Summary Dashboard"
+  join: wip_summary_detail {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${wip_summary_container.rcpt_nbr}=${wip_summary_detail.rcpt_nbr} ;;
+  }
+
+  join: wip_process_area_desc {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${wip_summary_detail.process_area}=${wip_process_area_desc.proc_area_short_desc} ;;
+  }
+
+  }
