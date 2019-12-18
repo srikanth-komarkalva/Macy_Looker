@@ -411,8 +411,8 @@ GROUP BY  ProcessArea
   }
 
   measure: ship_today {
-    type: sum
-    sql: ${TABLE}.Ship_Today ;;
+    type: number
+    sql: ${TABLE}.Ship_Today;;
   }
 
   measure: ship_day1 {
@@ -434,7 +434,10 @@ GROUP BY  ProcessArea
     type: sum
     sql: ${TABLE}.Ship_Day4 ;;
   }
-
+measure: sum_of_ship{
+  type: number
+  sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
+}
 
   set: detail {
     fields: [
