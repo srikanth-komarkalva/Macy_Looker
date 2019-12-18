@@ -366,7 +366,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: cast(${TABLE}.ShiftDate as date) ;;
 
   }
-  dimension: date_formatted {
+  dimension: Shift_date_formatted {
     sql: ${shift_date} ;;
     html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
   }
