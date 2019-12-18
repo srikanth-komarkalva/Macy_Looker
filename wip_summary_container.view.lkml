@@ -328,10 +328,32 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
+
+  measure: Prep_Total {
+    type: number
+    sql: ${prep_day1}+${prep_day2}+${prep_day3}+${prep_day4}+${prep_today} ;;
+  }
+
+  measure: Put_Pack_Total {
+    type: number
+    sql: ${pack_day1}+${pack_day2}+${put_day3}+${put_day4}+${put_today} ;;
+  }
+
+  measure: Pick_Total {
+    type: number
+    sql: ${pick_day1}+${pick_day2}+${pick_day3}+${pick_day4}+${pick_today} ;;
+  }
+
+  measure: PreSort_Total {
+    type: number
+    sql: ${presort_day1}+${presort_day2}+${presort_day3}+${presort_day4}+${presort_today} ;;
+  }
+
   measure: put_today {
     type: sum
     sql: ${TABLE}.Put_Today ;;
   }
+
 
   measure: put_day1 {
     type: sum
