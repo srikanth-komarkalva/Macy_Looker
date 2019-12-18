@@ -257,6 +257,11 @@ GROUP BY  ProcessArea
     hidden: yes
     sql: ${TABLE}.ProcessArea ;;
   }
+  dimension: macys_logo {
+    type: string
+    sql: ${process_area};;
+    html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" /> ;;
+  }
 
   dimension: po_nbr {
     type: string
