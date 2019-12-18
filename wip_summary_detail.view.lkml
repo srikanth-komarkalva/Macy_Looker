@@ -364,6 +364,36 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.Pack_Today ;;
   }
 
+  measure: Putaway_Total {
+    type: number
+    sql: ${put_day1}+${put_day2}+${put_day3}+${put_day4}+${put_today} ;;
+  }
+
+  measure: put_pack_Total{
+    type: number
+    sql: ${pack_day1}+${pack_day2}+${pack_day3}+${pack_day4}+${pack_today} ;;
+  }
+
+  measure: Pick_Total {
+    type: number
+    sql: ${pick_day1}+${pick_day2}+${pick_day3}+${pick_day4}+${pick_today} ;;
+  }
+
+  measure: PreSort_Total {
+    type: number
+    sql: ${presort_day1}+${presort_day2}+${presort_day3}+${presort_day4}+${presort_today} ;;
+  }
+
+  measure: Ship_Total {
+    type: number
+    sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
+  }
+
+  measure: Total_Pending{
+    type: number
+    sql: ${prep_Total}+${Putaway_Total}+${put_pack_Total}+${Pick_Total}+${PreSort_Total}+${Ship_Total} ;;
+  }
+
   measure: pack_day1 {
     type: sum
     sql: ${TABLE}.Pack_Day1 ;;
