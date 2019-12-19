@@ -92,17 +92,20 @@ GROUP BY  Division
   }
 
   measure: shipped_pocount {
-    type: number
+    label: "POs"
+    type: sum
     sql: ${TABLE}.ShippedPOCount ;;
   }
 
   measure: shipped_carton_count {
-    type: number
+    label: "Cartons"
+    type: sum
     sql: ${TABLE}.ShippedCartonCount ;;
   }
 
   measure: shipped_unit_count {
-    type: number
+    label: "Units"
+    type: sum
     sql: ${TABLE}.ShippedUnitCount ;;
   }
 
