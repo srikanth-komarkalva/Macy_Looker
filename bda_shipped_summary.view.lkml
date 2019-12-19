@@ -74,6 +74,14 @@ GROUP BY  Division
     type: sum
     sql: ${shipped_pocount} ;;
   }
+  measure: Cartons {
+    type: sum
+    sql: ${shipped_carton_count} ;;
+  }
+  measure: Units {
+    type: sum
+    sql: ${shipped_unit_count} ;;
+  }
 
   dimension: division {
     type: string
