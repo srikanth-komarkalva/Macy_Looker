@@ -80,6 +80,11 @@ GROUP BY  Division
     type: date
     sql: ${TABLE}.ShiftDate ;;
   }
+  dimension: Shift_date_formatted {
+    label: "Date/Shift"
+    sql: ${shift_date} ;;
+    html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
+  }
 
   dimension: shift_name {
     type: string
