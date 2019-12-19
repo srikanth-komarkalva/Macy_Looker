@@ -92,35 +92,21 @@ GROUP BY  Division
   }
 
   dimension: shipped_pocount {
-    hidden: yes
     type: number
     sql: ${TABLE}.ShippedPOCount ;;
   }
 
   dimension: shipped_carton_count {
-    hidden: yes
     type: number
     sql: ${TABLE}.ShippedCartonCount ;;
   }
 
   dimension: shipped_unit_count {
-    hidden: yes
     type: number
     sql: ${TABLE}.ShippedUnitCount ;;
   }
 
-  measure: POs {
-    type: sum
-    sql: sql: ${TABLE}.ShippedPOCount ;;
-  }
-  measure: Cartons {
-    type: sum
-    sql: ${TABLE}.ShippedCartonCount ;;
-  }
-  measure: Units {
-    type: sum
-    sql:${TABLE}.ShippedUnitCount ;;
-  }
+
 
   set: detail {
     fields: [
