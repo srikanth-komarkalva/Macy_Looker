@@ -111,15 +111,15 @@ GROUP BY  Division
 
   measure: POs {
     type: sum
-    sql: ${shipped_pocount} ;;
+    sql: sql: ${TABLE}.ShippedPOCount ;;
   }
   measure: Cartons {
     type: sum
-    sql: ${shipped_carton_count} ;;
+    sql: ${TABLE}.ShippedCartonCount ;;
   }
   measure: Units {
     type: sum
-    sql: ${shipped_unit_count} ;;
+    sql:${TABLE}.ShippedUnitCount ;;
   }
 
   set: detail {
