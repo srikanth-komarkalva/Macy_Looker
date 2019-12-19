@@ -449,6 +449,15 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
         ;;
   }
 
+  dimension: ponbr_derived {
+    label: "PO_derived"
+    sql:
+    case ${wave_flag}
+    WHEN 0 THEN ${po_nbr}
+    END
+    ;;
+  }
+
   dimension: po_nbr {
     label: "PO"
     type: string
