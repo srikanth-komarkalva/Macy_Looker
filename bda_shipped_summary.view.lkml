@@ -91,21 +91,18 @@ GROUP BY  Division
     sql: ${TABLE}.ShiftName ;;
   }
 
-  measure: shipped_pocount {
-    label: "POs"
-    type: sum
+  dimension: shipped_pocount {
+    type: number
     sql: ${TABLE}.ShippedPOCount ;;
   }
 
-  measure: shipped_carton_count {
-    label: "Cartons"
-    type: sum
+  dimension: shipped_carton_count {
+    type: number
     sql: ${TABLE}.ShippedCartonCount ;;
   }
 
-  measure: shipped_unit_count {
-    label: "Units"
-    type: sum
+  dimension: shipped_unit_count {
+    type: number
     sql: ${TABLE}.ShippedUnitCount ;;
   }
 
