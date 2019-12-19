@@ -70,6 +70,10 @@ GROUP BY  Division
     type: count
     drill_fields: [detail*]
   }
+  measure: POs {
+    type: sum
+    sql: ${shipped_pocount} ;;
+  }
 
   dimension: division {
     type: string
