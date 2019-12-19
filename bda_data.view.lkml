@@ -481,7 +481,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: rcpt_nbr {
-    label: "Received"
+    label: "Receipt"
     primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
