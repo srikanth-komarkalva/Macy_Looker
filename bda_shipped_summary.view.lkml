@@ -91,8 +91,8 @@ GROUP BY  Division
     sql: ${TABLE}.ShiftName ;;
   }
 
-  dimension: shipped_pocount {
-    type: number
+  measure: shipped_pocount {
+    type: sum
     sql: ${TABLE}.ShippedPOCount ;;
   }
 
