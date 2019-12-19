@@ -73,6 +73,7 @@ GROUP BY  Division
 
   dimension: division {
     type: string
+    primary_key: yes
     sql: ${TABLE}.Division ;;
   }
 
