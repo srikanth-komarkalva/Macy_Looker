@@ -106,16 +106,19 @@ GROUP BY  Division
 
   dimension: shipped_pocount {
     type: number
+    hidden: yes
     sql: ${TABLE}.ShippedPOCount ;;
   }
 
   dimension: shipped_carton_count {
     type: number
+    hidden: yes
     sql: ${TABLE}.ShippedCartonCount ;;
   }
 
   dimension: shipped_unit_count {
     type: number
+    hidden: yes
     sql: ${TABLE}.ShippedUnitCount ;;
   }
 
