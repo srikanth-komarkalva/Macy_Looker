@@ -302,7 +302,7 @@ GROUP BY  ProcessArea
 
     link: {
       label: "WIP Detail Dashboard"
-      url: "/dashboards/5?PO={{ value | encode_uri }}"
+      url: "/dashboards/8?PO={{ value | encode_uri }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     sql: ${TABLE}.PoNbr ;;
@@ -314,7 +314,7 @@ GROUP BY  ProcessArea
     type: string
     link: {
       label: "WIP Detail Dashboard"
-      url: "/dashboards/5?Receipt={{ value | encode_uri }}"
+      url: "/dashboards/8?Receipt={{ value | encode_uri }}"
       icon_url: "http://www.looker.com/favicon.ico"
     }
     sql: ${TABLE}.RcptNbr ;;
