@@ -283,6 +283,7 @@ GROUP BY  ProcessArea
   }
 
   dimension: process_area {
+    label: "Process Area Short Desc"
     type: string
     sql: ${TABLE}.ProcessArea ;;
   }
