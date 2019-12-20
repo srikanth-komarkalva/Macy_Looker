@@ -398,26 +398,31 @@ GROUP BY  ProcessArea
   }
 
   measure: pack_today {
+    label: "Pack Today"
     type: sum
     sql: ${TABLE}.Pack_Today ;;
   }
 
   measure: pack_day1 {
+    label: "Pack Day 1"
     type: sum
     sql: ${TABLE}.Pack_Day1 ;;
   }
 
   measure: pack_day2 {
+    label: "Pack Day 2"
     type: sum
     sql: ${TABLE}.Pack_Day2 ;;
   }
 
   measure: pack_day3 {
+    label: "Pack Day 3"
     type: sum
     sql: ${TABLE}.Pack_Day3 ;;
   }
 
   measure: pack_day4 {
+    label: "Pack Day 4"
     type: sum
     sql: ${TABLE}.Pack_Day4 ;;
   }
@@ -453,51 +458,61 @@ GROUP BY  ProcessArea
   }
 
   measure: presort_today {
+    label: "PreSort Today"
     type: sum
     sql: ${TABLE}.Presort_Today ;;
   }
 
   measure: presort_day1 {
+    label: "PreSort Day 1"
     type: sum
     sql: ${TABLE}.Presort_Day1 ;;
   }
 
   measure: presort_day2 {
+    label: "PreSort Day 2"
     type: sum
     sql: ${TABLE}.Presort_Day2 ;;
   }
 
   measure: presort_day3 {
+    label: "PreSort Day 3"
     type: sum
     sql: ${TABLE}.Presort_Day3 ;;
   }
 
   measure: presort_day4 {
+    label: "PreSort Day 4"
     type: sum
     sql: ${TABLE}.Presort_Day4 ;;
   }
 
   measure: ship_today {
+    label: "Shipped Today"
     type: sum
     sql: ${TABLE}.Ship_Today ;;
   }
 
   measure: ship_day1 {
+    label: "Shipped Day 1"
     type: sum
     sql: ${TABLE}.Ship_Day1 ;;
   }
 
   measure: ship_day2 {
+    label: "Shipped Day 2"
     type: sum
     sql: ${TABLE}.Ship_Day2 ;;
   }
 
   measure: ship_day3 {
+    label: "Shipped Day 3"
     type: sum
     sql: ${TABLE}.Ship_Day3 ;;
   }
 
   measure: ship_day4 {
+    label: "Shipped Day 4"
     type: sum
     sql: ${TABLE}.Ship_Day4 ;;
   }
