@@ -1,7 +1,7 @@
 view: wip_summary_detail {
   derived_table: {
     datagroup_trigger: macys_datagroup
-    #     partition_keys: ["CreatedTime"]
+#   partition_keys: ["CreatedTime"]
 
     sql: WITH container_derived AS (
                           SELECT  e.id AS Id
@@ -278,15 +278,13 @@ GROUP BY  ProcessArea
           , RcvdQty
 --          , ContainerNbr
  ;;
-
-#     indexes: ["PoNbr","RcptNbr"]
   }
 
-  dimension: Created_time {
-    type: date
-    sql: ${TABLE}.CreatedTime ;;
-#     sql: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
-  }
+#   dimension: Created_time {
+#     type: date
+#     sql: ${TABLE}.CreatedTime ;;
+# #     sql: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
+#   }
 
   measure: count {
     type: count
