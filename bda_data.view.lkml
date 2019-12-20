@@ -357,6 +357,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [detail*]
   }
@@ -425,7 +426,6 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: ${shift_name};;
     html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" /> ;;
   }
-
 
   dimension: process_area {
     type: string
