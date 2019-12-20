@@ -357,21 +357,21 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [detail*]
   }
 
   dimension: shift_date {
     type: date
-#     sql: ${TABLE}.ShiftDate ;;
     sql: cast(${TABLE}.ShiftDate as timestamp) ;;
-
   }
 
   dimension: Shift_date_formatted {
-    label: "Date >> Shift >> Process PO / Wave"
+    label: "Date"
     sql: ${shift_date} ;;
-    html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
+    html: {{ rendered_value | date: "%a, %b %d, %Y" }} ;;
+    order_by_field: shift_date
   }
 
 #   dimension_group: shift_date_timestamp {
@@ -427,7 +427,6 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" /> ;;
   }
 
-
   dimension: process_area {
     type: string
     hidden: yes
@@ -466,7 +465,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: Wavenbr_derived {
-    label: "Wave_derived"
+    label: "Wave"
     sql:
     case ${wave_flag}
     WHEN 1 THEN ${po_nbr}
