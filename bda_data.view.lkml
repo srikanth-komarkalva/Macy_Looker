@@ -371,6 +371,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   dimension: Shift_date_formatted {
     label: "Date"
     sql: ${shift_date} ;;
+    order_by_field: shift_date
     html: {{ rendered_value | date: "%a, %b %d, %Y" }} ;;
   }
 
