@@ -262,6 +262,11 @@ GROUP BY  ProcessArea
 
   dimension: po_nbr {
     type: string
+#     link: {
+#       label: "WIP Detail Dashboard"
+#       url: "/dashboards/5?PO={{ value | encode_uri }}"
+#       icon_url: "http://www.looker.com/favicon.ico"
+#     }
     sql: ${TABLE}.PoNbr ;;
   }
 
