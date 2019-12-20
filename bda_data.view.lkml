@@ -363,15 +363,14 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
 
   dimension: shift_date {
     type: date
-#     sql: ${TABLE}.ShiftDate ;;
     sql: cast(${TABLE}.ShiftDate as timestamp) ;;
   }
 
   dimension: Shift_date_formatted {
     label: "Date"
     sql: ${shift_date} ;;
-    order_by_field: shift_date
     html: {{ rendered_value | date: "%a, %b %d, %Y" }} ;;
+    order_by_field: shift_date
   }
 
 #   dimension_group: shift_date_timestamp {
