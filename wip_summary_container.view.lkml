@@ -288,11 +288,13 @@ GROUP BY  ProcessArea
   }
 
   dimension: po_nbr {
+    label: "PO"
     type: string
     sql: ${TABLE}.PoNbr ;;
   }
 
   dimension: rcpt_nbr {
+    label: "Receipt"
     primary_key: yes
     type: string
     sql: ${TABLE}.RcptNbr ;;
@@ -304,78 +306,93 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_today {
+    label: "TKT/Prep Today"
     type: sum
     sql: ${TABLE}.Prep_Today ;;
   }
 
   measure: prep_day1 {
+    label: "TKT/Prep Day 1"
     type: sum
     sql: ${TABLE}.Prep_Day1 ;;
   }
 
   measure: prep_day2 {
+    label: "TKT/Prep Day 2"
     type: sum
     sql: ${TABLE}.Prep_Day2 ;;
   }
 
   measure: prep_day3 {
+    label: "TKT/Prep Day 3"
     type: sum
     sql: ${TABLE}.Prep_Day3 ;;
   }
 
   measure: prep_day4 {
+    label: "TKT/Prep Day 4"
     type: sum
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
 
   measure: Prep_Total {
+    label: "TKT/Prep Pending"
     type: number
     sql: ${prep_day1}+${prep_day2}+${prep_day3}+${prep_day4}+${prep_today} ;;
   }
 
   measure: Put_Pack_Total {
+    label: "Put/Pack Pending"
     type: number
-    sql: ${pack_day1}+${pack_day2}+${put_day3}+${put_day4}+${put_today} ;;
+    sql: ${put_day1}+${put_day2}+${put_day3}+${put_day4}+${put_today} ;;
   }
 
   measure: Pick_Total {
+    label: "Pick Pending"
     type: number
     sql: ${pick_day1}+${pick_day2}+${pick_day3}+${pick_day4}+${pick_today} ;;
   }
 
   measure: PreSort_Total {
+    label: "PerSort Pending"
     type: number
     sql: ${presort_day1}+${presort_day2}+${presort_day3}+${presort_day4}+${presort_today} ;;
   }
 
   measure: Ship_Total {
+    label: "Shipped Pending"
     type: number
     sql: ${ship_day1}+${ship_day2}+${ship_day3}+${ship_day4}+${ship_today} ;;
   }
 
   measure: put_today {
+    label: "Put/Pack Today"
     type: sum
     sql: ${TABLE}.Put_Today ;;
   }
 
 
   measure: put_day1 {
+    label: "Put/Pack Day 1"
     type: sum
     sql: ${TABLE}.Put_Day1 ;;
   }
 
   measure: put_day2 {
+    label: "Put/Pack Day 2"
     type: sum
     sql: ${TABLE}.Put_Day2 ;;
   }
 
   measure: put_day3 {
+    label: "Put/Pack Day 3"
     type: sum
     sql: ${TABLE}.Put_Day3 ;;
   }
 
   measure: put_day4 {
+    label: "Put/Pack Day 4"
     type: sum
     sql: ${TABLE}.Put_Day4 ;;
   }
@@ -406,26 +423,31 @@ GROUP BY  ProcessArea
   }
 
   measure: pick_today {
+    label: "Pick Today"
     type: sum
     sql: ${TABLE}.Pick_Today ;;
   }
 
   measure: pick_day1 {
+    label: "Pick Day 1"
     type: sum
     sql: ${TABLE}.Pick_Day1 ;;
   }
 
   measure: pick_day2 {
+    label: "Pick Day 2"
     type: sum
     sql: ${TABLE}.Pick_Day2 ;;
   }
 
   measure: pick_day3 {
+    label: "Pick Day 3"
     type: sum
     sql: ${TABLE}.Pick_Day3 ;;
   }
 
   measure: pick_day4 {
+    label: "Pick Day 4"
     type: sum
     sql: ${TABLE}.Pick_Day4 ;;
   }
@@ -481,6 +503,7 @@ GROUP BY  ProcessArea
   }
 
   dimension: container_nbr {
+    label: "Container Nbr"
     type: string
     sql: ${TABLE}.ContainerNbr ;;
   }
