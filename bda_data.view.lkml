@@ -365,7 +365,6 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     type: date
 #     sql: ${TABLE}.ShiftDate ;;
     sql: cast(${TABLE}.ShiftDate as timestamp) ;;
-
   }
 
   dimension: Shift_date_formatted {
