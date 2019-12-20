@@ -289,27 +289,6 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.ProcessArea ;;
   }
 
-  dimension: process_area_detail {
-    label: "Process Area"
-    sql:
-        case ${process_area}
-        WHEN "BTY" THEN "Beauty"
-        WHEN "BLK" THEN "Bulk"
-        WHEN "GOR" THEN "Gourmet"
-        WHEN "FRG" THEN "Fragile"
-        WHEN "JWL" THEN "Jewelry"
-        WHEN "OVR" THEN "Oversize"
-        WHEN "PTC" THEN "Pick To Carton"
-        WHEN "SPK" THEN "Store Pack"
-        WHEN "BYP" THEN "Bypass"
-        WHEN "CDP" THEN "CDP"
-        WHEN "OSC" THEN "Open Sort Count"
-        WHEN "UNK" THEN "Unknown"
-        WHEN "HAF" THEN "Hold & Flow"
-        WHEN "BKG" THEN "Backstage"
-        END
-        ;;
-  }
 
   dimension: po_nbr {
     label: "PO"
