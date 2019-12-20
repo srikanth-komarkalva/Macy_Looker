@@ -1,5 +1,8 @@
 view: wip_summary_detail {
   derived_table: {
+    datagroup_trigger: macys_datagroup
+    #     partition_keys: ["CreatedTime"]
+
     sql: WITH container_derived AS (
                           SELECT  e.id AS Id
                                   , e.entity_id AS ContainerNbr
@@ -275,6 +278,14 @@ GROUP BY  ProcessArea
           , RcvdQty
 --          , ContainerNbr
  ;;
+
+#     indexes: ["PoNbr","RcptNbr"]
+  }
+
+  dimension: Created_time {
+    type: date
+    sql: ${TABLE}.CreatedTime ;;
+#     sql: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
   }
 
   measure: count {
@@ -290,6 +301,12 @@ GROUP BY  ProcessArea
   dimension: po_nbr {
     label: "PO"
     type: string
+
+    link: {
+      label: "WIP Detail Dashboard"
+      url: "/dashboards/5?PO={{ value | encode_uri }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
     sql: ${TABLE}.PoNbr ;;
   }
 
@@ -297,6 +314,11 @@ GROUP BY  ProcessArea
     primary_key: yes
     label: "Receipt"
     type: string
+    link: {
+      label: "WIP Detail Dashboard"
+      url: "/dashboards/5?Receipt={{ value | encode_uri }}"
+      icon_url: "http://www.looker.com/favicon.ico"
+    }
     sql: ${TABLE}.RcptNbr ;;
   }
 
