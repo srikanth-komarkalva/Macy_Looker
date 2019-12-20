@@ -369,7 +369,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: Shift_date_formatted {
-    label: "Date >> Shift >> Process PO / Wave"
+    label: "Date"
     sql: ${shift_date} ;;
     html: {{ rendered_value | date: "%a,%b %m, %Y" }} ;;
   }
@@ -466,7 +466,7 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
   }
 
   dimension: Wavenbr_derived {
-    label: "Wave_derived"
+    label: "Wave"
     sql:
     case ${wave_flag}
     WHEN 1 THEN ${po_nbr}
