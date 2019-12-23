@@ -301,10 +301,10 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.ProcessArea ;;
   }
 
-  dimension_group: Now {
-    type: time
+  dimension: Now {
+    type: date
     hidden: yes
-    sql: ${TABLE}.Now ;;
+    sql: cast(${TABLE}.Now as timestamp);;
   }
 
   dimension: po_nbr {
