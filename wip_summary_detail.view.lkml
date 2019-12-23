@@ -359,7 +359,7 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_day4 {
-    label: "TKT / Prep Day 4"
+    label: "TKT / Prep Day 4+"
     type: sum
     sql: ${TABLE}.Prep_Day4 ;;
   }
@@ -371,37 +371,37 @@ GROUP BY  ProcessArea
   }
 
   measure: put_today {
-    label: "Put / Pack Today"
+    label: "Packaway Today"
     type: sum
     sql: ${TABLE}.Put_Today ;;
   }
 
   measure: put_day1 {
-    label: "Put / Pack Day 1"
+    label: "Packaway Day 1"
     type: sum
     sql: ${TABLE}.Put_Day1 ;;
   }
 
   measure: put_day2 {
-    label: "Put / Pack Day 2"
+    label: "Packaway Day 2"
     type: sum
     sql: ${TABLE}.Put_Day2 ;;
   }
 
   measure: put_day3 {
-    label: "Put / Pack Day 3"
+    label: "Packaway Day 3"
     type: sum
     sql: ${TABLE}.Put_Day3 ;;
   }
 
   measure: put_day4 {
-    label: "Put / Pack Day 4"
+    label: "Packaway Day 4+"
     type: sum
     sql: ${TABLE}.Put_Day4 ;;
   }
 
   measure: pack_today {
-    label: "Packaway Today"
+    label: "PUT / Pack Today"
     type: sum
     sql: ${TABLE}.Pack_Today ;;
   }
@@ -443,25 +443,25 @@ GROUP BY  ProcessArea
   }
 
   measure: pack_day1 {
-    label: "Packaway Day 1"
+    label: "PUT / Pack Day 1"
     type: sum
     sql: ${TABLE}.Pack_Day1 ;;
   }
 
   measure: pack_day2 {
-    label: "Packaway Day 2"
+    label: "PUT / Pack Day 2"
     type: sum
     sql: ${TABLE}.Pack_Day2 ;;
   }
 
   measure: pack_day3 {
-    label: "Packaway Day 3"
+    label: "PUT / Pack Day 3"
     type: sum
     sql: ${TABLE}.Pack_Day3 ;;
   }
 
   measure: pack_day4 {
-    label: "Packaway Day 4"
+    label: "PUT / Pack Day 4+"
     type: sum
     sql: ${TABLE}.Pack_Day4 ;;
   }
@@ -491,7 +491,7 @@ GROUP BY  ProcessArea
   }
 
   measure: pick_day4 {
-    label: "Pick Day 4"
+    label: "Pick Day 4+"
     type: sum
     sql: ${TABLE}.Pick_Day4 ;;
   }
@@ -521,7 +521,7 @@ GROUP BY  ProcessArea
   }
 
   measure: presort_day4 {
-    label: "PreSort Day 4"
+    label: "PreSort Day 4+"
     type: sum
     sql: ${TABLE}.Presort_Day4 ;;
   }
@@ -551,7 +551,7 @@ GROUP BY  ProcessArea
   }
 
   measure: ship_day4 {
-    label: "Shipped Day 4"
+    label: "Shipped Day 4+"
     type: sum
     sql: ${TABLE}.Ship_Day4 ;;
   }
