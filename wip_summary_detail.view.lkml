@@ -1,8 +1,8 @@
 view: wip_summary_detail {
   derived_table: {
     datagroup_trigger: macys_datagroup
-    partition_keys: ["Now"]
-    cluster_keys: ["RcptNbr","PoNbr"]
+#     partition_keys: ["Now"]
+#     cluster_keys: ["RcptNbr","PoNbr"]
 #   partition_keys: ["CreatedTime"]
 
     sql: WITH container_derived AS (
@@ -44,7 +44,7 @@ view: wip_summary_detail {
                             )
 
       , snapshot_entity_xref AS   (
-                                  CURRENT_DATETIME() AS Now,
+                                --  CURRENT_DATE() AS Now,
                                   SELECT    ss.id AS SnapshotId
                                             , ss.container_type_id
                                             , ss.container
@@ -93,7 +93,7 @@ view: wip_summary_detail {
                                   )
 
     , receipt_quantity AS   (
-                            CURRENT_DATETIME() AS Now,
+                         --   CURRENT_DATE() AS Now,
                             SELECT    xref.RcptNbr AS RcptNbr
                                       , SUM(ss.quantity) AS RcvdQty
                                       , MIN(e.updated_time) AS EarliestRcvdDatetime
@@ -117,7 +117,7 @@ view: wip_summary_detail {
                             WHERE     version_id = (SELECT MAX(version_id) FROM `mtech-dc2-prod.waving.wave` WHERE wave_nbr = wv.wave_nbr)
                             )
 
-SELECT    CURRENT_DATETIME() AS Now,
+SELECT   -- CURRENT_DATE() AS Now,
           CASE
               WHEN wv.FlowType = 'HAF' THEN 'HAF'
               WHEN wv.FlowType = 'PMR' THEN 'BKG'
@@ -301,11 +301,11 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.ProcessArea ;;
   }
 
-  dimension: Now {
-    type: date
-    hidden: yes
-    sql: cast(${TABLE}.Now as timestamp);;
-  }
+#   dimension: Now {
+#     type: date
+#     hidden: yes
+#     sql: cast(${TABLE}.Now as timestamp);;
+#   }
 
   dimension: po_nbr {
     label: "PO"

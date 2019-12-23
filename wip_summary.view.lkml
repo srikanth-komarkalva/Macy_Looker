@@ -1,8 +1,8 @@
 view: wip_summary {
   derived_table: {
     datagroup_trigger: macys_datagroup
-    partition_keys: ["Now"]
-    cluster_keys: ["RcptNbr","ProcessArea"]
+#     partition_keys: ["Now"]
+#     cluster_keys: ["RcptNbr","ProcessArea"]
     sql: WITH container_derived AS (
                           SELECT  e.id AS Id
                                   , e.entity_id AS ContainerNbr
@@ -59,7 +59,7 @@ view: wip_summary {
                             SELECT RcptNbr, RcvdQty, EarliestRcvdDatetime FROM tote_receipt_quantity
                             )
 
-SELECT    CURRENT_DATETIME() AS Now,
+SELECT    --CURRENT_DATE() AS Now,
           CASE WHEN wv.FlowType = 'HAF' THEN 'HAF' WHEN wv.FlowType = 'PMR' THEN 'BKG' WHEN wv.FlowType IS NULL THEN pa.ProcessArea END AS ProcessArea
           , IFNULL(wip.WaveNumber, CAST(po.PoNbr AS STRING)) AS PoNbr
           , IFNULL(wip.WaveNumber, wip.RcptNbr) AS RcptNbr
@@ -96,7 +96,7 @@ SELECT    CURRENT_DATETIME() AS Now,
           , SUM(wip.Ship_Day4) AS Ship_Day4
 --          , wip.ContainerNbr AS ContainerNbr
 FROM      (
-          SELECT      CURRENT_DATETIME() AS Now,
+          SELECT      --CURRENT_DATETIME() AS Now,
                       RcptNbr
                     , WaveNumber
                     , LgclLocnNbr
@@ -133,7 +133,7 @@ FROM      (
                     , CASE WHEN CurrentStatus = 'PCK' AND Age > 3 THEN Quantity ELSE 0 END AS Ship_Day4
 --                    , ContainerNbr
           FROM      (
-                    SELECT    CURRENT_DATETIME() AS Now,
+                    SELECT   -- CURRENT_DATE() AS Now,
                               IF(a.attribute_name = 'WaveNumber', NULL, a.attribute_value) AS RcptNbr
                               , IF(a.attribute_name = 'WaveNumber', a.attribute_value, NULL) AS WaveNumber
                               , cd.CurrentStatus
@@ -169,7 +169,7 @@ FROM      (
 
                     UNION ALL
 
-                    SELECT    CURRENT_DATETIME() AS Now,
+                    SELECT    CURRENT_DATE() AS Now,
                               IF(y.attribute_value IS NOT NULL, NULL, x.attribute_value) AS RcptNbr
                               , y.attribute_value AS WaveNumber
                               , cd.CurrentStatus
@@ -265,11 +265,11 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.ProcessArea ;;
   }
 
-  dimension: Now {
-    type: date
-    hidden: yes
-    sql: cast(${TABLE}.Now as timestamp);;
-  }
+#   dimension: Now {
+#     type: date
+#     hidden: yes
+#     sql: cast(${TABLE}.Now as timestamp);;
+#   }
 
 
   dimension: po_nbr {

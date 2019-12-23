@@ -491,9 +491,9 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: ${TABLE}.WaveFlag ;;
   }
 
-  dimension: ordered_qty {
+  measure: ordered_qty {
     label: "Ordered"
-    type: number
+    type: sum
     value_format:"#,##0"
     sql: ${TABLE}.OrderedQty ;;
   }
