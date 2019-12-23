@@ -1,8 +1,8 @@
 view: wip_summary_container {
   derived_table: {
     datagroup_trigger: macys_datagroup
-    partition_keys: ["Now"]
-    cluster_keys: ["RcptNbr","PoNbr"]
+#     partition_keys: ["Now"]
+#     cluster_keys: ["RcptNbr","PoNbr"]
     sql: WITH container_derived AS (
                           SELECT  e.id AS Id
                                   , e.entity_id AS ContainerNbr
