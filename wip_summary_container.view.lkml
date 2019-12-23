@@ -316,44 +316,44 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_today {
-    label: "TKT/Prep Today"
+    label: "TKT / Prep Today"
     type: sum
     sql: ${TABLE}.Prep_Today ;;
   }
 
   measure: prep_day1 {
-    label: "TKT/Prep Day 1"
+    label: "TKT / Prep Day 1"
     type: sum
     sql: ${TABLE}.Prep_Day1 ;;
   }
 
   measure: prep_day2 {
-    label: "TKT/Prep Day 2"
+    label: "TKT / Prep Day 2"
     type: sum
     sql: ${TABLE}.Prep_Day2 ;;
   }
 
   measure: prep_day3 {
-    label: "TKT/Prep Day 3"
+    label: "TKT / Prep Day 3"
     type: sum
     sql: ${TABLE}.Prep_Day3 ;;
   }
 
   measure: prep_day4 {
-    label: "TKT/Prep Day 4"
+    label: "TKT / Prep Day 4"
     type: sum
     sql: ${TABLE}.Prep_Day4 ;;
   }
 
 
   measure: Prep_Total {
-    label: "TKT/Prep Pending"
+    label: "TKT / Prep Pending"
     type: number
     sql: ${prep_day1}+${prep_day2}+${prep_day3}+${prep_day4}+${prep_today} ;;
   }
 
   measure: Put_Pack_Total {
-    label: "Put/Pack Pending"
+    label: "Put / Pack Pending"
     type: number
     sql: ${put_day1}+${put_day2}+${put_day3}+${put_day4}+${put_today} ;;
   }
@@ -377,32 +377,32 @@ GROUP BY  ProcessArea
   }
 
   measure: put_today {
-    label: "Put/Pack Today"
+    label: "Put / Pack Today"
     type: sum
     sql: ${TABLE}.Put_Today ;;
   }
 
 
   measure: put_day1 {
-    label: "Put/Pack Day 1"
+    label: "Put / Pack Day 1"
     type: sum
     sql: ${TABLE}.Put_Day1 ;;
   }
 
   measure: put_day2 {
-    label: "Put/Pack Day 2"
+    label: "Put / Pack Day 2"
     type: sum
     sql: ${TABLE}.Put_Day2 ;;
   }
 
   measure: put_day3 {
-    label: "Put/Pack Day 3"
+    label: "Put / Pack Day 3"
     type: sum
     sql: ${TABLE}.Put_Day3 ;;
   }
 
   measure: put_day4 {
-    label: "Put/Pack Day 4"
+    label: "Put / Pack Day 4"
     type: sum
     sql: ${TABLE}.Put_Day4 ;;
   }

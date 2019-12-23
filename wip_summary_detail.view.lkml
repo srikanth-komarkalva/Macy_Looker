@@ -371,31 +371,31 @@ GROUP BY  ProcessArea
   }
 
   measure: put_today {
-    label: "Put/Pack Today"
+    label: "Put / Pack Today"
     type: sum
     sql: ${TABLE}.Put_Today ;;
   }
 
   measure: put_day1 {
-    label: "Put/Pack Day 1"
+    label: "Put / Pack Day 1"
     type: sum
     sql: ${TABLE}.Put_Day1 ;;
   }
 
   measure: put_day2 {
-    label: "Put/Pack Day 2"
+    label: "Put / Pack Day 2"
     type: sum
     sql: ${TABLE}.Put_Day2 ;;
   }
 
   measure: put_day3 {
-    label: "Put/Pack Day 3"
+    label: "Put / Pack Day 3"
     type: sum
     sql: ${TABLE}.Put_Day3 ;;
   }
 
   measure: put_day4 {
-    label: "Put/Pack Day 4"
+    label: "Put / Pack Day 4"
     type: sum
     sql: ${TABLE}.Put_Day4 ;;
   }
