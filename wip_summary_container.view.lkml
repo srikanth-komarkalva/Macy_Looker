@@ -42,7 +42,7 @@ view: wip_summary_container {
                             )
 
       , snapshot_entity_xref AS   (
-                                  CURRENT_DATE() AS Now,
+                                 -- CURRENT_DATE() AS Now,
                                   SELECT    ss.id AS SnapshotId
                                             , ss.container_type_id
                                             , ss.container
@@ -114,7 +114,7 @@ view: wip_summary_container {
                             WHERE     version_id = (SELECT MAX(version_id) FROM `mtech-dc2-prod.waving.wave` WHERE wave_nbr = wv.wave_nbr)
                             )
 
-SELECT    CURRENT_DATE() AS Now,
+SELECT    --CURRENT_DATE() AS Now,
           CASE
               WHEN wv.FlowType = 'HAF' THEN 'HAF'
               WHEN wv.FlowType = 'PMR' THEN 'BKG'
@@ -159,7 +159,7 @@ SELECT    CURRENT_DATE() AS Now,
           , SUM(wip.Ship_Day4) AS Ship_Day4
           , wip.ContainerNbr AS ContainerNbr
 FROM      (
-          CURRENT_DATE() AS Now,
+         -- CURRENT_DATE() AS Now,
           SELECT    RcptNbr
                     , WaveNumber
                     , LgclLocnNbr
@@ -288,11 +288,11 @@ GROUP BY  ProcessArea
     drill_fields: [detail*]
   }
 
-  dimension: Now {
-    type: date
-    hidden: yes
-    sql: cast(${TABLE}.Now as timestamp);;
-  }
+#   dimension: Now {
+#     type: date
+#     hidden: yes
+#     sql: cast(${TABLE}.Now as timestamp);;
+#   }
 
   dimension: process_area {
     type: string
