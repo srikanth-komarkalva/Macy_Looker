@@ -1,6 +1,8 @@
 view: wip_summary {
   derived_table: {
     datagroup_trigger: macys_datagroup
+    partition_keys: ["Now"]
+    cluster_keys: ["RcptNbr","ProcessArea"]
     sql: WITH container_derived AS (
                           SELECT  e.id AS Id
                                   , e.entity_id AS ContainerNbr
@@ -57,7 +59,8 @@ view: wip_summary {
                             SELECT RcptNbr, RcvdQty, EarliestRcvdDatetime FROM tote_receipt_quantity
                             )
 
-SELECT    CASE WHEN wv.FlowType = 'HAF' THEN 'HAF' WHEN wv.FlowType = 'PMR' THEN 'BKG' WHEN wv.FlowType IS NULL THEN pa.ProcessArea END AS ProcessArea
+SELECT    CURRENT_DATETIME() AS Now,
+          CASE WHEN wv.FlowType = 'HAF' THEN 'HAF' WHEN wv.FlowType = 'PMR' THEN 'BKG' WHEN wv.FlowType IS NULL THEN pa.ProcessArea END AS ProcessArea
           , IFNULL(wip.WaveNumber, CAST(po.PoNbr AS STRING)) AS PoNbr
           , IFNULL(wip.WaveNumber, wip.RcptNbr) AS RcptNbr
           , wip.RcvdQty AS RcvdQty
@@ -93,7 +96,8 @@ SELECT    CASE WHEN wv.FlowType = 'HAF' THEN 'HAF' WHEN wv.FlowType = 'PMR' THEN
           , SUM(wip.Ship_Day4) AS Ship_Day4
 --          , wip.ContainerNbr AS ContainerNbr
 FROM      (
-          SELECT    RcptNbr
+          SELECT      CURRENT_DATETIME() AS Now,
+                      RcptNbr
                     , WaveNumber
                     , LgclLocnNbr
                     , RcvdQty
@@ -129,7 +133,8 @@ FROM      (
                     , CASE WHEN CurrentStatus = 'PCK' AND Age > 3 THEN Quantity ELSE 0 END AS Ship_Day4
 --                    , ContainerNbr
           FROM      (
-                    SELECT    IF(a.attribute_name = 'WaveNumber', NULL, a.attribute_value) AS RcptNbr
+                    SELECT    CURRENT_DATETIME() AS Now,
+                              IF(a.attribute_name = 'WaveNumber', NULL, a.attribute_value) AS RcptNbr
                               , IF(a.attribute_name = 'WaveNumber', a.attribute_value, NULL) AS WaveNumber
                               , cd.CurrentStatus
                               , ss.lgcl_locn_nbr AS LgclLocnNbr
@@ -164,7 +169,8 @@ FROM      (
 
                     UNION ALL
 
-                    SELECT    IF(y.attribute_value IS NOT NULL, NULL, x.attribute_value) AS RcptNbr
+                    SELECT    CURRENT_DATETIME() AS Now,
+                              IF(y.attribute_value IS NOT NULL, NULL, x.attribute_value) AS RcptNbr
                               , y.attribute_value AS WaveNumber
                               , cd.CurrentStatus
                               , ss.lgcl_locn_nbr AS LgclLocnNbr
@@ -259,6 +265,12 @@ GROUP BY  ProcessArea
     sql: ${TABLE}.ProcessArea ;;
   }
 
+  dimension_group: Now {
+    type: time
+    hidden: yes
+    sql: ${TABLE}.Now ;;
+  }
+
 
   dimension: po_nbr {
     type: string
@@ -313,6 +325,7 @@ GROUP BY  ProcessArea
   measure: Ticketed_Prepped_WIP_Units {
     label: "Tkt Prep WIP"
     type: sum
+    value_format:"#,##0"
     sql: ${prep_day1} + ${prep_day2} + ${prep_day3} + ${prep_day4} + ${prep_today} ;;
   }
 
@@ -349,6 +362,7 @@ GROUP BY  ProcessArea
   measure: Put_away_wip {
     label: "Putaway WIP"
     type: sum
+    value_format:"#,##0"
     sql: ${put_today} + ${put_day1} + ${put_day2} + ${put_day3} + ${put_day4} ;;
   }
 
@@ -385,6 +399,7 @@ GROUP BY  ProcessArea
   measure: Put_Pack_WIP_Units {
     label: "PTL WIP"
     type: sum
+    value_format:"#,##0"
     sql: ${pack_day1} + ${pack_day2} + ${pack_day3} + ${pack_day4} + ${pack_today} ;;
   }
 
