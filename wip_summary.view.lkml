@@ -59,8 +59,7 @@ view: wip_summary {
                             SELECT RcptNbr, RcvdQty, EarliestRcvdDatetime FROM tote_receipt_quantity
                             )
 
-SELECT    --CURRENT_DATE() AS Now,
-          CASE WHEN wv.FlowType = 'HAF' THEN 'HAF' WHEN wv.FlowType = 'PMR' THEN 'BKG' WHEN wv.FlowType IS NULL THEN pa.ProcessArea END AS ProcessArea
+SELECT    CASE WHEN wv.FlowType = 'HAF' THEN 'HAF' WHEN wv.FlowType = 'PMR' THEN 'BKG' WHEN wv.FlowType IS NULL THEN pa.ProcessArea END AS ProcessArea
           , IFNULL(wip.WaveNumber, CAST(po.PoNbr AS STRING)) AS PoNbr
           , IFNULL(wip.WaveNumber, wip.RcptNbr) AS RcptNbr
           , wip.RcvdQty AS RcvdQty
@@ -96,8 +95,7 @@ SELECT    --CURRENT_DATE() AS Now,
           , SUM(wip.Ship_Day4) AS Ship_Day4
 --          , wip.ContainerNbr AS ContainerNbr
 FROM      (
-          SELECT      --CURRENT_DATETIME() AS Now,
-                      RcptNbr
+          SELECT      RcptNbr
                     , WaveNumber
                     , LgclLocnNbr
                     , RcvdQty
@@ -133,8 +131,7 @@ FROM      (
                     , CASE WHEN CurrentStatus = 'PCK' AND Age > 3 THEN Quantity ELSE 0 END AS Ship_Day4
 --                    , ContainerNbr
           FROM      (
-                    SELECT   -- CURRENT_DATE() AS Now,
-                              IF(a.attribute_name = 'WaveNumber', NULL, a.attribute_value) AS RcptNbr
+                    SELECT    IF(a.attribute_name = 'WaveNumber', NULL, a.attribute_value) AS RcptNbr
                               , IF(a.attribute_name = 'WaveNumber', a.attribute_value, NULL) AS WaveNumber
                               , cd.CurrentStatus
                               , ss.lgcl_locn_nbr AS LgclLocnNbr
@@ -169,8 +166,7 @@ FROM      (
 
                     UNION ALL
 
-                    SELECT    CURRENT_DATE() AS Now,
-                              IF(y.attribute_value IS NOT NULL, NULL, x.attribute_value) AS RcptNbr
+                    SELECT    IF(y.attribute_value IS NOT NULL, NULL, x.attribute_value) AS RcptNbr
                               , y.attribute_value AS WaveNumber
                               , cd.CurrentStatus
                               , ss.lgcl_locn_nbr AS LgclLocnNbr
