@@ -292,7 +292,6 @@ GROUP BY  ProcessArea
   }
 
   dimension: process_area {
-    label: "Process"
     type: string
     sql: ${TABLE}.ProcessArea ;;
   }
