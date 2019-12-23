@@ -325,6 +325,7 @@ GROUP BY  ProcessArea
   measure: Ticketed_Prepped_WIP_Units {
     label: "Tkt Prep WIP"
     type: sum
+    value_format:"#,##0"
     sql: ${prep_day1} + ${prep_day2} + ${prep_day3} + ${prep_day4} + ${prep_today} ;;
   }
 
@@ -361,6 +362,7 @@ GROUP BY  ProcessArea
   measure: Put_away_wip {
     label: "Putaway WIP"
     type: sum
+    value_format:"#,##0"
     sql: ${put_today} + ${put_day1} + ${put_day2} + ${put_day3} + ${put_day4} ;;
   }
 
@@ -397,6 +399,7 @@ GROUP BY  ProcessArea
   measure: Put_Pack_WIP_Units {
     label: "PTL WIP"
     type: sum
+    value_format:"#,##0"
     sql: ${pack_day1} + ${pack_day2} + ${pack_day3} + ${pack_day4} + ${pack_today} ;;
   }
 
