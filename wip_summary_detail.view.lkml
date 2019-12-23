@@ -407,13 +407,13 @@ GROUP BY  ProcessArea
   }
 
   measure: Put_Total {
-    label: "Put/Pack Pending"
+    label: "Packaway Pending"
     type: number
     sql: ${put_day1}+${put_day2}+${put_day3}+${put_day4}+${put_today} ;;
   }
 
   measure: pack_Total{
-    label: "Packaway Pending"
+    label: "Put/Pack Pending"
     type: number
     sql: ${pack_day1}+${pack_day2}+${pack_day3}+${pack_day4}+${pack_today} ;;
   }
