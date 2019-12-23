@@ -1,6 +1,8 @@
 view: wip_summary_detail {
   derived_table: {
     datagroup_trigger: macys_datagroup
+    partition_keys: ["Now"]
+    cluster_keys: ["RcptNbr","PoNbr"]
 #   partition_keys: ["CreatedTime"]
 
     sql: WITH container_derived AS (
@@ -42,6 +44,7 @@ view: wip_summary_detail {
                             )
 
       , snapshot_entity_xref AS   (
+                                  CURRENT_DATETIME() AS Now,
                                   SELECT    ss.id AS SnapshotId
                                             , ss.container_type_id
                                             , ss.container
@@ -90,6 +93,7 @@ view: wip_summary_detail {
                                   )
 
     , receipt_quantity AS   (
+                            CURRENT_DATETIME() AS Now,
                             SELECT    xref.RcptNbr AS RcptNbr
                                       , SUM(ss.quantity) AS RcvdQty
                                       , MIN(e.updated_time) AS EarliestRcvdDatetime
@@ -113,7 +117,8 @@ view: wip_summary_detail {
                             WHERE     version_id = (SELECT MAX(version_id) FROM `mtech-dc2-prod.waving.wave` WHERE wave_nbr = wv.wave_nbr)
                             )
 
-SELECT    CASE
+SELECT    CURRENT_DATETIME() AS Now,
+          CASE
               WHEN wv.FlowType = 'HAF' THEN 'HAF'
               WHEN wv.FlowType = 'PMR' THEN 'BKG'
               WHEN wv.FlowType IS NULL THEN
@@ -294,6 +299,12 @@ GROUP BY  ProcessArea
   dimension: process_area {
     type: string
     sql: ${TABLE}.ProcessArea ;;
+  }
+
+  dimension_group: Now {
+    type: time
+    hidden: yes
+    sql: ${TABLE}.Now ;;
   }
 
   dimension: po_nbr {
