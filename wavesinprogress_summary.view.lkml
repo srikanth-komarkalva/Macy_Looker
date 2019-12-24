@@ -404,6 +404,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   dimension: sotdate {
     label: "SOT Date"
     type: string
+    html: {{ rendered_value | date: "%m/%d/%Y"}} ;;
     sql: ${TABLE}.SOTDate ;;
   }
 
