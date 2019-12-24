@@ -76,6 +76,7 @@ view: casestopick {
 
   dimension_group: last_updated {
     type: time
+    html: {{ rendered_value | date: "%m/%d/%y %H:%M %p" }} ;;
     sql: ${TABLE}.LastUpdated ;;
   }
 
