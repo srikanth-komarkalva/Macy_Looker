@@ -88,6 +88,7 @@ view: containers {
 
   dimension_group: updated_time {
     type: time
+    html: {{ rendered_value | date: "%m/%d/%y %H:%M %p" }} ;;
     sql: ${TABLE}.updatedTime ;;
   }
 
