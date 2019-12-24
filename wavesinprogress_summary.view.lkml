@@ -290,6 +290,7 @@ where w.WaveStatus not in ('CXL','CLS','FAIL')
   }
 
   dimension: flow_type_desc {
+    label: "Flow Type"
     type: string
     sql: ${TABLE}.FlowTypeDesc ;;
   }
