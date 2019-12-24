@@ -76,7 +76,7 @@ view: casestopick {
 
   dimension_group: last_updated {
     type: time
-    sql: ${TABLE}.LastUpdated ;;
+    sql: CAST(${TABLE}.LastUpdated as timestamp) ;;
   }
 
   dimension: updated_by_user {
