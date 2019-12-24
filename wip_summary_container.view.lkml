@@ -340,7 +340,7 @@ GROUP BY  ProcessArea
   }
 
   measure: prep_day4 {
-    label: "TKT / Prep Day 4"
+    label: "TKT / Prep Day 4+"
     type: sum
     sql: ${TABLE}.Prep_Day4 ;;
   }
@@ -402,7 +402,7 @@ GROUP BY  ProcessArea
   }
 
   measure: put_day4 {
-    label: "Put / Pack Day 4"
+    label: "Put / Pack Day 4+"
     type: sum
     sql: ${TABLE}.Put_Day4 ;;
   }
@@ -432,7 +432,7 @@ GROUP BY  ProcessArea
   }
 
   measure: pack_day4 {
-    label: "Pack Day 4"
+    label: "Pack Day 4+"
     type: sum
     sql: ${TABLE}.Pack_Day4 ;;
   }
@@ -462,7 +462,7 @@ GROUP BY  ProcessArea
   }
 
   measure: pick_day4 {
-    label: "Pick Day 4"
+    label: "Pick Day 4+"
     type: sum
     sql: ${TABLE}.Pick_Day4 ;;
   }
@@ -492,7 +492,7 @@ GROUP BY  ProcessArea
   }
 
   measure: presort_day4 {
-    label: "PreSort Day 4"
+    label: "PreSort Day 4+"
     type: sum
     sql: ${TABLE}.Presort_Day4 ;;
   }
@@ -522,7 +522,7 @@ GROUP BY  ProcessArea
   }
 
   measure: ship_day4 {
-    label: "Shipped Day 4"
+    label: "Shipped Day 4+"
     type: sum
     sql: ${TABLE}.Ship_Day4 ;;
   }
