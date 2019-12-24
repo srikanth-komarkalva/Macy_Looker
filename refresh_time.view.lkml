@@ -30,6 +30,17 @@ view: refresh_time {
     sql: ${TABLE}.CURR_DATE_EST ;;
   }
 
+  dimension: Last_Refresh_Time {
+    type: string
+    sql:
+    concat(
+    CAST(${curr_date_est} AS STRING),
+    " " ,
+    CAST(${curr_time_est} AS STRING)
+    )
+    ;;
+  }
+
   dimension: curr_time_est {
     type: string
     sql: ${TABLE}.CURR_TIME_EST ;;
