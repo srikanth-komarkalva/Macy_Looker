@@ -422,10 +422,15 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: ${TABLE}.ShiftName ;;
   }
 
+#   dimension: bda_reports_title {
+#     type: string
+#     html:  <ul> <li> "BDA Reports" </li> </ul>;;
+#   }
+
   dimension: macys_logo {
     type: string
     sql: ${shift_name};;
-    html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" /> ;;
+    html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" width="75%" /> ;;
   }
 
   dimension: process_area {
