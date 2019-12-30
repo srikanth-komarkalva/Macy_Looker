@@ -2,7 +2,7 @@ include: "Cognos_Reports.model.lkml"
 
 view: digital_executive_summary {
   derived_table: {
-    sql: select  GMMDESCA, GREG_DT,
+    sql: select  GMMDESCA, --GREG_DT,
       max(VIEW_SESSN_PROD_CNT) as Product_Count,sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) AS AURA,
       SUM(ITEM_QTY) AS units_SoldA,
@@ -80,7 +80,8 @@ view: digital_executive_summary {
       )
 
       PeriodA
-      group by GMMDESCA, GREG_DT
+      group by GMMDESCA
+      --, GREG_DT
        ;;
   }
 
