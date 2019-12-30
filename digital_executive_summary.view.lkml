@@ -89,101 +89,121 @@ view: digital_executive_summary {
   }
 
   dimension: gmmdesca {
+    label: "GMM"
     type: string
     sql: ${TABLE}.GMMDESCA ;;
   }
 
   dimension: product_count {
+    label: "Product Count"
     type: number
     sql: ${TABLE}.Product_Count ;;
   }
 
   dimension: confirmed_sales {
+    label: "Confirmed Sales"
     type: number
     sql: ${TABLE}.Confirmed_Sales ;;
   }
 
   dimension: aura {
+    label: "AUR"
     type: number
     sql: ${TABLE}.AURA ;;
   }
 
   dimension: units_sold_a {
+    label: "Units Sold"
     type: number
     sql: ${TABLE}.units_SoldA ;;
   }
 
   dimension: viewing_session_a {
+    label: "Viewing Sessions"
     type: number
     sql: ${TABLE}.Viewing_SessionA ;;
   }
 
   dimension: buying_session_a {
+    label: "Buying Sessions"
     type: number
     sql: ${TABLE}.Buying_SessionA ;;
   }
 
   dimension: productivity_a {
+    label: "Productivity"
     type: number
     sql: ${TABLE}.ProductivityA ;;
   }
 
   dimension: view_to_buy_conv_a {
+    label: "View to Buy Conv"
     type: number
     sql: ${TABLE}.View_to_Buy_ConvA ;;
   }
 
   dimension: add_to_bag_conv_a {
+    label: "Add to Bag Conv"
     type: number
     sql: ${TABLE}.Add_to_Bag_ConvA ;;
   }
 
   dimension: checkout_conv_a {
+    label: "Checkout Conv"
     type: number
     sql: ${TABLE}.Checkout_ConvA ;;
   }
 
   dimension: mmua {
+    label: "MMU"
     type: number
     sql: ${TABLE}.MMUA ;;
   }
 
   dimension: item_cost {
+    label: "Item Cost"
     type: number
     sql: ${TABLE}.Item_cost ;;
   }
 
   dimension: avail_to_sell_a {
+    label: "Avail to Sell"
     type: number
     sql: ${TABLE}.Avail_to_SellA ;;
   }
 
   dimension: on_order_a {
+    label: "On Order"
     type: number
     sql: ${TABLE}.On_OrderA ;;
   }
 
   dimension: sell_through_rate_a {
+    label: "Sell Through Rate"
     type: number
     sql: ${TABLE}.Sell_Through_RateA ;;
   }
 
   dimension: tot_unit_sold_std_qty_a {
+    label: "Tot Unit Sold Std Qty"
     type: number
     sql: ${TABLE}.Tot_Unit_Sold_Std_QtyA ;;
   }
 
   dimension: std_rtrn_unit_qty_a {
+    label: "Std Rtrn Unit Qty"
     type: number
     sql: ${TABLE}.Std_Rtrn_Unit_QtyA ;;
   }
 
   dimension: return_rate_a {
+    label: "Return Rate"
     type: number
     sql: ${TABLE}.Return_RateA ;;
   }
 
   dimension: number_of_reviews_ass {
+    label: "Number of Reviews"
     type: number
     sql: ${TABLE}.Number_of_ReviewsAss ;;
   }
