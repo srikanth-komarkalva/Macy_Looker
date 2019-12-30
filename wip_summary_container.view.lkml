@@ -1,3 +1,5 @@
+include: "BDA_Reports.model.lkml"
+
 view: wip_summary_container {
   derived_table: {
     datagroup_trigger: macys_datagroup

@@ -1,3 +1,5 @@
+include: "BDA_Reports.model.lkml"
+
 view: wavesinprogress_summary {
   derived_table: {
     datagroup_trigger: macys_datagroup

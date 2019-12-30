@@ -1,3 +1,5 @@
+include: "BDA_Reports.model.lkml"
+
 view: wip_div_name_table {
   derived_table: {
     sql: select "12" as LOC_NBR, "Macys" as LOCN_NAME,"MCY" as LOCN_ABBR,"71" as ZL_DIVN_NBR

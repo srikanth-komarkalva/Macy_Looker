@@ -1,3 +1,5 @@
+include: "BDA_Reports.model.lkml"
+
 view: wip_process_area_desc {
   derived_table: {
     sql: select "BTY" as Proc_Area_Short_Desc, "Beauty" as Proc_Area_Long_Desc

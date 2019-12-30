@@ -1,3 +1,5 @@
+include: "BDA_Reports.model.lkml"
+
 view: refresh_time {
   derived_table: {
     datagroup_trigger: macys_datagroup

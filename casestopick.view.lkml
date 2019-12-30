@@ -1,3 +1,5 @@
+include: "BDA_Reports.model.lkml"
+
 view: casestopick {
   derived_table: {
     datagroup_trigger: macys_datagroup
