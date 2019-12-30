@@ -95,6 +95,13 @@ view: digital_executive_summary {
     sql: ${TABLE}.GMMDESCA ;;
   }
 
+  dimension: Greg_Date {
+    label: "Date"
+    type: date
+    sql: ${TABLE}.GREG_DT ;;
+
+  }
+
   dimension: product_count {
     label: "Product Count"
     type: number
