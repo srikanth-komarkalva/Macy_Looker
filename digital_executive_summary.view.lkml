@@ -109,6 +109,7 @@ view: digital_executive_summary {
   dimension: aura {
     label: "AUR"
     type: number
+    value_format: "$0.00"
     sql: ${TABLE}.AURA ;;
   }
 
@@ -133,36 +134,42 @@ view: digital_executive_summary {
   dimension: productivity_a {
     label: "Productivity"
     type: number
+    value_format: "$0.00"
     sql: ${TABLE}.ProductivityA ;;
   }
 
   dimension: view_to_buy_conv_a {
     label: "View to Buy Conv"
     type: number
+    value_format: "0.0\%"
     sql: ${TABLE}.View_to_Buy_ConvA ;;
   }
 
   dimension: add_to_bag_conv_a {
     label: "Add to Bag Conv"
     type: number
+    value_format: "0.0\%"
     sql: ${TABLE}.Add_to_Bag_ConvA ;;
   }
 
   dimension: checkout_conv_a {
     label: "Checkout Conv"
     type: number
+    value_format: "0.00\%"
     sql: ${TABLE}.Checkout_ConvA ;;
   }
 
   dimension: mmua {
     label: "MMU"
     type: number
+    value_format: "0.00\%"
     sql: ${TABLE}.MMUA ;;
   }
 
   dimension: item_cost {
     label: "Item Cost"
     type: number
+    value_format: "$0.00"
     sql: ${TABLE}.Item_cost ;;
   }
 
@@ -181,6 +188,7 @@ view: digital_executive_summary {
   dimension: sell_through_rate_a {
     label: "Sell Through Rate"
     type: number
+    value_format: "0.00\%"
     sql: ${TABLE}.Sell_Through_RateA ;;
   }
 
@@ -193,12 +201,14 @@ view: digital_executive_summary {
   dimension: std_rtrn_unit_qty_a {
     label: "Std Rtrn Unit Qty"
     type: number
+    value_format: "(#,##0)"
     sql: ${TABLE}.Std_Rtrn_Unit_QtyA ;;
   }
 
   dimension: return_rate_a {
     label: "Return Rate"
     type: number
+    value_format: "0.00\%"
     sql: ${TABLE}.Return_RateA ;;
   }
 
