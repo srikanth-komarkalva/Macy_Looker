@@ -1,3 +1,5 @@
+include: "Cognos_Reports.model.lkml"
+
 view: digital_executive_summary {
   derived_table: {
     sql: select  GMMDESCA,

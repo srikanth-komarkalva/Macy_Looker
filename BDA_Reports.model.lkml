@@ -1,11 +1,17 @@
 connection: "bq"
 
-include: "*.view.lkml"                       # include all views in this project
-# include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
-
-# # Select the views that should be a part of this model,
-# # and define the joins that connect them together.
-#
+include: "bda_data.view.lkml"
+include: "bda_shipped_summary.view.lkml"
+include: "casestopick.view.lkml"
+include: "containers.view.lkml"
+include: "presortdashboard.view.lkml"
+include: "refresh_time.view.lkml"
+include: "wavesinprogress_summary.view.lkml"
+include: "wip_div_name_table.view.lkml"
+include: "wip_process_area_desc.view.lkml"
+include: "wip_summary.view.lkml"
+include: "wip_summary_container.view.lkml"
+include: "wip_summary_detail.view.lkml"
 
 datagroup: macys_datagroup {
   ###Can be set to match your etl process
@@ -36,7 +42,6 @@ explore: bda_data {
   }
 }
 
-
 # Waves In Progress
 
 explore: casestopick {
@@ -61,7 +66,6 @@ explore: containers {
 # Last Refresh time
 explore: refresh_time {}
 
-
 #WIP Summary
 
 explore: wip_summary_container {
@@ -78,4 +82,4 @@ explore: wip_summary_container {
     sql_on: ${wip_summary_detail.process_area}=${wip_process_area_desc.proc_area_short_desc} ;;
   }
 
-  }
+}
