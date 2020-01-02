@@ -47,7 +47,7 @@ view: digital_executive_summary {
       inner join `mtech-daas-reference-pdata-dev.rfnd_ref_v.cognos_rpt_date` rpt_date on  summary.GREG_DT =  rpt_date.GREG_DT
       WHERE
       Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT BETWEEN '2019-12-01' AND '2019-12-31' ---- mandatory report filter Period A
+      and rpt_date.GREG_DT BETWEEN '2018-12-01' AND '2018-12-31' ---- mandatory report filter Period A
       --and PRD.GMM_DESC = 'CENTER CORE'
       group by  PRD.GMM_DESC ,rpt_date.GREG_DT
 
