@@ -81,7 +81,7 @@ view: digital_executive_summary {
 
       PeriodA
       group by GMMDESCA
-      --, GREG_DT
+      , GREG_DT
        ;;
   }
 
