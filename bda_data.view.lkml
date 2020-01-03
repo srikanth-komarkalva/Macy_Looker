@@ -362,6 +362,12 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     drill_fields: [detail*]
   }
 
+  filter: date_filter {
+#     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
+    type: date_time
+    sql: {% condition date_filter %} cast(${TABLE}.ShiftDate as timestamp) {% endcondition %} ;;
+  }
+
   dimension: shift_date {
     type: date
     sql: cast(${TABLE}.ShiftDate as timestamp) ;;
