@@ -216,6 +216,7 @@ view: price_type {
     sql: ${TABLE}.f0_ ;;
   }
 
+
   set: detail {
     fields: [
       gmm_id,
