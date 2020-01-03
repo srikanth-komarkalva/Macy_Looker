@@ -5,10 +5,10 @@ view: price_type {
       declare dtPeriodBFrom  date;
       declare dtPeriodBTo date;
       declare deptno int64;
-      set dtPeriodAFrom='2018-11-01';
-      set dtPeriodATo='2018-11-30';
-      set dtPeriodBFrom='2019-11-01';
-      set dtPeriodBTo='2019-11-30';
+      set dtPeriodAFrom='2019-06-01';
+      set dtPeriodATo='2019-06-30';
+      set dtPeriodBFrom='2019-09-01';
+      set dtPeriodBTo='2019-09-30';
       --set deptno=280;
 
 
