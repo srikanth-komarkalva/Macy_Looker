@@ -139,11 +139,13 @@ view: digital_executive_summary_testing {
 
   measure: aura {
     type: number
+    value_format: "$0.00"
     sql: ${confirmed_sales}/${units_sold_a} ;;
   }
 
   measure: mmua {
     type: number
+    value_format: "0.0\%"
     sql: (((${confirmed_sales}/${units_sold_a}) - (${lst_cost_amt}/${units_sold_a}))/(${confirmed_sales}/${units_sold_a}))*100  ;;
   }
 
@@ -159,16 +161,19 @@ view: digital_executive_summary_testing {
 
   measure: item_cost {
     type: number
+    value_format: "$0.00"
     sql: ${lst_cost_amt}/${units_sold_a} ;;
   }
 
   measure: sell_through_rate_a {
     type: number
+    value_format: "0.00\%"
     sql:  (${four_wk_sls_qty}/(${four_wk_sls_qty} + ${avail_to_sell_a}))*100 ;;
   }
 
   measure: return_rate_a {
     type: number
+    value_format: "0.00\%"
     sql: (${std_rtrn_unit_qty_a}/${tot_unit_sold_std_qty_a})*100 ;;
   }
 
@@ -184,21 +189,25 @@ view: digital_executive_summary_testing {
 
   measure: productivity_a {
     type: sum
+    value_format: "$0.00"
     sql: ${TABLE}.ProductivityA ;;
   }
 
   measure: view_to_buy_conv_a {
     type: sum
+    value_format: "0.0\%"
     sql: ${TABLE}.View_to_Buy_ConvA ;;
   }
 
   measure: add_to_bag_conv_a {
     type: sum
+    value_format: "0.0\%"
     sql: ${TABLE}.Add_to_Bag_ConvA ;;
   }
 
   measure: checkout_conv_a {
     type: sum
+    value_format: "0.0\%"
     sql: ${TABLE}.Checkout_ConvA ;;
   }
 
@@ -219,6 +228,7 @@ view: digital_executive_summary_testing {
 
   measure: std_rtrn_unit_qty_a {
     type: sum
+    value_format: "(#,##0)"
     sql: ${TABLE}.Std_Rtrn_Unit_QtyA ;;
   }
 
