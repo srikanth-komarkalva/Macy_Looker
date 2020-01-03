@@ -128,7 +128,6 @@ view: price_type {
     type: string
     sql: ${TABLE}.mdse_divn_mgr_desc ;;
   }
-
   dimension: mdse_divn_mgr_id {
     type: number
     sql: ${TABLE}.mdse_divn_mgr_id ;;
