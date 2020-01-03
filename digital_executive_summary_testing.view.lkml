@@ -93,17 +93,14 @@ view: digital_executive_summary_testing {
     sql: {% condition date_filter %} ${greg_dt} {% endcondition %} ;;
   }
 
-  dimension_group: filter_start_date {
-    type: time
-    timeframes: [raw]
+  dimension: filter_start_date {
+    type: date
     sql: CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END;;
   }
 
-  dimension_group: filter_end_date {
-    type: time
-    timeframes: [raw]
+  dimension: filter_end_date {
+    type: date
     sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0) END;;
-
  }
 
   measure: count {
@@ -118,7 +115,7 @@ view: digital_executive_summary_testing {
 
   dimension: greg_dt {
     type: date
-    sql: cast(${TABLE}.GREG_DT as date) ;;
+    sql: cast(${TABLE}.GREG_DT as timestamp) ;;
   }
 
   measure: product_count {
