@@ -90,6 +90,7 @@ view: digital_executive_summary_testing {
   filter: date_filter {
     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
     type: date
+    sql: {% condition date_filter %} ${greg_dt} {% endcondition %} ;;
   }
 
   dimension_group: filter_start_date {
