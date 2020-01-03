@@ -168,6 +168,31 @@ view: price_type {
     sql: ${TABLE}.LiveProductB ;;
   }
 
+  measure: sum_live_prod_a {
+    type: sum
+    hidden: yes
+    sql: ${live_product_a} ;;
+  }
+
+  measure: sum_live_prod_b {
+    type: sum
+    hidden: yes
+    sql: ${live_product_b} ;;
+  }
+
+  measure: diff_prod {
+    type: number
+    hidden: yes
+    sql: ${sum_live_prod_a} - ${sum_live_prod_b} ;;
+  }
+
+  measure: var_prod {
+    label: "(% VAR) Live Product"
+    type: number
+    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_a}, 0);;
+    value_format: "(0.00\%)"
+  }
+
   dimension: per_var {
     type: number
     sql: ${TABLE}.PerVar ;;
@@ -183,6 +208,31 @@ view: price_type {
     sql: ${TABLE}.ConfirmedSalesB ;;
   }
 
+  measure: sum_confirmed_a {
+    hidden: yes
+    type: sum
+    sql: ${confirmed_sales_a} ;;
+  }
+
+  measure: sum_confirmed_b {
+    hidden: yes
+    type: sum
+    sql: ${confirmed_sales_b} ;;
+  }
+
+  measure: diff_confirmed {
+    type: number
+    hidden: yes
+    sql: ${sum_confirmed_a} - ${sum_confirmed_b} ;;
+  }
+
+  measure: var_confirm {
+    label: "(% VAR) Confirmed Sales"
+    type: number
+    sql: 100.0 * ${diff_confirmed} / NULLIF(${sum_confirmed_a}, 0);;
+    value_format: "(0.00\%)"
+  }
+
   dimension: per_var1 {
     type: number
     sql: ${TABLE}.PerVar1 ;;
@@ -196,6 +246,31 @@ view: price_type {
   dimension: units_sold_b {
     type: number
     sql: ${TABLE}.units_soldB ;;
+  }
+
+  measure: sum_units_sold_a {
+    hidden: yes
+    type: sum
+    sql: ${units_sold_a} ;;
+  }
+
+  measure: sum_units_sold_b {
+    hidden: yes
+    type: sum
+    sql: ${units_sold_b} ;;
+  }
+
+  measure: diff_units_sold {
+    type: number
+    hidden: yes
+    sql: ${sum_units_sold_a} - ${sum_units_sold_b} ;;
+  }
+
+  measure: var_units_sold {
+    label: "(% VAR)  Units Sold"
+    type: number
+    sql: 100.0 * ${diff_units_sold} / NULLIF(${sum_units_sold_a}, 0);;
+    value_format: "(0.00\%)"
   }
 
   dimension: f0_ {
