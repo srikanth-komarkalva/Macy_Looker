@@ -118,7 +118,7 @@ view: digital_executive_summary_testing {
 
   dimension: greg_dt {
     type: date
-    sql: cast(${TABLE}.GREG_DT as timestamp) ;;
+    sql: cast(${TABLE}.GREG_DT as date) ;;
   }
 
   measure: product_count {
