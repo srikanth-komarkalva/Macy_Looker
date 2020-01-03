@@ -96,13 +96,13 @@ view: digital_executive_summary_testing {
   dimension_group: filter_start_date {
     type: time
     timeframes: [raw]
-    sql: CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0)::timestamp END;;
+    sql: CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END;;
   }
 
   dimension_group: filter_end_date {
     type: time
     timeframes: [raw]
-    sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0)::timestamp END;;
+    sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0) END;;
 
  }
 
