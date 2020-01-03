@@ -223,13 +223,13 @@ view: price_type {
   measure: diff_confirmed {
     type: number
     hidden: yes
-    sql: ${confirmed_sales_b} - ${confirmed_sales_a} ;;
+    sql: ${confirmed_sales_a} - ${confirmed_sales_b} ;;
   }
 
   measure: var_confirm {
     label: "(% VAR) Confirmed Sales"
     type: number
-    sql: 100.0 * ${diff_confirmed} / NULLIF(${confirmed_sales_b}, 0);;
+    sql: 100.0 * ${diff_confirmed} / NULLIF(${confirmed_sales_a}, 0);;
     value_format: "(0.00\%)"
   }
 
