@@ -200,13 +200,11 @@ view: price_type {
 
   dimension: confirmed_sales_a {
     type: number
-    value_format: "$0.00"
     sql: ${TABLE}.ConfirmedSalesA ;;
   }
 
   dimension: confirmed_sales_b {
     type: number
-    value_format: "$0.00"
     sql: ${TABLE}.ConfirmedSalesB ;;
   }
 
@@ -224,14 +222,14 @@ view: price_type {
 
   measure: diff_confirmed {
     type: number
-    #hidden: yes
-    sql: ${confirmed_sales_a} - ${confirmed_sales_b} ;;
+    hidden: yes
+    sql: ${sum_confirmed_a} - ${sum_confirmed_b} ;;
   }
 
   measure: var_confirm {
     label: "(% VAR) Confirmed Sales"
     type: number
-    sql: 100.0 * ${diff_confirmed} / NULLIF(${confirmed_sales_a}, 0);;
+    sql: 100.0 * ${diff_confirmed} / NULLIF(${sum_confirmed_a}, 0);;
     value_format: "(0.00\%)"
   }
 
@@ -264,14 +262,14 @@ view: price_type {
 
   measure: diff_units_sold {
     type: number
-    #hidden: yes
+    hidden: yes
     sql: ${sum_units_sold_a} - ${sum_units_sold_b} ;;
   }
 
   measure: var_units_sold {
     label: "(% VAR)  Units Sold"
     type: number
-    sql: 100.0 * ${diff_confirmed} / NULLIF(${confirmed_sales_a}, 0);;
+    sql: 100.0 * ${diff_units_sold} / NULLIF(${sum_units_sold_a}, 0);;
     value_format: "(0.00\%)"
   }
 
