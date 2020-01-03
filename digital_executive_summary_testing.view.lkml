@@ -89,8 +89,8 @@ view: digital_executive_summary_testing {
 
   filter: date_filter {
     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
-    type: date
-    sql: {% condition date_filter %} ${greg_dt} {% endcondition %} ;;
+    type: date_time
+    sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
   }
 
   dimension: filter_start_date {
