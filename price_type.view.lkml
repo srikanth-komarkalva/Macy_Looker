@@ -182,12 +182,15 @@ view: price_type {
 
   measure: diff_prod {
     type: number
-    sql: ${sum_live_prod_a} - ${sum_live_prod_b} ;;
+    hidden: yes
+    sql: ${sum_live_prod_b} - ${sum_live_prod_a} ;;
   }
 
-  measure: live_prod_var {
+  measure: var_prod {
+    label: "(% VAR) Live Product"
     type: number
-    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_a}, 0);;
+    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_b}, 0);;
+    value_format: "(0.00\%)"
   }
 
   dimension: per_var {
@@ -203,6 +206,31 @@ view: price_type {
   dimension: confirmed_sales_b {
     type: number
     sql: ${TABLE}.ConfirmedSalesB ;;
+  }
+
+  measure: sum_confirmed_a {
+    hidden: yes
+    type: sum
+    sql: ${confirmed_sales_a} ;;
+  }
+
+  measure: sum_confirmed_b {
+    hidden: yes
+    type: sum
+    sql: ${confirmed_sales_b} ;;
+  }
+
+  measure: diff_confirmed {
+    type: number
+    hidden: yes
+    sql: ${confirmed_sales_b} - ${confirmed_sales_a} ;;
+  }
+
+  measure: var_confirm {
+    label: "(% VAR) Confirmed Sales"
+    type: number
+    sql: 100.0 * ${diff_confirmed} / NULLIF(${confirmed_sales_b}, 0);;
+    value_format: "(0.00\%)"
   }
 
   dimension: per_var1 {
