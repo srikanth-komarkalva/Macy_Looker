@@ -19,7 +19,9 @@ view: digital_executive_summary_testing {
       SUM(STD_RTRN_QTY) AS Std_Rtrn_Unit_QtyA,
      --(ABS((SUM(STD_RTRN_QTY))/SUM(STD_SLS_QTY)))*100 AS Return_RateA,
       SUM(RVWS_CNT) AS Number_of_ReviewsAss,
-      SUM(SHOP_SESSN_CNT) as Shopping_Session
+      SUM(SHOP_SESSN_CNT) as Shopping_Session,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY
       from
       (
 
@@ -45,7 +47,7 @@ view: digital_executive_summary_testing {
       inner join `mtech-daas-reference-pdata-dev.rfnd_ref_v.cognos_rpt_date` rpt_date on  summary.GREG_DT =  rpt_date.GREG_DT
       WHERE
       Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT BETWEEN '2018-01-01' AND '2019-12-31' ---- mandatory report filter Period A
+     -- and rpt_date.GREG_DT BETWEEN '2018-01-01' AND '2019-12-31' ---- mandatory report filter Period A
       --and PRD.GMM_DESC = 'CENTER CORE'
       group by  PRD.GMM_DESC ,rpt_date.GREG_DT
 
@@ -72,7 +74,7 @@ view: digital_executive_summary_testing {
       inner join `mtech-daas-reference-pdata-dev.rfnd_ref_v.cognos_rpt_date` rpt_date on  summary.GREG_DT =  rpt_date.GREG_DT
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT >= '2019-12-01' ---- mandatory report filter Period A
+     -- and rpt_date.GREG_DT >= '2019-12-01' ---- mandatory report filter Period A
       --and PRD.GMM_DESC = 'CENTER CORE'
       group by  PRD.GMM_DESC ,rpt_date.GREG_DT
       )
@@ -95,81 +97,116 @@ view: digital_executive_summary_testing {
 
   dimension: greg_dt {
     type: date
-    sql: ${TABLE}.GREG_DT ;;
+    sql: cast(${TABLE}.GREG_DT as timestamp) ;;
   }
 
-  dimension: product_count {
-    type: number
+  measure: product_count {
+    type: sum
     sql: ${TABLE}.Product_Count ;;
   }
 
-  dimension: confirmed_sales {
+  measure: lst_cost_amt {
+    type: sum
+    sql: ${TABLE}.LST_COST_AMT ;;
+  }
+
+  measure: four_wk_sls_qty {
+    type: sum
+    sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
+  }
+
+  measure: aura {
     type: number
+    sql: ${confirmed_sales}/${units_sold_a} ;;
+  }
+
+  measure: mmua {
+    type: number
+    sql: (((${confirmed_sales}/${units_sold_a}) - (${lst_cost_amt}/${units_sold_a}))/(${confirmed_sales}/${units_sold_a}))*100  ;;
+  }
+
+  measure: confirmed_sales {
+    type: sum
     sql: ${TABLE}.Confirmed_Sales ;;
   }
 
-  dimension: units_sold_a {
-    type: number
+  measure: units_sold_a {
+    type: sum
     sql: ${TABLE}.units_SoldA ;;
   }
 
-  dimension: viewing_session_a {
+  measure: item_cost {
     type: number
+    sql: ${lst_cost_amt}/${units_sold_a} ;;
+  }
+
+  measure: sell_through_rate_a {
+    type: number
+    sql:  (${four_wk_sls_qty}/(${four_wk_sls_qty} + ${avail_to_sell_a}))*100 ;;
+  }
+
+  measure: return_rate_a {
+    type: number
+    sql: (${std_rtrn_unit_qty_a}/${tot_unit_sold_std_qty_a})*100 ;;
+  }
+
+  measure: viewing_session_a {
+    type: sum
     sql: ${TABLE}.Viewing_SessionA ;;
   }
 
-  dimension: buying_session_a {
-    type: number
+  measure: buying_session_a {
+    type: sum
     sql: ${TABLE}.Buying_SessionA ;;
   }
 
-  dimension: productivity_a {
-    type: number
+  measure: productivity_a {
+    type: sum
     sql: ${TABLE}.ProductivityA ;;
   }
 
-  dimension: view_to_buy_conv_a {
-    type: number
+  measure: view_to_buy_conv_a {
+    type: sum
     sql: ${TABLE}.View_to_Buy_ConvA ;;
   }
 
-  dimension: add_to_bag_conv_a {
-    type: number
+  measure: add_to_bag_conv_a {
+    type: sum
     sql: ${TABLE}.Add_to_Bag_ConvA ;;
   }
 
-  dimension: checkout_conv_a {
-    type: number
+  measure: checkout_conv_a {
+    type: sum
     sql: ${TABLE}.Checkout_ConvA ;;
   }
 
-  dimension: avail_to_sell_a {
-    type: number
+  measure: avail_to_sell_a {
+    type: sum
     sql: ${TABLE}.Avail_to_SellA ;;
   }
 
-  dimension: on_order_a {
-    type: number
+  measure: on_order_a {
+    type: sum
     sql: ${TABLE}.On_OrderA ;;
   }
 
-  dimension: tot_unit_sold_std_qty_a {
-    type: number
+  measure: tot_unit_sold_std_qty_a {
+    type: sum
     sql: ${TABLE}.Tot_Unit_Sold_Std_QtyA ;;
   }
 
-  dimension: std_rtrn_unit_qty_a {
-    type: number
+  measure: std_rtrn_unit_qty_a {
+    type: sum
     sql: ${TABLE}.Std_Rtrn_Unit_QtyA ;;
   }
 
-  dimension: number_of_reviews_ass {
-    type: number
+  measure: number_of_reviews_ass {
+    type: sum
     sql: ${TABLE}.Number_of_ReviewsAss ;;
   }
 
-  dimension: shopping_session {
-    type: number
+  measure: shopping_session {
+    type: sum
     sql: ${TABLE}.Shopping_Session ;;
   }
 
@@ -179,6 +216,7 @@ view: digital_executive_summary_testing {
       greg_dt,
       product_count,
       confirmed_sales,
+      aura,
       units_sold_a,
       viewing_session_a,
       buying_session_a,
@@ -186,10 +224,14 @@ view: digital_executive_summary_testing {
       view_to_buy_conv_a,
       add_to_bag_conv_a,
       checkout_conv_a,
+      mmua,
+      item_cost,
       avail_to_sell_a,
       on_order_a,
+      sell_through_rate_a,
       tot_unit_sold_std_qty_a,
       std_rtrn_unit_qty_a,
+      return_rate_a,
       number_of_reviews_ass,
       shopping_session
     ]
