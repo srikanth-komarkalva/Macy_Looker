@@ -95,12 +95,16 @@ view: digital_executive_summary_testing {
 
   dimension: filter_start_date {
     type: date
-    sql: CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END;;
+    sql: CAST(
+    CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END
+     AS timestamp) ;;
   }
 
   dimension: filter_end_date {
     type: date
-    sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0) END;;
+    sql: CAST(
+    CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0) END
+    as timestamp);;
  }
 
   measure: count {
