@@ -168,6 +168,31 @@ view: price_type {
     sql: ${TABLE}.LiveProductB ;;
   }
 
+  measure: sum_live_prod_a {
+    type: sum
+    hidden: yes
+    sql: ${live_product_a} ;;
+  }
+
+  measure: sum_live_prod_b {
+    type: sum
+    hidden: yes
+    sql: ${live_product_b} ;;
+  }
+
+  measure: diff_prod {
+    type: number
+    hidden: yes
+    sql: ${sum_live_prod_a} - ${sum_live_prod_b} ;;
+  }
+
+  measure: live_prod_var {
+    label: "(% VAR) Live Product"
+    type: number
+    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_a}, 0);;
+    value_format: "(0.00\%)"
+  }
+
   dimension: per_var {
     type: number
     sql: ${TABLE}.PerVar ;;
