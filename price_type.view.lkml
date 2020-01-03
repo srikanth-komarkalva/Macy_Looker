@@ -124,8 +124,6 @@ view: price_type {
     type: string
     sql: ${TABLE}.gmm_desc ;;
   }
-
-
   dimension: mdse_divn_mgr_desc {
     type: string
     sql: ${TABLE}.mdse_divn_mgr_desc ;;
