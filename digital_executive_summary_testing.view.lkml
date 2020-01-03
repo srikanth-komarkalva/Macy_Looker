@@ -48,6 +48,8 @@ view: digital_executive_summary_testing {
       WHERE
       Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
      -- and rpt_date.GREG_DT BETWEEN '2018-01-01' AND '2019-12-31' ---- mandatory report filter Period A
+       AND {% condition greg_dt %} >= filter_start_date {% endcondition %}
+       AND {% condition greg_dt %} <= filter_end_date {% endcondition %}
       --and PRD.GMM_DESC = 'CENTER CORE'
       group by  PRD.GMM_DESC ,rpt_date.GREG_DT
 
@@ -74,7 +76,7 @@ view: digital_executive_summary_testing {
       inner join `mtech-daas-reference-pdata-dev.rfnd_ref_v.cognos_rpt_date` rpt_date on  summary.GREG_DT =  rpt_date.GREG_DT
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-     -- and rpt_date.GREG_DT >= '2019-12-01' ---- mandatory report filter Period A
+      and {% condition greg_dt %} >= filter_end_date {% endcondition %} ---- mandatory report filter Period A
       --and PRD.GMM_DESC = 'CENTER CORE'
       group by  PRD.GMM_DESC ,rpt_date.GREG_DT
       )
@@ -84,6 +86,24 @@ view: digital_executive_summary_testing {
       , GREG_DT
  ;;
   }
+
+  filter: date_filter {
+    description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
+    type: date
+  }
+
+  dimension_group: filter_start_date {
+    type: time
+    timeframes: [raw]
+    sql: CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0)::timestamp END;;
+  }
+
+  dimension_group: filter_end_date {
+    type: time
+    timeframes: [raw]
+    sql: CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0)::timestamp END;;
+
+ }
 
   measure: count {
     type: count
