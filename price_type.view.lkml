@@ -124,10 +124,7 @@ view: price_type {
     type: string
     sql: ${TABLE}.gmm_desc ;;
   }
-  dimension: GMM {
-    type: string
-    sql: ${gmm_id}||'-'||${gmm_desc} ;;
-  }
+
 
   dimension: mdse_divn_mgr_desc {
     type: string
