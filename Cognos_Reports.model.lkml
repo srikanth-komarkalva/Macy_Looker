@@ -4,6 +4,7 @@ include: "digital_executive_summary.view.lkml"
 include: "price_type.view.lkml"
 include: "digital_executive_summary_testing.view.lkml"
 
+
 datagroup: macys_datagroup_cognos {
   ###Can be set to match your etl process
   sql_trigger: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
