@@ -1,17 +1,6 @@
 view: price_type {
   derived_table: {
-    sql: declare dtPeriodAFrom  date;
-      declare dtPeriodATo date;
-      declare dtPeriodBFrom  date;
-      declare dtPeriodBTo date;
-      declare deptno int64;
-      set dtPeriodAFrom='2018-11-01';
-      set dtPeriodATo='2018-11-30';
-      set dtPeriodBFrom='2019-11-01';
-      set dtPeriodBTo='2019-11-30';
-      --set deptno=280;
-
-
+    sql:
       select  gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc ,
       sum(LiveProductA) LiveProductA,sum(LiveProductB) LiveProductB,(sum(LiveProductA)-sum(LiveProductB))/sum(LiveProductb) as PerVar,
       sum(ConfirmedSalesA) ConfirmedSalesA,sum(ConfirmedSalesB) ConfirmedSalesB,(sum(ConfirmedSalesA)-sum(ConfirmedSalesB))/sum(ConfirmedSalesB) as PerVar1,
@@ -127,7 +116,7 @@ view: price_type {
   }
 
   dimension: gmm_id {
-    type: number
+    type: string
     sql: ${TABLE}.gmm_id ;;
   }
 
@@ -135,12 +124,10 @@ view: price_type {
     type: string
     sql: ${TABLE}.gmm_desc ;;
   }
-
   dimension: mdse_divn_mgr_desc {
     type: string
     sql: ${TABLE}.mdse_divn_mgr_desc ;;
   }
-
   dimension: mdse_divn_mgr_id {
     type: number
     sql: ${TABLE}.mdse_divn_mgr_id ;;
