@@ -103,7 +103,7 @@ view: digital_executive_summary_testing {
   dimension: filter_end_date {
     type: date
     sql: CAST(
-    CASE WHEN {% date_end date_filter %} IS NULL THEN CURRENT_DATE ELSE NULLIF({% date_end date_filter %}, 0) END
+    CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
     as timestamp);;
  }
 
