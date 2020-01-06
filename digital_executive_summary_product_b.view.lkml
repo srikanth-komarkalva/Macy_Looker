@@ -113,12 +113,12 @@ view: digital_executive_summary_product_b {
   }
 
   dimension: gmmdesca {
+    label: "GMM"
     type: string
     sql: ${TABLE}.GMMDESCA ;;
   }
 
   dimension: greg_dt {
-    label: "GMM"
     type: date
     sql: cast(${TABLE}.GREG_DT as timestamp) ;;
   }
