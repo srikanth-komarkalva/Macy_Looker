@@ -1,4 +1,4 @@
-include: "BDA_Reports.model.lkml"
+include: "PowerBi_Reports.model.lkml"
 
 view: wip_summary {
   derived_table: {

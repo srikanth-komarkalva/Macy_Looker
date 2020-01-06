@@ -1,4 +1,4 @@
-include: "BDA_Reports.model.lkml"
+include: "PowerBi_Reports.model.lkml"
 
 view: wavesinprogress_summary {
   derived_table: {
