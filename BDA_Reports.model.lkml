@@ -1,5 +1,5 @@
 connection: "bq"
-
+label: "Power BI Reports"
 include: "bda_data.view.lkml"
 include: "bda_shipped_summary.view.lkml"
 include: "casestopick.view.lkml"
