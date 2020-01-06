@@ -17,7 +17,7 @@ persist_with: macys_datagroup_cognos
 explore: digital_executive_summary {}
 explore: price_type {}
 #explore: digital_executive_summary_testing{}
-explore: digital_executive_summary_product_b {}
+#explore: digital_executive_summary_product_b {}
 
 explore: digital_executive_summary_testing {
   label: "digital_executive_summary_product_a"
