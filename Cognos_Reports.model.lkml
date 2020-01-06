@@ -16,5 +16,14 @@ persist_with: macys_datagroup_cognos
 
 explore: digital_executive_summary {}
 explore: price_type {}
-explore: digital_executive_summary_testing{}
+#explore: digital_executive_summary_testing{}
 explore: digital_executive_summary_product_b {}
+
+explore: digital_executive_summary_testing {
+  label: "digital_executive_summary_product_a"
+  join: digital_executive_summary_product_b {
+    relationship: one_to_one
+    type: inner
+    sql_on: ${digital_executive_summary_testing.gmmdesca}=${digital_executive_summary_product_b.gmmdesca} ;;
+  }
+}
