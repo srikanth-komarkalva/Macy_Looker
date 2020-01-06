@@ -183,13 +183,13 @@ view: price_type {
   measure: diff_prod {
     type: number
     hidden: yes
-    sql: ${sum_live_prod_b} - ${sum_live_prod_a} ;;
+    sql: ${sum_live_prod_a} - ${sum_live_prod_b} ;;
   }
 
   measure: var_prod {
     label: "(% VAR) Live Product"
     type: number
-    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_b}, 0);;
+    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_a}, 0);;
     value_format: "(0.00\%)"
   }
 
@@ -223,13 +223,13 @@ view: price_type {
   measure: diff_confirmed {
     type: number
     hidden: yes
-    sql: ${sum_confirmed_b} - ${sum_confirmed_a} ;;
+    sql: ${sum_confirmed_a} - ${sum_confirmed_b} ;;
   }
 
   measure: var_confirm {
     label: "(% VAR) Confirmed Sales"
     type: number
-    sql: 100.0 * ${diff_confirmed} / NULLIF(${sum_confirmed_b}, 0);;
+    sql: 100.0 * ${diff_confirmed} / NULLIF(${sum_confirmed_a}, 0);;
     value_format: "(0.00\%)"
   }
 
@@ -263,13 +263,13 @@ view: price_type {
   measure: diff_units_sold {
     type: number
     hidden: yes
-    sql: ${sum_units_sold_b} - ${sum_units_sold_a} ;;
+    sql: ${sum_units_sold_a} - ${sum_units_sold_b} ;;
   }
 
   measure: var_units_sold {
     label: "(% VAR)  Units Sold"
     type: number
-    sql: 100.0 * ${diff_units_sold} / NULLIF(${sum_units_sold_b}, 0);;
+    sql: 100.0 * ${diff_units_sold} / NULLIF(${sum_units_sold_a}, 0);;
     value_format: "(0.00\%)"
   }
 
