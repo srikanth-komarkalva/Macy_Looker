@@ -113,6 +113,7 @@ view: digital_executive_summary_testing {
   }
 
   dimension: gmmdesca {
+    label: "GMM"
     type: string
     sql: ${TABLE}.GMMDESCA ;;
   }
@@ -123,6 +124,7 @@ view: digital_executive_summary_testing {
   }
 
   measure: product_count {
+    label: "Product Count"
     type: sum
     sql: ${TABLE}.Product_Count ;;
   }
@@ -138,101 +140,119 @@ view: digital_executive_summary_testing {
   }
 
   measure: aura {
+    label: "AUR"
     type: number
     value_format: "$0.00"
     sql: ${confirmed_sales}/${units_sold_a} ;;
   }
 
   measure: mmua {
+    label: "MMU"
     type: number
     value_format: "0.0\%"
     sql: (((${confirmed_sales}/${units_sold_a}) - (${lst_cost_amt}/${units_sold_a}))/(${confirmed_sales}/${units_sold_a}))*100  ;;
   }
 
   measure: confirmed_sales {
+    label: "Confirmed Sales"
     type: sum
     sql: ${TABLE}.Confirmed_Sales ;;
   }
 
   measure: units_sold_a {
+    label: "Units Sold"
     type: sum
     sql: ${TABLE}.units_SoldA ;;
   }
 
   measure: item_cost {
+    label: "Item Cost"
     type: number
     value_format: "$0.00"
     sql: ${lst_cost_amt}/${units_sold_a} ;;
   }
 
   measure: sell_through_rate_a {
+    label: "Sell Through Rate"
     type: number
     value_format: "0.00\%"
     sql:  (${four_wk_sls_qty}/(${four_wk_sls_qty} + ${avail_to_sell_a}))*100 ;;
   }
 
   measure: return_rate_a {
+    label: "Return Rate"
     type: number
     value_format: "0.00\%"
     sql: (${std_rtrn_unit_qty_a}/${tot_unit_sold_std_qty_a})*100 ;;
   }
 
   measure: viewing_session_a {
+    label: "Viewing Sessions"
     type: sum
     sql: ${TABLE}.Viewing_SessionA ;;
   }
 
   measure: buying_session_a {
+    label: "Buying Sessions"
     type: sum
     sql: ${TABLE}.Buying_SessionA ;;
   }
 
   measure: productivity_a {
+    label: "Productivity"
     type: sum
     value_format: "$0.00"
     sql: ${TABLE}.ProductivityA ;;
   }
 
   measure: view_to_buy_conv_a {
+    label: "View to Buy Conv"
     type: sum
     value_format: "0.0\%"
     sql: ${TABLE}.View_to_Buy_ConvA ;;
   }
 
   measure: add_to_bag_conv_a {
+    label: "Add to Bag Conv"
     type: sum
     value_format: "0.0\%"
     sql: ${TABLE}.Add_to_Bag_ConvA ;;
   }
 
   measure: checkout_conv_a {
+    label: "Checkout Conv"
     type: sum
     value_format: "0.0\%"
     sql: ${TABLE}.Checkout_ConvA ;;
   }
 
   measure: avail_to_sell_a {
+    label: "Avail to Sell"
     type: sum
     sql: ${TABLE}.Avail_to_SellA ;;
   }
 
   measure: on_order_a {
+    label: "On Order"
     type: sum
     sql: ${TABLE}.On_OrderA ;;
   }
 
   measure: tot_unit_sold_std_qty_a {
+    label: "Tot Unit Sold Std Qty"
     type: sum
     sql: ${TABLE}.Tot_Unit_Sold_Std_QtyA ;;
   }
 
   measure: std_rtrn_unit_qty_a {
+    label: "Std Rtrn Unit Qty"
     type: sum
     value_format: "(#,##0)"
     sql: ${TABLE}.Std_Rtrn_Unit_QtyA ;;
   }
 
   measure: number_of_reviews_ass {
+    label: "Number of Reviews"
     type: sum
     sql: ${TABLE}.Number_of_ReviewsAss ;;
   }
