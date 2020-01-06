@@ -1,4 +1,4 @@
-include: "PowerBi_Reports.model.lkml"
+include: "BDA_Reports.model.lkml"
 
 view: presortdashboard {
   derived_table: {

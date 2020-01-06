@@ -1,4 +1,4 @@
-include: "PowerBi_Reports.model.lkml"
+include: "BDA_Reports.model.lkml"
 
 view: bda_data {
   label: "BDA Reports"
