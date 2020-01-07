@@ -22,6 +22,11 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       --(ABS((SUM(STD_RTRN_QTY))/SUM(STD_SLS_QTY)))*100 AS Return_Rate,
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews,
+      SUM(SHOP_SESSN_CNT) as Shopping_Session,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
+      sum(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) AS BUY_SESSN_CNT
 
       from
       (
@@ -94,8 +99,8 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
       group by PRDID,Proddesc,GREG_DT
       --,brnd_nm,prod_typ_desc,prc_typ_id-- display based on the prompt
-      order by confirmed_sales desc  --based on the selection
-       ;;
+      order by confirmed_sales desc
+ ;;
   }
 
   measure: count {
@@ -163,6 +168,31 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql: ${TABLE}.Number_of_Reviews ;;
   }
 
+  dimension: shopping_session {
+    type: number
+    sql: ${TABLE}.Shopping_Session ;;
+  }
+
+  dimension: lst_cost_amt {
+    type: number
+    sql: ${TABLE}.LST_COST_AMT ;;
+  }
+
+  dimension: four_wk_sls_qty {
+    type: number
+    sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
+  }
+
+  dimension: view_sessn_cnt {
+    type: number
+    sql: ${TABLE}.VIEW_SESSN_CNT ;;
+  }
+
+  dimension: buy_sessn_cnt {
+    type: number
+    sql: ${TABLE}.BUY_SESSN_CNT ;;
+  }
+
   set: detail {
     fields: [
       product_id,
@@ -176,7 +206,12 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       tot_unit_sold_std_qty,
       std_rtrn_unit_qty,
       product_rating,
-      number_of_reviews
+      number_of_reviews,
+      shopping_session,
+      lst_cost_amt,
+      four_wk_sls_qty,
+      view_sessn_cnt,
+      buy_sessn_cnt
     ]
   }
 }
