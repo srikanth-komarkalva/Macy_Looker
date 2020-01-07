@@ -258,7 +258,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
   }
 
   measure: lst_cost_amt {
-    type: number
+    type: sum
     sql: ${TABLE}.LST_COST_AMT ;;
   }
 
