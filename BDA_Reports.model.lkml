@@ -16,7 +16,7 @@ include: "wip_summary_detail.view.lkml"
 datagroup: macys_datagroup {
   ###Can be set to match your etl process
   sql_trigger: SELECT TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(),hour) ;;
-  max_cache_age: "1 hour"
+  max_cache_age: "4 hours"
 }
 
 persist_with: macys_datagroup
