@@ -154,7 +154,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     label: "AUR"
     type: number
     value_format: "$0.00"
-    sql: ${confirmed_sales}/${units_sold} ;;
+    sql: NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0) ;;
   }
 
   measure: units_sold {
@@ -164,42 +164,42 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
   measure: productivity {
     type: number
-    sql: ${confirmed_sales}/${view_sessn_cnt} ;;
+    sql: NULLIF(${confirmed_sales},0)/NULLIF(${view_sessn_cnt},0) ;;
   }
 
   measure: view_to_buy_conv_a {
     label: "View to Buy Conv"
     type: number
     value_format: "0.0\%"
-    sql: ${buy_sessn_cnt}/${view_sessn_cnt} ;;
+    sql: NULLIF(${buy_sessn_cnt},0)/NULLIF(${view_sessn_cnt},0) ;;
   }
 
   measure: add_to_bag_conv {
     label: "Add to Bag Conv"
     type: number
     value_format: "0.0\%"
-    sql: ${shopping_session}/${view_sessn_cnt} ;;
+    sql: NULLIF(${shopping_session},0)/NULLIF(${view_sessn_cnt},0) ;;
   }
 
   measure: checkout_conv {
     label: "Checkout Conv"
     type: number
     value_format: "0.0\%"
-    sql: ${buy_sessn_cnt}/${shopping_session} ;;
+    sql: NULLIF(${buy_sessn_cnt},0)/NULLIF(${shopping_session},0) ;;
   }
 
   measure: mmua {
     label: "MMU"
     type: number
     value_format: "0.0\%"
-    sql: (((${confirmed_sales}/${units_sold}) - (${lst_cost_amt}/${units_sold}))/(${confirmed_sales}/${units_sold}))*100  ;;
+    sql: (((NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)) - (NULLIF(${lst_cost_amt},0)/NULLIF(${units_sold},0)))/(NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)))*100  ;;
   }
 
   measure: item_cost {
     label: "Item Cost"
     type: number
     value_format: "$0.00"
-    sql: ${lst_cost_amt}/${units_sold} ;;
+    sql: NULLIF(${lst_cost_amt},0)/NULLIF(${units_sold},0) ;;
   }
 
   measure: avail_to_sell {
@@ -221,7 +221,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     label: "Sell Through Rate"
     type: number
     value_format: "0.00\%"
-    sql:  (${four_wk_sls_qty}/(${four_wk_sls_qty} + ${avail_to_sell}))*100 ;;
+    sql:  (NULLIF(${four_wk_sls_qty},0)/(NULLIF(${four_wk_sls_qty},0) + NULLIF(${avail_to_sell},0)))*100 ;;
   }
 
 
@@ -239,11 +239,11 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     label: "Return Rate"
     type: number
     value_format: "0.00\%"
-    sql: (${std_rtrn_unit_qty}/${tot_unit_sold_std_qty})*100 ;;
+    sql: (NULLIF(${std_rtrn_unit_qty},0)/NULLIF(${tot_unit_sold_std_qty},0))*100 ;;
   }
 
   measure: product_rating {
-    type: number
+    type: sum
     sql: ${TABLE}.Product_Rating ;;
   }
 
