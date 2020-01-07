@@ -54,7 +54,9 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       INNER JOIN `mtech-daas-reference-pdata-dev.rfnd_ref_v.curr_rpt_date` cur_date ON rpt_date.CURR_DT_KEY = cur_date.CURR_DT_KEY
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT BETWEEN '2019-10-04' AND '2019-10-10' ---- mandatory report filter Period A
+      --and rpt_date.GREG_DT BETWEEN '2019-10-04' AND '2019-10-10' ---- mandatory report filter Period A
+      AND {% condition greg_dt %} >= filter_start_date {% endcondition %}
+      AND {% condition greg_dt %} <= filter_end_date {% endcondition %}
       --and prd.mdse_dept_nbr=105 -- can be either dept no or mdse hierarchy
       --and prd.brnd_nm='Lee' -- optional report prompt
       group by  PRD.web_prod_id ,Prod_desc,brnd_nm,prod_typ_desc,--prc_typ_id,
@@ -86,7 +88,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       INNER JOIN `mtech-daas-reference-pdata-dev.rfnd_ref_v.curr_rpt_date` cur_date ON rpt_date.CURR_DT_KEY = cur_date.CURR_DT_KEY
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT = '2019-10-10' ---- mandatory report filter Period A
+      and {% condition greg_dt %} >= filter_end_date {% endcondition %} ---- mandatory report filter Period A
       --and prd.mdse_dept_nbr=105 -- can be either dept no or mdse hierarchy
       --and prd.brnd_nm='Lee' -- optional report prompt
 
@@ -101,6 +103,26 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       --,brnd_nm,prod_typ_desc,prc_typ_id-- display based on the prompt
       order by confirmed_sales desc
  ;;
+  }
+
+  filter: date_filter {
+    description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
+    type: date_time
+    sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
+  }
+
+  dimension: filter_start_date {
+    type: date
+    sql: CAST(
+          CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END
+           AS timestamp) ;;
+  }
+
+  dimension: filter_end_date {
+    type: date
+    sql: CAST(
+          CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
+          as timestamp);;
   }
 
   measure: count {
@@ -123,23 +145,70 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql: ${TABLE}.GREG_DT ;;
   }
 
-  dimension: confirmed_sales {
-    type: number
+  measure: confirmed_sales {
+    type: sum
     sql: ${TABLE}.Confirmed_Sales ;;
   }
 
-  dimension: units_sold {
+  measure: aura {
+    label: "AUR"
     type: number
+    value_format: "$0.00"
+    sql: ${confirmed_sales}/${units_sold} ;;
+  }
+
+  measure: units_sold {
+    type: sum
     sql: ${TABLE}.units_Sold ;;
   }
 
-  dimension: avail_to_sell {
+  measure: productivity {
     type: number
+    sql: ${confirmed_sales}/${view_sessn_cnt} ;;
+  }
+
+  measure: view_to_buy_conv_a {
+    label: "View to Buy Conv"
+    type: number
+    value_format: "0.0\%"
+    sql: ${buy_sessn_cnt}/${view_sessn_cnt} ;;
+  }
+
+  measure: add_to_bag_conv {
+    label: "Add to Bag Conv"
+    type: number
+    value_format: "0.0\%"
+    sql: ${shopping_session}/${view_sessn_cnt} ;;
+  }
+
+  measure: checkout_conv {
+    label: "Checkout Conv"
+    type: number
+    value_format: "0.0\%"
+    sql: ${buy_sessn_cnt}/${shopping_session} ;;
+  }
+
+  measure: mmua {
+    label: "MMU"
+    type: number
+    value_format: "0.0\%"
+    sql: (((${confirmed_sales}/${units_sold}) - (${lst_cost_amt}/${units_sold}))/(${confirmed_sales}/${units_sold}))*100  ;;
+  }
+
+  measure: item_cost {
+    label: "Item Cost"
+    type: number
+    value_format: "$0.00"
+    sql: ${lst_cost_amt}/${units_sold} ;;
+  }
+
+  measure: avail_to_sell {
+    type: sum
     sql: ${TABLE}.Avail_to_Sell ;;
   }
 
-  dimension: on_order {
-    type: number
+  measure: on_order {
+    type: sum
     sql: ${TABLE}.On_Order ;;
   }
 
@@ -148,48 +217,63 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql: ${TABLE}.age ;;
   }
 
-  dimension: tot_unit_sold_std_qty {
+  measure: sell_through_rate_a {
+    label: "Sell Through Rate"
     type: number
+    value_format: "0.00\%"
+    sql:  (${four_wk_sls_qty}/(${four_wk_sls_qty} + ${avail_to_sell}))*100 ;;
+  }
+
+
+  measure: tot_unit_sold_std_qty {
+    type: sum
     sql: ${TABLE}.Tot_Unit_Sold_Std_Qty ;;
   }
 
-  dimension: std_rtrn_unit_qty {
-    type: number
+  measure: std_rtrn_unit_qty {
+    type: sum
     sql: ${TABLE}.Std_Rtrn_Unit_Qty ;;
   }
 
-  dimension: product_rating {
+  measure: return_rate_a {
+    label: "Return Rate"
+    type: number
+    value_format: "0.00\%"
+    sql: (${std_rtrn_unit_qty}/${tot_unit_sold_std_qty})*100 ;;
+  }
+
+  measure: product_rating {
     type: number
     sql: ${TABLE}.Product_Rating ;;
   }
 
-  dimension: number_of_reviews {
-    type: number
+  measure: number_of_reviews {
+    type: sum
     sql: ${TABLE}.Number_of_Reviews ;;
   }
 
-  dimension: shopping_session {
-    type: number
+  measure: shopping_session {
+    type: sum
     sql: ${TABLE}.Shopping_Session ;;
   }
 
-  dimension: lst_cost_amt {
+  measure: lst_cost_amt {
     type: number
     sql: ${TABLE}.LST_COST_AMT ;;
   }
 
-  dimension: four_wk_sls_qty {
-    type: number
+  measure: four_wk_sls_qty {
+    type: sum
     sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
   }
 
-  dimension: view_sessn_cnt {
-    type: number
+  measure: view_sessn_cnt {
+    type: sum
     sql: ${TABLE}.VIEW_SESSN_CNT ;;
   }
 
-  dimension: buy_sessn_cnt {
-    type: number
+  measure: buy_sessn_cnt {
+    type: sum
     sql: ${TABLE}.BUY_SESSN_CNT ;;
   }
 
