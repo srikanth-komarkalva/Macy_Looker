@@ -2,7 +2,7 @@ connection: "bq"
 
 include: "digital_executive_summary.view.lkml"
 include: "price_type.view.lkml"
-include: "digital_executive_summary_prod.view.lkml"
+include: "digital_executive_summary_testing.view.lkml"
 include: "pdp_productivity_by_msde_hierarchy_custom_dates.view.lkml"
 
 
@@ -17,4 +17,4 @@ persist_with: macys_datagroup_cognos
 explore: digital_executive_summary {}
 explore: price_type {}
 explore: pdp_productivity_by_msde_hierarchy_custom_dates {}
-explore: digital_executive_summary_prod {}
+explore: digital_executive_summary_testing {}
