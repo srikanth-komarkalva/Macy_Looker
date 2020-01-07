@@ -49,7 +49,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
       --and rpt_date.GREG_DT BETWEEN '2019-06-01' AND '2019-06-30' ---- mandatory report filter Period A
-      --and prd.mdse_dept_nbr=134 -- can be either dept no or mdse hierarchy
+      --and prd.mdse_dept_nbr=105 -- can be either dept no or mdse hierarchy
       --and prd.brnd_nm='Lee' -- optional report prompt
       group by  PRD.web_prod_id ,Prod_desc,brnd_nm,prod_typ_desc,rpt_date.GREG_DT
       union all
@@ -79,7 +79,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
       --and rpt_date.GREG_DT = '2019-06-30' ---- mandatory report filter Period A
-      --and prd.mdse_dept_nbr=134 -- can be either dept no or mdse hierarchy
+      --and prd.mdse_dept_nbr=105 -- can be either dept no or mdse hierarchy
       --and prd.brnd_nm='Lee' -- optional report prompt
 
       group by  PRD.web_prod_id ,Prod_desc
@@ -102,102 +102,137 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
   dimension: product_id {
     type: number
+    label: " Product ID"
     sql: ${TABLE}.Product_ID ;;
   }
 
   dimension: product_description {
     type: string
+    label: "Product Description"
     sql: ${TABLE}.Product_Description ;;
   }
 
   dimension: confirmed_sales {
     type: number
+    label: "Confirmed Sales"
     sql: ${TABLE}.Confirmed_Sales ;;
   }
 
   dimension: aur {
     type: number
+    label: "AUR"
+    value_format: "$0.00"
     sql: ${TABLE}.AUR ;;
   }
 
   dimension: units_sold {
     type: number
+    label: "Units Sold"
     sql: ${TABLE}.units_Sold ;;
   }
 
   dimension: productivity {
     type: number
+    label: "Productivity"
+    value_format: "$0.00"
     sql: ${TABLE}.Productivity ;;
   }
 
   dimension: view_to_buy_conv {
     type: number
+    label: "View to Buy Conv"
+    value_format: "0.0\%"
     sql: ${TABLE}.View_to_Buy_Conv ;;
   }
 
   dimension: add_to_bag_conv {
     type: number
+    label: "Add to Bag Conv"
+    value_format: "0.0\%"
     sql: ${TABLE}.Add_to_Bag_Conv ;;
   }
 
   dimension: checkout_conv {
     type: number
+    label: "Checkout Conv"
+    value_format: "0.0\%"
     sql: ${TABLE}.Checkout_Conv ;;
   }
 
   dimension: mmu {
     type: number
+    value_format: "0.0\%"
     sql: ${TABLE}.MMU ;;
   }
 
   dimension: item_cost {
     type: number
+    label: "Item Cost"
+    value_format: "$0.00"
     sql: ${TABLE}.Item_cost ;;
   }
 
   dimension: avail_to_sell {
     type: number
+    label: "Avail to Sell"
     sql: ${TABLE}.Avail_to_Sell ;;
   }
 
   dimension: on_order {
     type: number
+    label: "On Order"
     sql: ${TABLE}.On_Order ;;
   }
 
   dimension: age {
     type: number
+    label: "Age"
     sql: ${TABLE}.age ;;
   }
 
   dimension: sell_through_rate {
     type: number
+    label: "Sell Through Rate"
+    value_format: "0.0\%"
     sql: ${TABLE}.Sell_Through_Rate ;;
   }
 
   dimension: tot_unit_sold_std_qty {
     type: number
+    label: "Tot Unit Sold Std Qty"
     sql: ${TABLE}.Tot_Unit_Sold_Std_Qty ;;
   }
 
   dimension: std_rtrn_unit_qty {
     type: number
+    label: "Std Rtrn Unit Qty"
+    value_format: "(0)"
     sql: ${TABLE}.Std_Rtrn_Unit_Qty ;;
   }
 
   dimension: return_rate {
     type: number
+    label: "Return Rate"
+    value_format: "0.0\%"
     sql: ${TABLE}.Return_Rate ;;
   }
 
   dimension: product_rating {
     type: number
+    label: "Product Rating"
     sql: ${TABLE}.Product_Rating ;;
   }
 
   dimension: number_of_reviews {
     type: number
+    label: "Number of Reviews"
     sql: ${TABLE}.Number_of_Reviews ;;
+  }
+
+  measure: sum_of_sales {
+    type: sum
+    hidden: yes
+    sql: ${confirmed_sales} ;;
   }
 
   set: detail {
