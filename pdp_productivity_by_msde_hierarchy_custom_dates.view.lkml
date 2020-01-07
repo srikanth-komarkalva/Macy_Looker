@@ -88,6 +88,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       )
       PeriodA
 
+
       group by PRDID,Proddesc
       --,brnd_nm,prod_typ_desc,prc_typ_id-- display based on the prompt
       order by confirmed_sales desc  --based on the selection
@@ -228,6 +229,8 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     label: "Number of Reviews"
     sql: ${TABLE}.Number_of_Reviews ;;
   }
+
+
 
   measure: sum_of_sales {
     type: sum
