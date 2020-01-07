@@ -5,7 +5,8 @@ include: "price_type.view.lkml"
 include: "digital_executive_summary_testing.view.lkml"
 include: "digital_executive_summary_product_b.view.lkml"
 include: "pdp_productivity_by_msde_hierarchy_custom_dates.view.lkml"
-
+# include: "digital_executive_summary_prod_a.view.lkml"
+# include: "digital_executive_summary_prod_b.view.lkml"
 
 datagroup: macys_datagroup_cognos {
   ###Can be set to match your etl process
@@ -29,3 +30,11 @@ explore: digital_executive_summary_testing {
     sql_on: ${digital_executive_summary_testing.gmmdesca}=${digital_executive_summary_product_b.gmmdesca} ;;
   }
 }
+
+# explore: digital_executive_summary_prod_a  {
+#   extends: [digital_executive_summary_testing]
+# }
+#
+# explore: digital_executive_summary_prod_b  {
+#   extends: [digital_executive_summary_testing]
+# }
