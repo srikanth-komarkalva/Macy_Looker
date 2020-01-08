@@ -1,7 +1,7 @@
 view: pdp_productivity_by_msde_hierarchy_custom_dates {
   derived_table: {
-    sql: select  PRDID as Product_ID,Proddesc as Product_Description ,GREG_DT,
-      --brnd_nm,prod_typ_desc,prc_typ_id, --display based on prompt
+    sql: select  PRDID as Product_ID,Proddesc as Product_Description ,
+      brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT, --display based on prompt
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) AS AUR,
       SUM(ITEM_QTY) AS units_Sold,
@@ -99,7 +99,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       )
       PeriodA
 
-      group by PRDID,Proddesc,GREG_DT
+      group by PRDID,Proddesc,Brand,Product_Type,GREG_DT
       --,brnd_nm,prod_typ_desc,prc_typ_id-- display based on the prompt
       order by confirmed_sales desc
  ;;
@@ -138,6 +138,16 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
   dimension: product_description {
     type: string
     sql: ${TABLE}.Product_Description ;;
+  }
+
+  dimension: brand {
+    type: string
+    sql: ${TABLE}.Brand ;;
+  }
+
+  dimension: product_type {
+    type: string
+    sql: ${TABLE}.Product_Type ;;
   }
 
   dimension: greg_dt {
