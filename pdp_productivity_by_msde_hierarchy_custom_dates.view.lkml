@@ -165,10 +165,6 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql: ${TABLE}.Dept_Desc ;;
   }
 
-  dimension: Department {
-    type: string
-    sql: ${dept_id}||'-'||${dept_desc} ;;
-  }
 
   measure: confirmed_sales {
     type: sum
