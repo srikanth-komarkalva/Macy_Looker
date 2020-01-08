@@ -90,21 +90,21 @@ view: digital_executive_summary_testing {
   filter: date_filter {
     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
     type: date_time
-    sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
+    sql: {% condition date_filter %} ${TABLE}.GREG_DT as timestamp {% endcondition %} ;;
   }
 
   dimension: filter_start_date {
     type: date
-    sql: CAST(
-    CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END
-     AS timestamp) ;;
+    sql:CAST(
+          CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END
+           AS timestamp) ;;
   }
 
   dimension: filter_end_date {
     type: date
-    sql: CAST(
-    CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
-    as timestamp);;
+    sql:CAST(
+         CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
+          AS timestamp);;
  }
 
   measure: count {
