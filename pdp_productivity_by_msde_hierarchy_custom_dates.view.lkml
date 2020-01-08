@@ -288,6 +288,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       avail_to_sell,
       on_order,
       age,
+      sell_through_rate_a,
       tot_unit_sold_std_qty,
       std_rtrn_unit_qty,
       product_rating,
