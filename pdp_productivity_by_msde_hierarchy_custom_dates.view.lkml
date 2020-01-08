@@ -221,10 +221,9 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     label: "Sell Through Rate"
     type: number
     value_format: "0.00\%"
-    sql:  ${four_wk_sls_qty}/NULLIF((${four_wk_sls_qty} + ${avail_to_sell}))*100 ;;
-    #sql:  ${four_wk_sls_qty}/((NULLIF(${four_wk_sls_qty},0) + NULLIF(${avail_to_sell},0))*100);;
+    #sql:  ${four_wk_sls_qty}/(NULLIF(${four_wk_sls_qty},0) + ${avail_to_sell})*100 ;;
+    sql:  ${four_wk_sls_qty}/((NULLIF(${four_wk_sls_qty},0) + NULLIF(${avail_to_sell},0))*100);;
   }
-
 
   measure: tot_unit_sold_std_qty {
     type: sum
