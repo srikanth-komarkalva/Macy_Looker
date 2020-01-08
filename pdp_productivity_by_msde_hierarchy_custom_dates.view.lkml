@@ -1,7 +1,7 @@
 view: pdp_productivity_by_msde_hierarchy_custom_dates {
   derived_table: {
-    sql: select  PRDID as Product_ID,Proddesc as Product_Description ,
-      brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT, --display based on prompt
+    sql: select  PRDID as Product_ID,Proddesc as Product_Description,
+      brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT,Dept_Id,Dept_Desc, --display based on prompt
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) AS AUR,
       SUM(ITEM_QTY) AS units_Sold,
@@ -31,7 +31,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       from
       (
       select  PRD.web_prod_id AS PRDID,Prod_desc as Proddesc,brnd_nm,prod_typ_desc,--prc_typ_id,
-      rpt_date.GREG_DT ,
+      rpt_date.GREG_DT ,prd.mdse_dept_nbr as Dept_Id,prd.mdse_dept_desc as Dept_Desc,
       sum(VIEW_SESSN_PROD_CNT) AS VIEW_SESSN_PROD_CNT,
       SUM(TOT_SLS_AMT) AS TOT_SLS_AMT,
       SUM(ITEM_QTY) AS ITEM_QTY,
@@ -60,11 +60,11 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       --and prd.mdse_dept_nbr=105 -- can be either dept no or mdse hierarchy
       --and prd.brnd_nm='Lee' -- optional report prompt
       group by  PRD.web_prod_id ,Prod_desc,brnd_nm,prod_typ_desc,--prc_typ_id,
-      rpt_date.GREG_DT
+      rpt_date.GREG_DT,prd.mdse_dept_nbr,prd.mdse_dept_desc
       union all
 
       select  PRD.web_prod_id AS PRDID,Prod_desc,brnd_nm,prod_typ_desc,--prc_typ_id,
-      rpt_date.GREG_DT ,
+      rpt_date.GREG_DT ,prd.mdse_dept_nbr as Dept_Id,prd.mdse_dept_desc as Dept_Desc,
       0 AS VIEW_SESSN_PROD_CNT,
       0 AS TOT_SLS_AMT,
       0 AS ITEM_QTY,
@@ -94,12 +94,12 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
       group by  PRD.web_prod_id ,Prod_desc
       ,brnd_nm,prod_typ_desc,--prc_typ_id,
-      rpt_date.GREG_DT
+      rpt_date.GREG_DT,prd.mdse_dept_nbr,prd.mdse_dept_desc
 
       )
       PeriodA
 
-      group by PRDID,Proddesc,Brand,Product_Type,GREG_DT
+      group by PRDID,Proddesc,Brand,Product_Type,GREG_DT,Dept_Id,Dept_Desc
       --,brnd_nm,prod_typ_desc,prc_typ_id-- display based on the prompt
       order by confirmed_sales desc
  ;;
@@ -153,6 +153,21 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
   dimension: greg_dt {
     type: date
     sql: ${TABLE}.GREG_DT ;;
+  }
+
+  dimension: dept_id {
+    type: number
+    sql: ${TABLE}.Dept_id ;;
+  }
+
+  dimension: dept_desc {
+    type: string
+    sql: ${TABLE}.Dept_Desc ;;
+  }
+
+  dimension: Department {
+    type: string
+    sql: ${dept_id}||'-'||${dept_desc} ;;
   }
 
   measure: confirmed_sales {
