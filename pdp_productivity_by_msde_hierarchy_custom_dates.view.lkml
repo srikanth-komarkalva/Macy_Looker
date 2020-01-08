@@ -107,7 +107,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
   filter: date_filter {
     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
-    type: date
+    type: date_time
     sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
   }
 
