@@ -156,8 +156,13 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
   }
 
   dimension: dept_id {
-    type: string
+    type: number
     sql: ${TABLE}.Dept_id ;;
+  }
+
+  dimension: dept_id_desc {
+    type: string
+    sql: concat(CAST(${TABLE}.dept_id AS STRING)," - ",${TABLE}.dept_desc) ;;
   }
 
   dimension: dept_desc {
