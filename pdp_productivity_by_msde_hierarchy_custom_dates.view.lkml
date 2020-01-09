@@ -303,6 +303,12 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql: ${TABLE}.BUY_SESSN_CNT ;;
   }
 
+  dimension: macys_logo {
+    type: string
+    sql:${TABLE}.Dept_Desc;;
+    html: <img src="https://content-az.equisolve.net/_724c7f58341cc8e9580e487fa7ca4cbb/macysinc/db/414/5629/image_thumbnail.png" width="65%" /> ;;
+  }
+
   set: detail {
     fields: [
       product_id,
@@ -314,6 +320,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       on_order,
       sell_through_rate_a,
       age,
+      #macys_logo,
       tot_unit_sold_std_qty,
       std_rtrn_unit_qty,
       product_rating,
