@@ -252,6 +252,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
   measure: std_rtrn_unit_qty {
     type: sum
+    value_format: "(#,##0)"
     sql: ${TABLE}.Std_Rtrn_Unit_Qty ;;
   }
 
