@@ -3,6 +3,8 @@ include: "BDA_Reports.model.lkml"
 view: casestopick {
   derived_table: {
     datagroup_trigger: macys_datagroup
+    partition_keys: ["dummydate"]
+    cluster_keys: ["WaveNumber","TaskNumber"]
     sql: Select
           cea.attribute_value WaveNumber
           , a.id TaskNumber
@@ -14,6 +16,7 @@ view: casestopick {
           , cr.parent location
           , substr(cr.parent,1,4) Aisle
           , substr(cr.parent,1,2) AreaZone
+          , cast('2000-01-01' as date) as dummydate
         from
           `mtech-dc2-prod.wsm.activity` a
           inner join `mtech-dc2-prod.wsm.activity_life_cycle` alc on alc.activity_id = a.id

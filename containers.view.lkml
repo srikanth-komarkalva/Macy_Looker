@@ -2,9 +2,9 @@ include: "BDA_Reports.model.lkml"
 
 view: containers {
   derived_table: {
-#     datagroup_trigger: macys_datagroup
-#     partition_keys: ["updatedTime"]
-#     cluster_keys: ["waveNumber","container","status"]
+    datagroup_trigger: macys_datagroup
+    partition_keys: ["dummydate"]
+    cluster_keys: ["waveNumber","container"]
 
     sql: select
         Distinct
@@ -16,6 +16,7 @@ view: containers {
         , e.updated_time updatedTime
         , e.entity_status status
         , cr.parent location
+        , cast('2000-01-01' as date) as dummydate
       from
        `mtech-dc2-prod.inventory.entity` e
         inner join `mtech-dc2-prod.inventory.common_entity_attributes` cea
