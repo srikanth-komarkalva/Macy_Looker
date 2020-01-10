@@ -306,6 +306,7 @@ view: price_type {
     sql: ${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0);;
   }
 
+
   set: detail {
     fields: [
       gmm_id,
