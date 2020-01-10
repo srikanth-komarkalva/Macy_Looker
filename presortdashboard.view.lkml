@@ -2,9 +2,9 @@ include: "BDA_Reports.model.lkml"
 
 view: presortdashboard {
   derived_table: {
-#     datagroup_trigger: macys_datagroup
-#     partition_keys: ["staged"]
-#     cluster_keys: ["waveNumber","waveType"]
+    datagroup_trigger: macys_datagroup
+    partition_keys: ["dummydate"]
+    cluster_keys: ["waveNumber","waveType"]
 
     sql: --Get Active Waves in Staged, Presort Ready,Presort In Progress, anything else in area
       with WaveData as
@@ -199,6 +199,7 @@ view: presortdashboard {
         , StagedCases stagedCases
         , StagedUnits stagedUnits
         , SortedUnits sortedUnits
+        ,cast('2000-01-01' as date) as dummydate
       from
         WaveActivity a
         inner join WavesInPreSort ps on ps.waveNumber = a.waveNumber

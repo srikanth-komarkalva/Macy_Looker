@@ -18,7 +18,8 @@ view: price_type {
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) as Aur,
 
       --(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) ) - (sum(lst_cost_amt)/SUM(ITEM_QTY))/(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY)) as MMU,
-      --sum(lst_cost_amt)/SUM(ITEM_QTY) as itemcost,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       case when key=1 then sum(avail_to_sell_qty) end as AvailTosell,
       case when key=1 then Sum(oo_qty) end as OnOrder,
       --Sum(four_wk_sls_qty)/(Sum(four_wk_sls_qty)+sum(avail_to_sell_qty)) as SellThrough,
@@ -29,11 +30,13 @@ view: price_type {
       (
       select  1 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       SUM(TOT_SLS_AMT) TOT_SLS_AMT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
       sum(live_prod_ind) as live_prod_ind,
       SUM(ITEM_QTY) AS ITEM_QTY,
       0 as avail_to_sell_qty,
       0 as oo_qty,
       0 as std_sls_qty,
+      0 as FOUR_WK_SLS_QTY,
       0  as std_rtrn_qty
       from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.pdp_prod_invntry_sls_summ_v` summary
       INNER JOIN `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` prd on summary.WEB_PROD_ID = PRD.WEB_PROD_ID
@@ -49,8 +52,10 @@ view: price_type {
 
       select 1 As Key, prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       0 TOT_SLS_AMT,
+      0 as LST_COST_AMT,
       0 live_prod_ind,
       0 AS ITEM_QTY,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       sum(avail_to_sell_qty) as avail_to_sell_qty,
       Sum(oo_qty) as oo_qty,
       Sum(std_sls_qty) as std_sls_qty,
@@ -70,11 +75,13 @@ view: price_type {
 
       select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       SUM(TOT_SLS_AMT) TOT_SLS_AMT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
       sum(live_prod_ind) as live_prod_ind,
       SUM(ITEM_QTY) AS ITEM_QTY,
       0 as avail_to_sell_qty,
       0 as oo_qty,
       0 as std_sls_qty,
+      0 FOUR_WK_SLS_QTY,
       0  as std_rtrn_qty
       from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.pdp_prod_invntry_sls_summ_v` summary
       INNER JOIN `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` prd on summary.WEB_PROD_ID = PRD.WEB_PROD_ID
@@ -88,11 +95,13 @@ view: price_type {
       union all
       select 2 As Key, prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       0 TOT_SLS_AMT,
+      0 as LST_COST_AMT,
       0 live_prod_ind,
       0 AS ITEM_QTY,
       sum(avail_to_sell_qty) as avail_to_sell_qty,
       Sum(oo_qty) as oo_qty,
       Sum(std_sls_qty) as std_sls_qty,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       sum(std_rtrn_qty) as std_rtrn_qty
       from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.pdp_prod_invntry_sls_summ_v` summary
       INNER JOIN `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` prd on summary.WEB_PROD_ID = PRD.WEB_PROD_ID
@@ -278,6 +287,25 @@ view: price_type {
     sql: ${TABLE}.f0_ ;;
   }
 
+  measure: lst_cost_amt {
+    type: sum
+    sql: ${TABLE}.LST_COST_AMT ;;
+  }
+
+  measure: aura {
+    label: "AUR Period A"
+    type: number
+    value_format: "$0.00"
+    sql: ${confirmed_sales_a}/ NULLIF(${units_sold_a}, 0);;
+  }
+
+  measure: aurb {
+    label: "AUR Period B"
+    type: number
+    value_format: "$0.00"
+    sql: ${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0);;
+  }
+
 
   set: detail {
     fields: [
@@ -296,6 +324,7 @@ view: price_type {
       confirmed_sales_a,
       confirmed_sales_b,
       per_var1,
+      lst_cost_amt,
       units_sold_a,
       units_sold_b,
       f0_

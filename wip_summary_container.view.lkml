@@ -3,8 +3,8 @@ include: "BDA_Reports.model.lkml"
 view: wip_summary_container {
   derived_table: {
     datagroup_trigger: macys_datagroup
-#     partition_keys: ["Now"]
-#     cluster_keys: ["RcptNbr","PoNbr"]
+    partition_keys: ["dummydate"]
+    cluster_keys: ["ProcessArea","PoNbr"]
     sql: WITH container_derived AS (
                           SELECT  e.id AS Id
                                   , e.entity_id AS ContainerNbr
@@ -158,6 +158,7 @@ SELECT    CASE
           , SUM(wip.Ship_Day3) AS Ship_Day3
           , SUM(wip.Ship_Day4) AS Ship_Day4
           , wip.ContainerNbr AS ContainerNbr
+          , cast('2000-01-01' as date) as dummydate
 FROM      (
           SELECT    RcptNbr
                     , WaveNumber

@@ -3,8 +3,8 @@ include: "BDA_Reports.model.lkml"
 view: wavesinprogress_summary {
   derived_table: {
     datagroup_trigger: macys_datagroup
-#     partition_keys: ["sotdate"]
-#     cluster_keys: ["sotdate"]
+    partition_keys: ["dummydate"]
+    cluster_keys: ["WaveNumber","Status"]
     sql: WITH    entity_container AS (
                             SELECT    id AS EntityId
                                       , entity_id AS Container
@@ -238,6 +238,7 @@ SELECT    w.WaveNumber AS WaveNumber
           , o.SOTUnits
           , o.shipments AS Shipments
           , o.units AS AllocatedUnits
+          , cast('2000-01-01' as date) as dummydate
 FROM      wave_summary w
           INNER JOIN order_summary o
               ON o.wave_id = w.wave_id
