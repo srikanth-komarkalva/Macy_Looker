@@ -1,5 +1,6 @@
 view: pdp_summary_totals {
   derived_table: {
+#     datagroup_trigger: macys_datagroup_cognos
     sql: with Table1 as (
       select  brnd_nm,prd.mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.GREG_DT ,
       sum(VIEW_SESSN_PROD_CNT) AS VIEW_SESSN_PROD_CNT,

@@ -1,5 +1,6 @@
 view: digital_executive_summary_testing {
   derived_table: {
+#     datagroup_trigger: macys_datagroup_cognos
     sql: select  GMMDESCA, GREG_DT,
       max(VIEW_SESSN_PROD_CNT) as Product_Count,sum(TOT_SLS_AMT) as Confirmed_Sales,
    -- SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) AS AURA,
