@@ -3,7 +3,7 @@ connection: "bq"
 include: "price_type.view.lkml"
 include: "digital_executive_summary_testing.view.lkml"
 include: "pdp_productivity_by_msde_hierarchy_custom_dates.view.lkml"
-include: "pdp_totals.view.lkml"
+
 
 
 datagroup: macys_datagroup_cognos {
@@ -18,4 +18,3 @@ persist_with: macys_datagroup_cognos
 explore: price_type {}
 explore: pdp_productivity_by_msde_hierarchy_custom_dates {}
 explore: digital_executive_summary_testing {}
-explore: pdp_totals {}
