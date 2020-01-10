@@ -3,20 +3,21 @@ include: "BDA_Reports.model.lkml"
 view: containers {
   derived_table: {
     datagroup_trigger: macys_datagroup
-    partition_keys: ["dummydate"]
-    cluster_keys: ["waveNumber","container"]
+#     partition_keys: ["dummydate"]
+#     cluster_keys: ["waveNumber","container"]
 
     sql: select
         Distinct
         cea.attribute_value waveNumber
         , e.entity_id container
+      --  , cast('2000-01-01' as date) as dummydate
         , e.entity_Type containerType
         , ss.item upc
         , ss.quantity units
         , e.updated_time updatedTime
         , e.entity_status status
         , cr.parent location
-        , cast('2000-01-01' as date) as dummydate
+
       from
        `mtech-dc2-prod.inventory.entity` e
         inner join `mtech-dc2-prod.inventory.common_entity_attributes` cea
