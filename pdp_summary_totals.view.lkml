@@ -257,8 +257,10 @@ view: pdp_summary_totals {
   }
 
   dimension: caption {
+    label: "Levels"
     type: string
     sql: ${TABLE}.caption ;;
+    order_by_field: slno
   }
 
   dimension: mdse_dept_nbr {
