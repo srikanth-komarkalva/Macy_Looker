@@ -2,7 +2,7 @@ view: pdp_summary_totals {
   derived_table: {
 #     datagroup_trigger: macys_datagroup_cognos
     sql: with Table1 as (
-      select  brnd_nm,prd.mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.GREG_DT ,
+      select  brnd_nm,prd.mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.greg_dt ,
       sum(VIEW_SESSN_PROD_CNT) AS VIEW_SESSN_PROD_CNT,
       SUM(TOT_SLS_AMT) AS TOT_SLS_AMT,
       SUM(ITEM_QTY) AS ITEM_QTY,
@@ -25,13 +25,15 @@ view: pdp_summary_totals {
       INNER JOIN `mtech-daas-reference-pdata-dev.rfnd_ref_v.curr_rpt_date` cur_date ON rpt_date.CURR_DT_KEY = cur_date.CURR_DT_KEY
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT BETWEEN '2019-01-01' AND '2019-12-31' ---- mandatory report filter Period A
+      --and rpt_date.GREG_DT BETWEEN '2019-01-01' AND '2019-12-31' ---- mandatory report filter Period A
+      AND {% condition greg_dt %} >= filter_start_date {% endcondition %}
+      AND {% condition greg_dt %} <= filter_end_date {% endcondition %}
       --and prd.brnd_nm='Lee' -- optional report prompt
-      group by brnd_nm,mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.GREG_DT
+      group by brnd_nm,mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.greg_dt
 
       union all
 
-      select  brnd_nm,prd.mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.GREG_DT ,
+      select  brnd_nm,prd.mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.greg_dt ,
       0 AS VIEW_SESSN_PROD_CNT,
       0 AS TOT_SLS_AMT,
       0 AS ITEM_QTY,
@@ -55,22 +57,23 @@ view: pdp_summary_totals {
       INNER JOIN `mtech-daas-reference-pdata-dev.rfnd_ref_v.curr_rpt_date` cur_date ON rpt_date.CURR_DT_KEY = cur_date.CURR_DT_KEY
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT = '2019-12-31' ---- mandatory report filter Period A
+      --and rpt_date.GREG_DT = '2019-12-31' ---- mandatory report filter Period A
+      and {% condition greg_dt %} >= filter_end_date {% endcondition %}
       --and prd.brnd_nm='Lee' -- optional report prompt
       group by  brnd_nm,mdse_dept_nbr,mdse_dept_desc,buyer_desc,
       mdse_divn_mgr_desc,
       parent_mdse_divn_desc,
-      gmm_desc,rpt_date.GREG_DT
+      gmm_desc,rpt_date.greg_dt
       )
 
       select  1 as SLNO,'Dept' as Level, mdse_dept_desc as  caption, mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
-      SUM(VIEW_SESSN_CNT),
-      SUM(BUY_SESSN_CNT),
-      SUM(SHOP_SESSN_CNT),
-      SUM(LST_COST_AMT),
-      SUM(FOUR_WK_SLS_QTY),
+      SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      SUM(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
       sum(oo_qty) AS On_Order,
       sum(prod_age_nbr) as age,
@@ -87,11 +90,11 @@ view: pdp_summary_totals {
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
-      SUM(VIEW_SESSN_CNT),
-      SUM(BUY_SESSN_CNT),
-      SUM(SHOP_SESSN_CNT),
-      SUM(LST_COST_AMT),
-      SUM(FOUR_WK_SLS_QTY),
+       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      SUM(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
 
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
       sum(oo_qty) AS On_Order,
@@ -111,11 +114,11 @@ view: pdp_summary_totals {
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
-      SUM(VIEW_SESSN_CNT),
-      SUM(BUY_SESSN_CNT),
-      SUM(SHOP_SESSN_CNT),
-      SUM(LST_COST_AMT),
-      SUM(FOUR_WK_SLS_QTY),
+      SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      SUM(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
 
 
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
@@ -131,15 +134,16 @@ view: pdp_summary_totals {
       group by caption,mdse_dept_nbr
 
       union all
+
       select 4,'PDIV',parent_mdse_divn_desc as  caption, mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
-      SUM(VIEW_SESSN_CNT),
-      SUM(BUY_SESSN_CNT),
-      SUM(SHOP_SESSN_CNT),
-      SUM(LST_COST_AMT),
-      SUM(FOUR_WK_SLS_QTY),
+      SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      SUM(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
 
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
       sum(oo_qty) AS On_Order,
@@ -161,11 +165,11 @@ view: pdp_summary_totals {
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
-      SUM(VIEW_SESSN_CNT),
-      SUM(BUY_SESSN_CNT),
-      SUM(SHOP_SESSN_CNT),
-      SUM(LST_COST_AMT),
-      SUM(FOUR_WK_SLS_QTY),
+       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      SUM(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
 
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
       sum(oo_qty) AS On_Order,
@@ -185,11 +189,11 @@ view: pdp_summary_totals {
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
-      SUM(VIEW_SESSN_CNT),
-      SUM(BUY_SESSN_CNT),
-      SUM(SHOP_SESSN_CNT),
-      SUM(LST_COST_AMT),
-      SUM(FOUR_WK_SLS_QTY),
+      SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      SUM(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
 
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
       sum(oo_qty) AS On_Order,
@@ -209,6 +213,26 @@ view: pdp_summary_totals {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  filter: date_filter {
+    description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
+    type: date_time
+    sql: {% condition date_filter %} cast(${TABLE}.greg_dt as timestamp) {% endcondition %} ;;
+  }
+
+  dimension: filter_start_date {
+    type: date
+    sql: CAST(
+          CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END
+           AS timestamp) ;;
+  }
+
+  dimension: filter_end_date {
+    type: date
+    sql: CAST(
+          CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
+          as timestamp);;
   }
 
   dimension: slno {
@@ -231,6 +255,11 @@ view: pdp_summary_totals {
     sql: ${TABLE}.mdse_dept_nbr ;;
   }
 
+  dimension: greg_dt {
+    type: date
+    sql: ${TABLE}.greg_dt ;;
+  }
+
   measure: confirmed_sales {
     type: sum
     sql: ${TABLE}.Confirmed_Sales ;;
@@ -241,29 +270,29 @@ view: pdp_summary_totals {
     sql: ${TABLE}.units_Sold ;;
   }
 
-  measure: f0_ {
+  measure:  VIEW_SESSN_CNT {
     type: sum
-    sql: ${TABLE}.f0_ ;;
+    sql: ${TABLE}.VIEW_SESSN_CNT ;;
   }
 
-  measure: f1_ {
+  measure: BUY_SESSN_CNT {
     type: sum
-    sql: ${TABLE}.f1_ ;;
+    sql: ${TABLE}.BUY_SESSN_CNT ;;
   }
 
-  measure: f2_ {
+  measure: SHOP_SESSN_CNT {
     type: sum
-    sql: ${TABLE}.f2_ ;;
+    sql: ${TABLE}.SHOP_SESSN_CNT ;;
   }
 
-  measure: f3_ {
+  measure: LST_COST_AMT {
     type: sum
-    sql: ${TABLE}.f3_ ;;
+    sql: ${TABLE}.LST_COST_AMT;;
   }
 
-  measure: f4_ {
+  measure: FOUR_WK_SLS_QTY {
     type: sum
-    sql: ${TABLE}.f4_ ;;
+    sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
   }
 
   measure: avail_to_sell {
@@ -282,7 +311,7 @@ view: pdp_summary_totals {
   }
 
   measure: tot_unit_sold_std_qty {
-    type: number
+    type: sum
     sql: ${TABLE}.Tot_Unit_Sold_Std_Qty ;;
   }
 
@@ -311,42 +340,42 @@ view: pdp_summary_totals {
 
   measure: productivity {
     type: number
-    sql: NULLIF(${confirmed_sales},0)/NULLIF(${f0_},0) ;;
+    sql: NULLIF(${confirmed_sales},0)/NULLIF(${VIEW_SESSN_CNT},0) ;;
   }
 
   measure: view_to_buy_conv_a {
     label: "View to Buy Conv"
     type: number
     value_format: "0.0\%"
-    sql: NULLIF(${f1_},0)/NULLIF(${f0_},0) ;;
+    sql: NULLIF(${BUY_SESSN_CNT},0)/NULLIF(${VIEW_SESSN_CNT},0) ;;
   }
 
   measure: add_to_bag_conv {
     label: "Add to Bag Conv"
     type: number
     value_format: "0.0\%"
-    sql: NULLIF(${f2_},0)/NULLIF(${f0_},0) ;;
+    sql: NULLIF(${SHOP_SESSN_CNT},0)/NULLIF(${VIEW_SESSN_CNT},0) ;;
   }
 
   measure: checkout_conv {
     label: "Checkout Conv"
     type: number
     value_format: "0.0\%"
-    sql: NULLIF(${f1_},0)/NULLIF(${f2_},0) ;;
+    sql: NULLIF(${BUY_SESSN_CNT},0)/NULLIF(${SHOP_SESSN_CNT},0) ;;
   }
 
   measure: mmua {
     label: "MMU"
     type: number
     value_format: "0.0\%"
-    sql: (((NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)) - (NULLIF(${f3_},0)/NULLIF(${units_sold},0)))/(NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)))*100  ;;
+    sql: (((NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)) - (NULLIF(${LST_COST_AMT},0)/NULLIF(${units_sold},0)))/(NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)))*100  ;;
   }
 
   measure: item_cost {
     label: "Item Cost"
     type: number
     value_format: "$0.00"
-    sql: NULLIF(${f3_},0)/NULLIF(${units_sold},0) ;;
+    sql: NULLIF(${LST_COST_AMT},0)/NULLIF(${units_sold},0) ;;
   }
 
   measure: sell_through_rate_a {
@@ -354,7 +383,7 @@ view: pdp_summary_totals {
     type: number
     value_format: "0.00\%"
     #sql:  ${four_wk_sls_qty}/(NULLIF(${four_wk_sls_qty},0) + ${avail_to_sell})*100 ;;
-    sql:  (NULLIF(${f4_},0)/NULLIF(${avail_to_sell},0))*100;;
+    sql:  (NULLIF(${FOUR_WK_SLS_QTY},0)/NULLIF(${avail_to_sell},0))*100;;
   }
 
   measure: return_rate_a {
@@ -374,11 +403,11 @@ view: pdp_summary_totals {
       mdse_dept_nbr,
       confirmed_sales,
       units_sold,
-      f0_,
-      f1_,
-      f2_,
-      f3_,
-      f4_,
+      VIEW_SESSN_CNT,
+      BUY_SESSN_CNT,
+      SHOP_SESSN_CNT,
+      SHOP_SESSN_CNT,
+      FOUR_WK_SLS_QTY,
       avail_to_sell,
       on_order,
       age,
