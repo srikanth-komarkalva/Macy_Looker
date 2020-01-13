@@ -4,7 +4,8 @@ view: price_type {
       select  gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc ,
       sum(LiveProductA) LiveProductA,sum(LiveProductB) LiveProductB,(sum(LiveProductA)-sum(LiveProductB))/sum(LiveProductb) as PerVar,
       sum(ConfirmedSalesA) ConfirmedSalesA,sum(ConfirmedSalesB) ConfirmedSalesB,(sum(ConfirmedSalesA)-sum(ConfirmedSalesB))/sum(ConfirmedSalesB) as PerVar1,
-      sum(units_soldA) units_soldA,sum(units_soldB) units_soldB,(sum(units_soldA)-sum(units_soldB))/sum(units_soldB)
+      sum(units_soldA) units_soldA,sum(units_soldB) units_soldB,(sum(units_soldA)-sum(units_soldB))/sum(units_soldB),SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY
       from
       (
       select gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc,
@@ -18,7 +19,7 @@ view: price_type {
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) as Aur,
 
       --(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) ) - (sum(lst_cost_amt)/SUM(ITEM_QTY))/(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY)) as MMU,
-      SUM(lst_cost_amt) as LST_COST_AMT,
+     SUM(LST_COST_AMT) as LST_COST_AMT,
       SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       case when key=1 then sum(avail_to_sell_qty) end as AvailTosell,
       case when key=1 then Sum(oo_qty) end as OnOrder,
@@ -307,10 +308,17 @@ view: price_type {
   }
 
   measure:mmua {
-    label: "MMU"
+    label: "MMU Period A"
     type: number
     value_format: "0.0\%"
     sql: (((${confirmed_sales_a}/${units_sold_a}) - (${lst_cost_amt}/${units_sold_a}))/(${confirmed_sales_a}/${units_sold_a}))*100  ;;
+  }
+
+  measure:mmub {
+    label: "MMU Period B"
+    type: number
+    value_format: "0.0\%"
+    sql: (((${confirmed_sales_b}/${units_sold_b}) - (${lst_cost_amt}/${units_sold_b}))/(${confirmed_sales_b}/${units_sold_b}))*100  ;;
   }
 
 
