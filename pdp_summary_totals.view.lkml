@@ -82,7 +82,8 @@ view: pdp_summary_totals {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      where  mdse_dept_nbr= {% parameter deptno %} )
+      where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
+
       group by caption ,mdse_dept_nbr
 
       union all
@@ -107,7 +108,8 @@ view: pdp_summary_totals {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where  buyer_desc  =(select distinct buyer_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      where  mdse_dept_nbr= {% parameter deptno %} )
+      where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
+
       group by caption ,mdse_dept_nbr
 
       union all
@@ -133,7 +135,8 @@ view: pdp_summary_totals {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where  mdse_divn_mgr_desc  =(select distinct mdse_divn_mgr_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-                                    where  mdse_dept_nbr= {% parameter deptno %} )
+                                  where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
+
       group by caption ,mdse_dept_nbr
 
       union all
@@ -159,7 +162,8 @@ view: pdp_summary_totals {
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
       where    parent_mdse_divn_desc  =(select distinct parent_mdse_divn_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-                                        where  mdse_dept_nbr= {% parameter deptno %} )
+                                        where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
+
 
       group by caption ,mdse_dept_nbr
 
@@ -186,7 +190,8 @@ view: pdp_summary_totals {
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
       where   gmm_desc  =(select distinct gmm_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-                          where  mdse_dept_nbr= {% parameter deptno %} )
+                          where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
+
       group by caption ,mdse_dept_nbr
 
       union all
@@ -238,11 +243,6 @@ view: pdp_summary_totals {
     sql: CAST(
           CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
           as timestamp);;
-  }
-
-  parameter : deptno {
-    type: number
-    default_value: "134"
   }
 
 
