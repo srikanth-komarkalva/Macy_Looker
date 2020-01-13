@@ -22,7 +22,7 @@ explore: digital_executive_summary_testing {}
 explore: pdp_productivity_by_msde_hierarchy_custom_dates {
   join:  pdp_summary_totals {
     relationship: one_to_one
-    type: inner
+    type: left_outer
     sql_on: ${pdp_productivity_by_msde_hierarchy_custom_dates.dept_id}=${pdp_summary_totals.mdse_dept_nbr} ;;
   }
   }
