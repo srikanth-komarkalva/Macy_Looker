@@ -18,7 +18,7 @@ view: price_type {
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) as Aur,
 
       --(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) ) - (sum(lst_cost_amt)/SUM(ITEM_QTY))/(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY)) as MMU,
-      SUM(LST_COST_AMT) as LST_COST_AMT,
+      SUM(lst_cost_amt) as LST_COST_AMT,
       SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       case when key=1 then sum(avail_to_sell_qty) end as AvailTosell,
       case when key=1 then Sum(oo_qty) end as OnOrder,
@@ -304,6 +304,13 @@ view: price_type {
     type: number
     value_format: "$0.00"
     sql: ${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0);;
+  }
+
+  measure:mmua {
+    label: "MMU"
+    type: number
+    value_format: "0.0\%"
+    sql: (((${confirmed_sales_a}/${units_sold_a}) - (${lst_cost_amt}/${units_sold_a}))/(${confirmed_sales_a}/${units_sold_a}))*100  ;;
   }
 
 
