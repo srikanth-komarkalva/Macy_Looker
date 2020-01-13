@@ -1,5 +1,8 @@
 view: pdp_productivity_by_msde_hierarchy_custom_dates {
   derived_table: {
+#     datagroup_trigger: macys_datagroup_cognos
+#     partition_keys: ["dummydate"]
+#     cluster_keys: ["Product_ID","Product_Description"]
     sql: select  PRDID as Product_ID,Proddesc as Product_Description,
       brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT,Dept_Id,Dept_Desc, --display based on prompt
       sum(TOT_SLS_AMT) as Confirmed_Sales,
@@ -130,6 +133,42 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     drill_fields: [detail*]
   }
 
+  parameter: max_rank {
+    type: number
+  }
+
+  dimension: rank_limit {
+    type: number
+    sql: {% parameter max_rank %} ;;
+  }
+
+
+  parameter: rank_measure_selector {
+    label: "Rank Measure Selector"
+    type: unquoted
+
+    allowed_value: {
+      label: "Confirmed Sales"
+      value: "Confirmed_Sales"
+    }
+    allowed_value: {
+      label: "Aura"
+      value: "aura"
+    }
+    allowed_value: {
+      label: "Units Sold"
+      value: "units_Sold"
+    }
+  }
+
+  dimension: rank_measure_selector_dim {
+    label: "Measure Rank Dimension"
+    description: "To be used with the Rank Measure selector parameter"
+    label_from_parameter: rank_measure_selector
+    sql: ${TABLE}.{% parameter rank_measure_selector %};;
+  }
+
+
   dimension: product_id {
     type: number
     sql: ${TABLE}.Product_ID ;;
@@ -179,8 +218,13 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     label: "AUR"
     type: number
     value_format: "$0.00"
-    sql: NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0) ;;
+    sql: NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0);;
   }
+
+#   measure: Aura_ {
+#     type: number
+#     sql: ${aura} ;;
+#   }
 
   measure: units_sold {
     type: sum
