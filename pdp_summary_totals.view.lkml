@@ -66,7 +66,7 @@ view: pdp_summary_totals {
       gmm_desc,rpt_date.greg_dt
       )
 
-      select  1 as SLNO,'Dept' as Level, mdse_dept_desc as  caption, mdse_dept_nbr,
+      select  1 as SLNO,'Dept' as Level, mdse_dept_desc as  caption, -- mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -81,12 +81,12 @@ view: pdp_summary_totals {
       SUM(STD_RTRN_QTY) AS Std_Rtrn_Unit_Qty,
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
-      --where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
-      group by caption,mdse_dept_nbr
+      where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
+      group by caption --,mdse_dept_nbr
 
       union all
 
-      select 2,'Buyer',buyer_desc as  caption, mdse_dept_nbr,
+      select 2,'Buyer',buyer_desc as  caption, --#mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -105,12 +105,12 @@ view: pdp_summary_totals {
 
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
-      --where  buyer_desc  =(select distinct buyer_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
-      group by caption,mdse_dept_nbr
+      where  buyer_desc  =(select distinct buyer_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
+      group by caption --,mdse_dept_nbr
 
       union all
 
-      select 3,'Div',mdse_divn_mgr_desc as  caption,mdse_dept_nbr,
+      select 3,'Div',mdse_divn_mgr_desc as  caption, -- mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -130,12 +130,12 @@ view: pdp_summary_totals {
 
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
-      --where  mdse_divn_mgr_desc  =(select distinct mdse_divn_mgr_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
-      group by caption,mdse_dept_nbr
+      where  mdse_divn_mgr_desc  =(select distinct mdse_divn_mgr_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
+      group by caption -- ,mdse_dept_nbr
 
       union all
 
-      select 4,'PDIV',parent_mdse_divn_desc as  caption, mdse_dept_nbr,
+      select 4,'PDIV',parent_mdse_divn_desc as  caption,-- mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -155,13 +155,13 @@ view: pdp_summary_totals {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
-      --where    parent_mdse_divn_desc  =(select distinct parent_mdse_divn_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
+      where    parent_mdse_divn_desc  =(select distinct parent_mdse_divn_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
 
-      group by caption,mdse_dept_nbr
+      group by caption --,mdse_dept_nbr
 
 
       union all
-      select  5,'GMM',gmm_desc  as  caption, mdse_dept_nbr,
+      select  5,'GMM',gmm_desc  as  caption, -- mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -181,11 +181,11 @@ view: pdp_summary_totals {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
-      --where   gmm_desc  =(select distinct gmm_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
-      group by caption,mdse_dept_nbr
+      where   gmm_desc  =(select distinct gmm_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` where mdse_dept_nbr=134)
+      group by caption --,mdse_dept_nbr
 
       union all
-      select  6,'All','All'  as  caption, mdse_dept_nbr,
+      select  6,'All','All'  as  caption, -- mdse_dept_nbr,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -205,7 +205,7 @@ view: pdp_summary_totals {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
-      group by mdse_dept_nbr
+     -- group by mdse_dept_nbr
       order by slno
  ;;
   }
