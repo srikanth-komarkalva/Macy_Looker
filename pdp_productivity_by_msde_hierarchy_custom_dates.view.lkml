@@ -233,6 +233,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
   measure: productivity {
     type: number
+    value_format: "$0.00"
     sql: NULLIF(${confirmed_sales},0)/NULLIF(${view_sessn_cnt},0) ;;
   }
 

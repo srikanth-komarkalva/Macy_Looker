@@ -351,6 +351,7 @@ view: pdp_summary_totals {
 
   measure: productivity {
     type: number
+    value_format: "$0.00"
     sql: NULLIF(${confirmed_sales},0)/NULLIF(${VIEW_SESSN_CNT},0) ;;
   }
 
