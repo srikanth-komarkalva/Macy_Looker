@@ -318,7 +318,7 @@ view: price_type {
     label: "MMU Period B"
     type: number
     value_format: "0.0\%"
-    sql: (((${confirmed_sales_b}/${units_sold_b}) - (${lst_cost_amt}/${units_sold_b}))/(${confirmed_sales_b}/${units_sold_b}))*100  ;;
+    sql: (((${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0)) - (${lst_cost_amt}/ NULLIF(${units_sold_b}, 0)))/(${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0)))*100  ;;
   }
 
 
