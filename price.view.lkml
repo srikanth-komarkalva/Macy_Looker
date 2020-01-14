@@ -1,11 +1,9 @@
-view: price_type {
+view: price {
   derived_table: {
-    sql:
-      select  gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc ,
+    sql: select  gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc ,
       sum(LiveProductA) LiveProductA,sum(LiveProductB) LiveProductB,(sum(LiveProductA)-sum(LiveProductB))/sum(LiveProductb) as PerVar,
       sum(ConfirmedSalesA) ConfirmedSalesA,sum(ConfirmedSalesB) ConfirmedSalesB,(sum(ConfirmedSalesA)-sum(ConfirmedSalesB))/sum(ConfirmedSalesB) as PerVar1,
-      sum(units_soldA) units_soldA,sum(units_soldB) units_soldB,(sum(units_soldA)-sum(units_soldB))/sum(units_soldB),SUM(LST_COST_AMT) as LST_COST_AMT,
-      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY
+      sum(units_soldA) units_soldA,sum(units_soldB) units_soldB,(sum(units_soldA)-sum(units_soldB))/sum(units_soldB)
       from
       (
       select gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc,
@@ -19,9 +17,8 @@ view: price_type {
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) as Aur,
 
       --(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) ) - (sum(lst_cost_amt)/SUM(ITEM_QTY))/(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY)) as MMU,
-     SUM(LST_COST_AMT) as LST_COST_AMT,
-      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
-      case when key=1 then sum(avail_to_sell_qty) end as AvailTosellA,
+      --sum(lst_cost_amt)/SUM(ITEM_QTY) as itemcost,
+      case when key=1 then sum(avail_to_sell_qty) end as AvailTosell,
       case when key=1 then Sum(oo_qty) end as OnOrder,
       --Sum(four_wk_sls_qty)/(Sum(four_wk_sls_qty)+sum(avail_to_sell_qty)) as SellThrough,
       case when key=1 then Sum(std_sls_qty) end as TotUnitSold,
@@ -31,13 +28,11 @@ view: price_type {
       (
       select  1 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       SUM(TOT_SLS_AMT) TOT_SLS_AMT,
-      SUM(LST_COST_AMT) as LST_COST_AMT,
       sum(live_prod_ind) as live_prod_ind,
       SUM(ITEM_QTY) AS ITEM_QTY,
       0 as avail_to_sell_qty,
       0 as oo_qty,
       0 as std_sls_qty,
-      0 as FOUR_WK_SLS_QTY,
       0  as std_rtrn_qty
       from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.pdp_prod_invntry_sls_summ_v` summary
       INNER JOIN `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` prd on summary.WEB_PROD_ID = PRD.WEB_PROD_ID
@@ -53,10 +48,8 @@ view: price_type {
 
       select 1 As Key, prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       0 TOT_SLS_AMT,
-      0 as LST_COST_AMT,
       0 live_prod_ind,
       0 AS ITEM_QTY,
-      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       sum(avail_to_sell_qty) as avail_to_sell_qty,
       Sum(oo_qty) as oo_qty,
       Sum(std_sls_qty) as std_sls_qty,
@@ -76,13 +69,11 @@ view: price_type {
 
       select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       SUM(TOT_SLS_AMT) TOT_SLS_AMT,
-      SUM(LST_COST_AMT) as LST_COST_AMT,
       sum(live_prod_ind) as live_prod_ind,
       SUM(ITEM_QTY) AS ITEM_QTY,
       0 as avail_to_sell_qty,
       0 as oo_qty,
       0 as std_sls_qty,
-      0 FOUR_WK_SLS_QTY,
       0  as std_rtrn_qty
       from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.pdp_prod_invntry_sls_summ_v` summary
       INNER JOIN `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` prd on summary.WEB_PROD_ID = PRD.WEB_PROD_ID
@@ -96,13 +87,11 @@ view: price_type {
       union all
       select 2 As Key, prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT ,
       0 TOT_SLS_AMT,
-      0 as LST_COST_AMT,
       0 live_prod_ind,
       0 AS ITEM_QTY,
       sum(avail_to_sell_qty) as avail_to_sell_qty,
       Sum(oo_qty) as oo_qty,
       Sum(std_sls_qty) as std_sls_qty,
-      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       sum(std_rtrn_qty) as std_rtrn_qty
       from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.pdp_prod_invntry_sls_summ_v` summary
       INNER JOIN `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v` prd on summary.WEB_PROD_ID = PRD.WEB_PROD_ID
@@ -126,7 +115,7 @@ view: price_type {
   }
 
   dimension: gmm_id {
-    type: string
+    type: number
     sql: ${TABLE}.gmm_id ;;
   }
 
@@ -134,10 +123,12 @@ view: price_type {
     type: string
     sql: ${TABLE}.gmm_desc ;;
   }
+
   dimension: mdse_divn_mgr_desc {
     type: string
     sql: ${TABLE}.mdse_divn_mgr_desc ;;
   }
+
   dimension: mdse_divn_mgr_id {
     type: number
     sql: ${TABLE}.mdse_divn_mgr_id ;;
@@ -178,31 +169,6 @@ view: price_type {
     sql: ${TABLE}.LiveProductB ;;
   }
 
-  measure: sum_live_prod_a {
-    type: sum
-    hidden: yes
-    sql: ${live_product_a} ;;
-  }
-
-  measure: sum_live_prod_b {
-    type: sum
-    hidden: yes
-    sql: ${live_product_b} ;;
-  }
-
-  measure: diff_prod {
-    type: number
-    hidden: yes
-    sql: ${sum_live_prod_a} - ${sum_live_prod_b} ;;
-  }
-
-  measure: var_prod {
-    label: "(% VAR) Live Product"
-    type: number
-    sql: 100.0 * ${diff_prod} / NULLIF(${sum_live_prod_a}, 0);;
-    value_format: "(0.00\%)"
-  }
-
   dimension: per_var {
     type: number
     sql: ${TABLE}.PerVar ;;
@@ -216,31 +182,6 @@ view: price_type {
   dimension: confirmed_sales_b {
     type: number
     sql: ${TABLE}.ConfirmedSalesB ;;
-  }
-
-  measure: sum_confirmed_a {
-    hidden: yes
-    type: sum
-    sql: ${confirmed_sales_a} ;;
-  }
-
-  measure: sum_confirmed_b {
-    hidden: yes
-    type: sum
-    sql: ${confirmed_sales_b} ;;
-  }
-
-  measure: diff_confirmed {
-    type: number
-    hidden: yes
-    sql: ${sum_confirmed_a} - ${sum_confirmed_b} ;;
-  }
-
-  measure: var_confirm {
-    label: "(% VAR) Confirmed Sales"
-    type: number
-    sql: 100.0 * ${diff_confirmed} / NULLIF(${sum_confirmed_a}, 0);;
-    value_format: "(0.00\%)"
   }
 
   dimension: per_var1 {
@@ -258,88 +199,10 @@ view: price_type {
     sql: ${TABLE}.units_soldB ;;
   }
 
-  measure: sum_units_sold_a {
-    hidden: yes
-    type: sum
-    sql: ${units_sold_a} ;;
-  }
-
-  measure: sum_units_sold_b {
-    hidden: yes
-    type: sum
-    sql: ${units_sold_b} ;;
-  }
-
-  measure: diff_units_sold {
-    type: number
-    hidden: yes
-    sql: ${sum_units_sold_a} - ${sum_units_sold_b} ;;
-  }
-
-  measure: var_units_sold {
-    label: "(% VAR)  Units Sold"
-    type: number
-    sql: 100.0 * ${diff_units_sold} / NULLIF(${sum_units_sold_a}, 0);;
-    value_format: "(0.00\%)"
-  }
-
   dimension: f0_ {
     type: number
     sql: ${TABLE}.f0_ ;;
   }
-
-  measure: lst_cost_amt {
-    type: sum
-    sql: ${TABLE}.LST_COST_AMT ;;
-  }
-
-  measure: four_wk_sls_qty {
-    type: sum
-    sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
-  }
-
-  measure: aura {
-    label: "AUR Period A"
-    type: number
-    value_format: "$0.00"
-    sql: ${confirmed_sales_a}/ NULLIF(${units_sold_a}, 0);;
-  }
-
-  measure: aurb {
-    label: "AUR Period B"
-    type: number
-    value_format: "$0.00"
-    sql: ${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0);;
-  }
-
-  measure:mmua {
-    label: "MMU Period A"
-    type: number
-    value_format: "0.0\%"
-    sql: (((${confirmed_sales_a}/${units_sold_a}) - (${lst_cost_amt}/${units_sold_a}))/(${confirmed_sales_a}/${units_sold_a}))*100  ;;
-  }
-
-  measure:mmub {
-    label: "MMU Period B"
-    type: number
-    value_format: "0.0\%"
-    sql: (((${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0)) - (${lst_cost_amt}/ NULLIF(${units_sold_b}, 0)))/(${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0)))*100  ;;
-  }
-
-  measure: item_cost {
-    label: "Item Cost Period A"
-    type: number
-    value_format: "$0.00"
-    sql: ${lst_cost_amt}/${units_sold_a} ;;
-  }
-
-  measure: item_cost_b {
-    label: "Item Cost Period B"
-    type: number
-    value_format: "$0.00"
-    sql: ${lst_cost_amt}/ NULLIF(${units_sold_b}, 0) ;;
-  }
-
 
   set: detail {
     fields: [
@@ -358,7 +221,6 @@ view: price_type {
       confirmed_sales_a,
       confirmed_sales_b,
       per_var1,
-      lst_cost_amt,
       units_sold_a,
       units_sold_b,
       f0_

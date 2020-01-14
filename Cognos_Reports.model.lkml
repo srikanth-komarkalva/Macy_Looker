@@ -4,6 +4,7 @@ include: "price_type.view.lkml"
 include: "digital_executive_summary_testing.view.lkml"
 include: "pdp_productivity_by_msde_hierarchy_custom_dates.view.lkml"
 include: "pdp_summary_totals.view.lkml"
+include: "price.view.lkml"
 
 
 
@@ -26,3 +27,5 @@ explore: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql_on: ${pdp_productivity_by_msde_hierarchy_custom_dates.dept_id}=${pdp_summary_totals.mdse_dept_nbr} ;;
   }
   }
+
+explore: price {}
