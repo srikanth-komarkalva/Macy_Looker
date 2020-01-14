@@ -1,8 +1,8 @@
 view: pdp_productivity_by_msde_hierarchy_custom_dates {
   derived_table: {
-#     datagroup_trigger: macys_datagroup_cognos
-#     partition_keys: ["dummydate"]
-#     cluster_keys: ["Product_ID","Product_Description"]
+#      datagroup_trigger: macys_datagroup_cognos
+#      partition_keys: ["GREG_DT"]
+#      cluster_keys: ["Dept_Id"]
     sql: select  PRDID as Product_ID,Proddesc as Product_Description,
       brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT,Dept_Id,Dept_Desc, --display based on prompt
       sum(TOT_SLS_AMT) as Confirmed_Sales,
@@ -195,6 +195,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
   }
 
   dimension: dept_id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.Dept_id ;;
   }
