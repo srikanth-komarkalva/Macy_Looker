@@ -5,7 +5,7 @@ include: "digital_executive_summary_testing.view.lkml"
 include: "pdp_productivity_by_msde_hierarchy_custom_dates.view.lkml"
 include: "pdp_summary_totals.view.lkml"
 include: "price.view.lkml"
-
+include: "pdp_draft_version.view.lkml"
 
 
 datagroup: macys_datagroup_cognos {
@@ -29,3 +29,4 @@ explore: pdp_productivity_by_msde_hierarchy_custom_dates {
   }
 
 explore: price {}
+explore: pdp_draft_version {}
