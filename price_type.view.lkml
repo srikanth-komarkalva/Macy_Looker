@@ -5,7 +5,7 @@ view: price_type {
       sum(LiveProductA) LiveProductA,sum(LiveProductB) LiveProductB,(sum(LiveProductA)-sum(LiveProductB))/sum(LiveProductb) as PerVar,
       sum(ConfirmedSalesA) ConfirmedSalesA,sum(ConfirmedSalesB) ConfirmedSalesB,(sum(ConfirmedSalesA)-sum(ConfirmedSalesB))/sum(ConfirmedSalesB) as PerVar1,
       sum(units_soldA) units_soldA,sum(units_soldB) units_soldB,(sum(units_soldA)-sum(units_soldB))/sum(units_soldB),SUM(LST_COST_AMT) as LST_COST_AMT,
-      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
+      SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY
       from
       (
       select gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_dept_desc,prc_grp_cd,prc_typ_id,prc_typ_desc,
@@ -292,6 +292,11 @@ view: price_type {
   measure: lst_cost_amt {
     type: sum
     sql: ${TABLE}.LST_COST_AMT ;;
+  }
+
+  measure: four_wk_sls_qty {
+    type: sum
+    sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
   }
 
   measure: aura {
