@@ -321,6 +321,20 @@ view: price_type {
     sql: (((${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0)) - (${lst_cost_amt}/ NULLIF(${units_sold_b}, 0)))/(${confirmed_sales_b}/ NULLIF(${units_sold_b}, 0)))*100  ;;
   }
 
+  measure: item_cost {
+    label: "Item Cost Period A"
+    type: number
+    value_format: "$0.00"
+    sql: ${lst_cost_amt}/${units_sold_a} ;;
+  }
+
+  measure: item_cost_b {
+    label: "Item Cost Period B"
+    type: number
+    value_format: "$0.00"
+    sql: ${lst_cost_amt}/ NULLIF(${units_sold_b}, 0) ;;
+  }
+
 
   set: detail {
     fields: [
