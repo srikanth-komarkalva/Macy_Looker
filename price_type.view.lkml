@@ -22,7 +22,6 @@ view: price_type {
      SUM(LST_COST_AMT) as LST_COST_AMT,
       SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       case when key=1 then sum(avail_to_sell_qty) end as AvailTosellA,
-      case when key=2 then sum(avail_to_sell_qty) end as AvailTosellB,
       case when key=1 then Sum(oo_qty) end as OnOrder,
       --Sum(four_wk_sls_qty)/(Sum(four_wk_sls_qty)+sum(avail_to_sell_qty)) as SellThrough,
       case when key=1 then Sum(std_sls_qty) end as TotUnitSold,
