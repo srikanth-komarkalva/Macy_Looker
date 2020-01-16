@@ -25,9 +25,9 @@ view: pdp_draft_version {
       INNER JOIN `mtech-daas-reference-pdata-dev.rfnd_ref_v.curr_rpt_date` cur_date ON rpt_date.CURR_DT_KEY = cur_date.CURR_DT_KEY
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT BETWEEN '2019-01-01' AND '2019-12-31' ---- mandatory report filter Period A
-     -- AND {% condition greg_dt %} >= filter_start_date {% endcondition %}
-      --AND {% condition greg_dt %} <= filter_end_date {% endcondition %}
+      --and rpt_date.GREG_DT BETWEEN '2019-01-01' AND '2019-12-31' ---- mandatory report filter Period A
+      AND {% condition greg_dt %} >= filter_start_date {% endcondition %}
+      AND {% condition greg_dt %} <= filter_end_date {% endcondition %}
       --and prd.brnd_nm='Lee' -- optional report prompt
       group by brnd_nm,mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.greg_dt,
       PRD.web_prod_id ,Prod_desc ,brnd_nm,prod_typ_desc
@@ -59,8 +59,8 @@ view: pdp_draft_version {
       INNER JOIN `mtech-daas-reference-pdata-dev.rfnd_ref_v.curr_rpt_date` cur_date ON rpt_date.CURR_DT_KEY = cur_date.CURR_DT_KEY
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
-      and rpt_date.GREG_DT = '2019-12-31' ---- mandatory report filter Period A
-      --and {% condition greg_dt %} >= filter_end_date {% endcondition %}
+      --and rpt_date.GREG_DT = '2019-12-31' ---- mandatory report filter Period A
+      and {% condition greg_dt %} >= filter_end_date {% endcondition %}
       --and prd.brnd_nm='Lee' -- optional report prompt
       group by  brnd_nm,mdse_dept_nbr,mdse_dept_desc,buyer_desc,
       mdse_divn_mgr_desc,
@@ -68,7 +68,7 @@ view: pdp_draft_version {
       gmm_desc,rpt_date.greg_dt,PRD.web_prod_id ,Prod_desc ,brnd_nm,prod_typ_desc
       )
 
-      select cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
+      select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
       greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
@@ -91,7 +91,7 @@ view: pdp_draft_version {
 
       union all
 
-      select  '' as PRDID ,'' as Proddesc,'' as Brand, mdse_dept_desc as Product_Type, mdse_dept_nbr,greg_dt,
+      select  2 as Sno, '' as PRDID ,'' as Proddesc,'' as Brand, mdse_dept_desc as Product_Type, mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -113,7 +113,7 @@ view: pdp_draft_version {
 
       union all
 
-      select '' as PRDID ,'' as Proddesc,'' as Brand,buyer_desc as  Product_Type,mdse_dept_nbr,greg_dt,
+      select 3 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,buyer_desc as  Product_Type,mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -139,7 +139,7 @@ view: pdp_draft_version {
 
       union all
 
-      select '' as PRDID ,'' as Proddesc,'' as Brand,mdse_divn_mgr_desc as  Product_Type,mdse_dept_nbr,greg_dt,
+      select 4 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,mdse_divn_mgr_desc as  Product_Type,mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -166,7 +166,7 @@ view: pdp_draft_version {
 
       union all
 
-      select '' as PRDID ,'' as Proddesc,'' as Brand,parent_mdse_divn_desc as  Product_Type, mdse_dept_nbr,greg_dt,
+      select 5 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,parent_mdse_divn_desc as  Product_Type, mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -194,7 +194,7 @@ view: pdp_draft_version {
 
 
       union all
-      select  '' as PRDID ,'' as Proddesc,'' as Brand,gmm_desc  as  Product_Type,  mdse_dept_nbr,greg_dt,
+      select 6 as Sno, '' as PRDID ,'' as Proddesc,'' as Brand,gmm_desc  as  Product_Type,  mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -220,7 +220,7 @@ view: pdp_draft_version {
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
       union all
-      select  '' as PRDID ,'' as Proddesc,'' as Brand,'All'  as  Product_Type, mdse_dept_nbr,greg_dt,
+      select  7 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,'All'  as  Product_Type, mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
 
       SUM(ITEM_QTY) AS units_Sold,
@@ -248,6 +248,31 @@ view: pdp_draft_version {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: sno {
+    type: count_distinct
+    sql: ${TABLE}.Sno ;;
+  }
+
+  filter: date_filter {
+    description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
+    type: date_time
+    sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
+  }
+
+  dimension: filter_start_date {
+    type: date
+    sql: CAST(
+          CASE WHEN {% date_start date_filter %} IS NULL THEN '2018-01-01' ELSE NULLIF({% date_start date_filter %}, 0) END
+           AS timestamp) ;;
+  }
+
+  dimension: filter_end_date {
+    type: date
+    sql: CAST(
+          CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
+          as timestamp);;
   }
 
   dimension: prdid {
@@ -280,73 +305,73 @@ view: pdp_draft_version {
     sql: ${TABLE}.greg_dt ;;
   }
 
-  dimension: confirmed_sales {
-    type: number
+  measure: confirmed_sales {
+    type: sum
     sql: ${TABLE}.Confirmed_Sales ;;
   }
 
-  dimension: units_sold {
-    type: number
+  measure: units_sold {
+    type: sum
     sql: ${TABLE}.units_Sold ;;
   }
 
-  dimension: view_sessn_cnt {
-    type: number
+  measure: view_sessn_cnt {
+    type: sum
     sql: ${TABLE}.VIEW_SESSN_CNT ;;
   }
 
-  dimension: buy_sessn_cnt {
-    type: number
+  measure: buy_sessn_cnt {
+    type: sum
     sql: ${TABLE}.BUY_SESSN_CNT ;;
   }
 
-  dimension: shop_sessn_cnt {
-    type: number
+  measure: shop_sessn_cnt {
+    type: sum
     sql: ${TABLE}.SHOP_SESSN_CNT ;;
   }
 
-  dimension: lst_cost_amt {
-    type: number
+  measure: lst_cost_amt {
+    type: sum
     sql: ${TABLE}.LST_COST_AMT ;;
   }
 
-  dimension: four_wk_sls_qty {
-    type: number
+  measure: four_wk_sls_qty {
+    type: sum
     sql: ${TABLE}.FOUR_WK_SLS_QTY ;;
   }
 
-  dimension: avail_to_sell {
-    type: number
+  measure: avail_to_sell {
+    type: sum
     sql: ${TABLE}.Avail_to_Sell ;;
   }
 
-  dimension: on_order {
-    type: number
+  measure: on_order {
+    type: sum
     sql: ${TABLE}.On_Order ;;
   }
 
-  dimension: age {
-    type: number
+  measure: age {
+    type: sum
     sql: ${TABLE}.age ;;
   }
 
-  dimension: tot_unit_sold_std_qty {
-    type: number
+  measure: tot_unit_sold_std_qty {
+    type: sum
     sql: ${TABLE}.Tot_Unit_Sold_Std_Qty ;;
   }
 
-  dimension: std_rtrn_unit_qty {
-    type: number
+  measure: std_rtrn_unit_qty {
+    type: sum
     sql: ${TABLE}.Std_Rtrn_Unit_Qty ;;
   }
 
-  dimension: product_rating {
-    type: number
+  measure: product_rating {
+    type: sum
     sql: ${TABLE}.Product_Rating ;;
   }
 
-  dimension: number_of_reviews {
-    type: number
+  measure: number_of_reviews {
+    type: sum
     sql: ${TABLE}.Number_of_Reviews ;;
   }
 
