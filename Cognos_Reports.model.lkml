@@ -6,6 +6,8 @@ include: "pdp_productivity_by_msde_hierarchy_custom_dates.view.lkml"
 include: "pdp_summary_totals.view.lkml"
 include: "price.view.lkml"
 include: "pdp_draft_version.view.lkml"
+include: "price_type_a.view.lkml"
+include: "price_type_b.view.lkml"
 
 
 datagroup: macys_datagroup_cognos {
@@ -30,3 +32,11 @@ explore: pdp_productivity_by_msde_hierarchy_custom_dates {
 
 explore: price {}
 explore: pdp_draft_version {}
+explore: price_type_a {
+  join:  price_type_b {
+    relationship: many_to_many
+    type: full_outer
+    sql_on: ${price_type_a.prc_typ_id}=${price_type_b.prc_typ_id}
+            and ${price_type_a.mdse_dept_nbr}=${price_type_b.mdse_dept_nbr} ;;
+  }
+}
