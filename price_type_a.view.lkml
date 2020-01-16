@@ -142,48 +142,48 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
     sql: ${TABLE}.GREG_DT ;;
   }
 
-  dimension: live_product_a {
-    type: number
+  measure: live_product_a {
+    type: sum
     sql: ${TABLE}.LiveProductA ;;
   }
 
-  dimension: confirmed_sales_a {
-    type: number
+  measure: confirmed_sales_a {
+    type: sum
     sql: ${TABLE}.ConfirmedSalesA ;;
   }
 
-  dimension: units_sold_a {
-    type: number
+  measure: units_sold_a {
+    type: sum
     sql: ${TABLE}.units_soldA ;;
   }
 
-  dimension: lst_cost_amt_a {
-    type: number
+  measure: lst_cost_amt_a {
+    type: sum
     sql: ${TABLE}.lst_cost_amt_a ;;
   }
 
-  dimension: avail_tosell_a {
-    type: number
+  measure: avail_tosell_a {
+    type: sum
     sql: ${TABLE}.AvailTosell_A ;;
   }
 
-  dimension: on_order_a {
-    type: number
+  measure: on_order_a {
+    type: sum
     sql: ${TABLE}.OnOrder_A ;;
   }
 
-  dimension: four_wk_sls_qty_a {
+  measure: four_wk_sls_qty_a {
     type: number
     sql: ${TABLE}.four_wk_sls_qty_a ;;
   }
 
-  dimension: tot_unit_sold_a {
-    type: number
+  measure: tot_unit_sold_a {
+    type: sum
     sql: ${TABLE}.TotUnitSold_A ;;
   }
 
-  dimension: std_rt_rn_unit_qty_a {
-    type: number
+  measure: std_rt_rn_unit_qty_a {
+    type: sum
     sql: ${TABLE}.StdRtRnUnitQty_A ;;
   }
 

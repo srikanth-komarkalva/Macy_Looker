@@ -139,48 +139,48 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
     sql: ${TABLE}.GREG_DT ;;
   }
 
-  dimension: live_product_b {
-    type: number
+  measure: live_product_b {
+    type: sum
     sql: ${TABLE}.LiveProductB ;;
   }
 
-  dimension: confirmed_sales_b {
-    type: number
+  measure: confirmed_sales_b {
+    type: sum
     sql: ${TABLE}.ConfirmedSalesB ;;
   }
 
-  dimension: units_sold_b {
-    type: number
+  measure: units_sold_b {
+    type: sum
     sql: ${TABLE}.units_soldB ;;
   }
 
-  dimension: lst_cost_amt_b {
+  measure: lst_cost_amt_b {
     type: number
     sql: ${TABLE}.lst_cost_amt_b ;;
   }
 
-  dimension: avail_tosell_b {
-    type: number
+  measure: avail_tosell_b {
+    type: sum
     sql: ${TABLE}.AvailTosell_B ;;
   }
 
-  dimension: on_order_b {
-    type: number
+  measure: on_order_b {
+    type: sum
     sql: ${TABLE}.OnOrder_B ;;
   }
 
-  dimension: four_wk_sls_qty_b {
-    type: number
+  measure: four_wk_sls_qty_b {
+    type: sum
     sql: ${TABLE}.four_wk_sls_qty_b ;;
   }
 
-  dimension: tot_unit_sold_b {
-    type: number
+  measure: tot_unit_sold_b {
+    type: sum
     sql: ${TABLE}.TotUnitSold_B ;;
   }
 
-  dimension: std_rt_rn_unit_qty_b {
-    type: number
+  measure: std_rt_rn_unit_qty_b {
+    type: sum
     sql: ${TABLE}.StdRtRnUnitQty_B ;;
   }
 
