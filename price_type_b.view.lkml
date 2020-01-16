@@ -34,8 +34,8 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
      -- and rpt_date.GREG_DT BETWEEN '2019-09-01' AND '2019-09-30'---- mandatory report filter Period A
-      AND {% condition greg_dt %} >= filter_start_date_1 {% endcondition %}
-      AND {% condition greg_dt %} <= filter_end_date_1 {% endcondition %}
+      AND {% condition greg_dt %} >= filter_start_date {% endcondition %}
+      AND {% condition greg_dt %} <= filter_end_date {% endcondition %}
       --and prd.mdse_dept_nbr=280 and summary.prc_grp_cd='MKD'
       group by  prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT
       union all
@@ -56,7 +56,7 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
       WHERE
        Coalesce(Page_Typ_Cd,'Unknown') <> 'Master' AND (GMM_ID > 0 and GMM_ID <> 7) AND PRD.OPER_DIVN_NBR=12 -- filters from cube
       --and rpt_date.GREG_DT = '2019-09-30' ---- mandatory report filter Period A
-      and {% condition greg_dt %} >= filter_end_date_1 {% endcondition %}
+      and {% condition greg_dt %} >= filter_end_date {% endcondition %}
       --and prd.mdse_dept_nbr=280 and summary.prc_grp_cd='MKD'
       group by  prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mgr_id,prd.mdse_dept_nbr,prd.mdse_dept_desc,summary.prc_grp_cd,summary.prc_typ_id,summary.prc_typ_desc,rpt_date.GREG_DT
       )
