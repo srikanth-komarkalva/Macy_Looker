@@ -155,7 +155,7 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
   }
 
   measure: lst_cost_amt_b {
-    type: number
+    type: sum
     sql: ${TABLE}.lst_cost_amt_b ;;
   }
 
@@ -183,6 +183,42 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
     type: sum
     sql: ${TABLE}.StdRtRnUnitQty_B ;;
   }
+
+  measure: aurb{
+    label: "AUR Period B"
+    type: number
+    value_format: "$0.00"
+    sql: ${confirmed_sales_b}/NULLIF(${units_sold_b}, 0) ;;
+  }
+
+  measure: mmub {
+    label: "MMU Period B"
+    type: number
+    value_format: "0.0\%"
+    sql: (((NULLIF(${confirmed_sales_b},0)/NULLIF(${units_sold_b},0)) - (NULLIF(${lst_cost_amt_b},0)/NULLIF(${units_sold_b},0)))/(NULLIF(${confirmed_sales_b},0)/NULLIF(${units_sold_b},0)))*100  ;;
+  }
+
+  measure: item_costb {
+    label: "Item Cost Period A"
+    type: number
+    value_format: "$0.00"
+    sql: ${lst_cost_amt_b}/NULLIF(${units_sold_b}, 0);;
+  }
+
+  measure: sell_through_rate_b {
+    label: "Sell Through Rate Period B"
+    type: number
+    value_format: "0.00\%"
+    sql:  (${four_wk_sls_qty_b}/NULLIF((${four_wk_sls_qty_b} + ${avail_tosell_b}), 0))*100 ;;
+  }
+
+  measure: return_rate_a {
+    label: "Return Rate Period A"
+    type: number
+    value_format: "0.00\%"
+    sql: (${std_rt_rn_unit_qty_b}/NULLIF(${tot_unit_sold_b}, 0))*100 ;;
+  }
+
 
   set: detail {
     fields: [
