@@ -173,7 +173,7 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
   }
 
   measure: four_wk_sls_qty_a {
-    type: number
+    type: sum
     sql: ${TABLE}.four_wk_sls_qty_a ;;
   }
 
@@ -212,7 +212,9 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
     label: "Sell Through Rate Period A"
     type: number
     value_format: "0.00\%"
-    sql:  (${four_wk_sls_qty_a}/NULLIF((${four_wk_sls_qty_a}, 0) + ${avail_tosell_a}))*100 ;;
+    #sql:  (${four_wk_sls_qty_a}/NULLIF((${four_wk_sls_qty_a}, 0) + ${avail_tosell_a}))*100 ;;
+
+    sql:  (${four_wk_sls_qty_a}/NULLIF((${four_wk_sls_qty_a} + ${avail_tosell_a}), 0))*100 ;;
   }
 
   measure: return_rate_a {
