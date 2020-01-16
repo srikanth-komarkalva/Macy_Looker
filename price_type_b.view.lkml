@@ -212,8 +212,8 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
     sql:  (${four_wk_sls_qty_b}/NULLIF((${four_wk_sls_qty_b} + ${avail_tosell_b}), 0))*100 ;;
   }
 
-  measure: return_rate_b {
-    label: "Return Rate Period B"
+  measure: return_rate_a {
+    label: "Return Rate Period A"
     type: number
     value_format: "0.00\%"
     sql: (${std_rt_rn_unit_qty_b}/NULLIF(${tot_unit_sold_b}, 0))*100 ;;
