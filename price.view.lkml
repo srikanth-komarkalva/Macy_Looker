@@ -161,7 +161,7 @@ view: price {
   filter: date_filter_1 {
     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
     type: date_time
-    sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
+    sql: {% condition date_filter_1 %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
   }
 
   dimension: filter_start_date_1 {
