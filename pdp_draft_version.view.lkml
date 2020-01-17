@@ -275,27 +275,68 @@ view: pdp_draft_version {
           as timestamp);;
   }
 
+  parameter: max_rank {
+    type: number
+  }
+
+  dimension: rank_limit {
+    type: number
+    sql: {% parameter max_rank %} ;;
+  }
+
+
+  parameter: rank_measure_selector {
+    label: "Rank Measure Selector"
+    type: unquoted
+
+    allowed_value: {
+      label: "Confirmed Sales"
+      value: "Confirmed_Sales"
+    }
+    allowed_value: {
+      label: "Aura"
+      value: "aura"
+    }
+    allowed_value: {
+      label: "Units Sold"
+      value: "units_Sold"
+    }
+  }
+
+  dimension: rank_measure_selector_dim {
+    label: "Measure Rank Dimension"
+    description: "To be used with the Rank Measure selector parameter"
+    label_from_parameter: rank_measure_selector
+    sql: ${TABLE}.{% parameter rank_measure_selector %};;
+  }
+
+
   dimension: prdid {
+    label: " Product ID"
     type: string
     sql: ${TABLE}.PRDID ;;
   }
 
   dimension: proddesc {
+    label: " Product Description"
     type: string
     sql: ${TABLE}.Proddesc ;;
   }
 
   dimension: brand {
+    label: " Brand"
     type: string
     sql: ${TABLE}.Brand ;;
   }
 
   dimension: product_type {
+    label: " Product Type"
     type: string
     sql: ${TABLE}.Product_Type ;;
   }
 
   dimension: mdse_dept_nbr {
+    label: "Dept No"
     type: number
     sql: ${TABLE}.mdse_dept_nbr ;;
   }
@@ -306,13 +347,61 @@ view: pdp_draft_version {
   }
 
   measure: confirmed_sales {
+    label: "Confirmed Sales"
     type: sum
     sql: ${TABLE}.Confirmed_Sales ;;
+  }
+
+  measure: aura {
+    label: "AUR"
+    type: number
+    value_format: "$0.00"
+    sql: NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0);;
   }
 
   measure: units_sold {
     type: sum
     sql: ${TABLE}.units_Sold ;;
+  }
+  measure: productivity {
+    type: number
+    value_format: "$0.00"
+    sql: NULLIF(${confirmed_sales},0)/NULLIF(${view_sessn_cnt},0) ;;
+  }
+
+  measure: view_to_buy_conv_a {
+    label: "View to Buy Conv"
+    type: number
+    value_format: "0.0\%"
+    sql: NULLIF(${buy_sessn_cnt},0)/NULLIF(${view_sessn_cnt},0) ;;
+  }
+
+  measure: add_to_bag_conv {
+    label: "Add to Bag Conv"
+    type: number
+    value_format: "0.0\%"
+    sql: NULLIF(${shop_sessn_cnt},0)/NULLIF(${view_sessn_cnt},0) ;;
+  }
+
+  measure: checkout_conv {
+    label: "Checkout Conv"
+    type: number
+    value_format: "0.0\%"
+    sql: NULLIF(${buy_sessn_cnt},0)/NULLIF(${shop_sessn_cnt},0) ;;
+  }
+
+  measure: mmua {
+    label: "MMU"
+    type: number
+    value_format: "0.0\%"
+    sql: (((NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)) - (NULLIF(${lst_cost_amt},0)/NULLIF(${units_sold},0)))/(NULLIF(${confirmed_sales},0)/NULLIF(${units_sold},0)))*100  ;;
+  }
+
+  measure: item_cost {
+    label: "Item Cost"
+    type: number
+    value_format: "$0.00"
+    sql: NULLIF(${lst_cost_amt},0)/NULLIF(${units_sold},0) ;;
   }
 
   measure: view_sessn_cnt {
@@ -355,6 +444,14 @@ view: pdp_draft_version {
     sql: ${TABLE}.age ;;
   }
 
+  measure: sell_through_rate_a {
+    label: "Sell Through Rate"
+    type: number
+    value_format: "0.00\%"
+    #sql:  ${four_wk_sls_qty}/(NULLIF(${four_wk_sls_qty},0) + ${avail_to_sell})*100 ;;
+    sql:  (NULLIF(${four_wk_sls_qty},0)/NULLIF(${avail_to_sell},0))*100;;
+  }
+
   measure: tot_unit_sold_std_qty {
     type: sum
     sql: ${TABLE}.Tot_Unit_Sold_Std_Qty ;;
@@ -362,7 +459,15 @@ view: pdp_draft_version {
 
   measure: std_rtrn_unit_qty {
     type: sum
+    value_format: "(#,##0)"
     sql: ${TABLE}.Std_Rtrn_Unit_Qty ;;
+  }
+
+  measure: return_rate_a {
+    label: "Return Rate"
+    type: number
+    value_format: "0.00\%"
+    sql: (NULLIF(${std_rtrn_unit_qty},0)/NULLIF(${tot_unit_sold_std_qty},0))*100 ;;
   }
 
   measure: product_rating {
