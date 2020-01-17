@@ -84,8 +84,8 @@ view: pdp_draft_version {
       SUM(STD_RTRN_QTY) AS Std_Rtrn_Unit_Qty,
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
-      --where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      --where  mdse_dept_nbr=134 )
+      where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
+      where  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
 
       group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt
 
@@ -107,7 +107,7 @@ view: pdp_draft_version {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      where  mdse_dept_nbr=134 )
+      where  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
 
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
@@ -133,7 +133,7 @@ view: pdp_draft_version {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where  buyer_desc  =(select distinct buyer_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      where mdse_dept_nbr=134)
+      where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %})
 
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
@@ -160,7 +160,7 @@ view: pdp_draft_version {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where  mdse_divn_mgr_desc  =(select distinct mdse_divn_mgr_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-                                  where mdse_dept_nbr=134)
+                                  where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %})
 
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
@@ -187,7 +187,7 @@ view: pdp_draft_version {
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
       where    parent_mdse_divn_desc  =(select distinct parent_mdse_divn_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-                                        where mdse_dept_nbr=134 )
+                                        where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
 
 
       group by Product_Type ,mdse_dept_nbr,greg_dt
@@ -215,7 +215,7 @@ view: pdp_draft_version {
       SUM(RVWS_CNT) AS Number_of_Reviews
       from Table1
       where   gmm_desc  =(select distinct gmm_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-                          where mdse_dept_nbr=134 )
+                          where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %})
 
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
