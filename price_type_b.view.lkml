@@ -213,7 +213,7 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
   }
 
   measure: return_rate_a {
-    label: "Return Rate Period A"
+    label: "Return Rate Period B"
     type: number
     value_format: "0.00\%"
     sql: (${std_rt_rn_unit_qty_b}/NULLIF(${tot_unit_sold_b}, 0))*100 ;;
