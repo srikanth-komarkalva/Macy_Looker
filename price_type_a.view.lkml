@@ -133,6 +133,7 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
   }
 
   dimension: prc_typ_desc {
+    label: "Price Type Group"
     type: string
     sql: ${TABLE}.prc_typ_desc ;;
   }
@@ -143,17 +144,21 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
   }
 
   measure: live_product_a {
+    label: "Live Product Period A"
     type: sum
     sql: ${TABLE}.LiveProductA ;;
   }
 
   measure: confirmed_sales_a {
     type: sum
+    label: "Confirmed Sales Period A"
+    value_format: "$0.00"
     sql: ${TABLE}.ConfirmedSalesA ;;
   }
 
   measure: units_sold_a {
     type: sum
+    label: "Units Sold Period A"
     sql: ${TABLE}.units_soldA ;;
   }
 
@@ -163,12 +168,14 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
   }
 
   measure: avail_tosell_a {
+    label: "Avail to Sell Period A"
     type: sum
     sql: ${TABLE}.AvailTosell_A ;;
   }
 
   measure: on_order_a {
     type: sum
+    label:"On Order Period A"
     sql: ${TABLE}.OnOrder_A ;;
   }
 
@@ -179,11 +186,13 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
 
   measure: tot_unit_sold_a {
     type: sum
+    label: "Tot Unit Sold Std Qty Period A"
     sql: ${TABLE}.TotUnitSold_A ;;
   }
 
   measure: std_rt_rn_unit_qty_a {
     type: sum
+    label: "Std Rtrn Unit Qty Period A"
     sql: ${TABLE}.StdRtRnUnitQty_A ;;
   }
 

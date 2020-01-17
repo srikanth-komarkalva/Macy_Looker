@@ -219,7 +219,6 @@ view: price {
   }
 
   dimension: prc_grp_cd {
-    label: "Price Type Group"
     type: string
     sql: ${TABLE}.prc_grp_cd ;;
   }
@@ -230,6 +229,7 @@ view: price {
   }
 
   dimension: prc_typ_desc {
+    label: "Price Type Group"
     type: string
     sql: ${TABLE}.prc_typ_desc ;;
   }
