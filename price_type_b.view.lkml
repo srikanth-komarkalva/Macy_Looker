@@ -199,7 +199,7 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
   }
 
   measure: item_costb {
-    label: "Item Cost Period A"
+    label: "Item Cost Period B"
     type: number
     value_format: "$0.00"
     sql: ${lst_cost_amt_b}/NULLIF(${units_sold_b}, 0);;
