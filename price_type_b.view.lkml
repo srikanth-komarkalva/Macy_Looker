@@ -141,17 +141,20 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
   }
 
   measure: live_product_b {
+    label: "Live Product Period B"
     type: sum
     sql: ${TABLE}.LiveProductB ;;
   }
 
   measure: confirmed_sales_b {
     type: sum
+    label: "Confirmed Sales Period B"
     value_format: "$0.00"
     sql: ${TABLE}.ConfirmedSalesB ;;
   }
 
   measure: units_sold_b {
+    label: "Units Sold Period B"
     type: sum
     sql: ${TABLE}.units_soldB ;;
   }
@@ -162,12 +165,14 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
   }
 
   measure: avail_tosell_b {
+    label: "Avail to Sell Period B"
     type: sum
     sql: ${TABLE}.AvailTosell_B ;;
   }
 
   measure: on_order_b {
     type: sum
+    label:"On Order Period B"
     sql: ${TABLE}.OnOrder_B ;;
   }
 
@@ -178,11 +183,13 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
 
   measure: tot_unit_sold_b {
     type: sum
+    label: "Tot Unit Sold Std Qty Period B"
     sql: ${TABLE}.TotUnitSold_B ;;
   }
 
   measure: std_rt_rn_unit_qty_b {
     type: sum
+    label: "Std Rtrn Unit Qty Period B"
     sql: ${TABLE}.StdRtRnUnitQty_B ;;
   }
 
