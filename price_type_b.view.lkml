@@ -130,6 +130,7 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
   }
 
   dimension: prc_typ_desc {
+    label: "Price Type Group"
     type: string
     sql: ${TABLE}.prc_typ_desc ;;
   }
@@ -146,6 +147,7 @@ select  2 as Key,prd.gmm_id,prd.gmm_desc,prd.mdse_divn_mgr_desc,prd.mdse_divn_mg
 
   measure: confirmed_sales_b {
     type: sum
+    value_format: "$0.00"
     sql: ${TABLE}.ConfirmedSalesB ;;
   }
 

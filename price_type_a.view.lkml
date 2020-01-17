@@ -133,6 +133,7 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
   }
 
   dimension: prc_typ_desc {
+    label: "Price Type Group"
     type: string
     sql: ${TABLE}.prc_typ_desc ;;
   }
@@ -149,6 +150,7 @@ group by gmm_id,gmm_desc,mdse_divn_mgr_desc,mdse_divn_mgr_id,mdse_dept_nbr,mdse_
 
   measure: confirmed_sales_a {
     type: sum
+    value_format: "$0.00"
     sql: ${TABLE}.ConfirmedSalesA ;;
   }
 

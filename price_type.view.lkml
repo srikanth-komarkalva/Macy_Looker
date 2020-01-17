@@ -164,6 +164,7 @@ view: price_type {
   }
 
   dimension: prc_typ_desc {
+    label: "Price Type Group"
     type: string
     sql: ${TABLE}.prc_typ_desc ;;
   }
