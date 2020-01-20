@@ -3,7 +3,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 #      datagroup_trigger: macys_datagroup_cognos
 #      partition_keys: ["GREG_DT"]
 #      cluster_keys: ["Dept_Id"]
-    sql: select  PRDID as Product_ID,Proddesc as Product_Description,
+    sql: select  cast(PRDID as string) as Product_ID,Proddesc as Product_Description,
       brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT,Dept_Id,Dept_Desc, --display based on prompt
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) AS AUR,
@@ -33,7 +33,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
       from
       (
-      select  PRD.web_prod_id AS PRDID,Prod_desc as Proddesc,brnd_nm,prod_typ_desc,--prc_typ_id,
+      select  cast(PRD.web_prod_id as string) AS PRDID,Prod_desc as Proddesc,brnd_nm,prod_typ_desc,--prc_typ_id,
       rpt_date.GREG_DT ,prd.mdse_dept_nbr as Dept_Id,prd.mdse_dept_desc as Dept_Desc,
       sum(VIEW_SESSN_PROD_CNT) AS VIEW_SESSN_PROD_CNT,
       SUM(TOT_SLS_AMT) AS TOT_SLS_AMT,
@@ -66,7 +66,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       rpt_date.GREG_DT,prd.mdse_dept_nbr,prd.mdse_dept_desc
       union all
 
-      select  PRD.web_prod_id AS PRDID,Prod_desc,brnd_nm,prod_typ_desc,--prc_typ_id,
+      select  cast(PRD.web_prod_id as string) AS PRDID,Prod_desc,brnd_nm,prod_typ_desc,--prc_typ_id,
       rpt_date.GREG_DT ,prd.mdse_dept_nbr as Dept_Id,prd.mdse_dept_desc as Dept_Desc,
       0 AS VIEW_SESSN_PROD_CNT,
       0 AS TOT_SLS_AMT,
@@ -170,7 +170,7 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
 
 
   dimension: product_id {
-    type: number
+    type: string
     sql: ${TABLE}.Product_ID ;;
   }
 
@@ -283,8 +283,8 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
     sql: ${TABLE}.On_Order ;;
   }
 
-  dimension: age {
-    type: number
+  measure: age {
+    type: sum
     sql: ${TABLE}.age ;;
   }
 
