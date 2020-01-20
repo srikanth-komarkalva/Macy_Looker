@@ -86,7 +86,7 @@ view: draft_query {
       sum(Number_of_Reviews) as Number_of_Reviews
       from(
       select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
-      greg_dt,dense_rank() over(partition by mdse_dept_nbr  order by sum(TOT_SLS_AMT) desc) as rank,
+      greg_dt,dense_rank() over (PARTITION BY MAX(PRDID) order by sum(TOT_SLS_AMT) desc) as rank,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -105,7 +105,7 @@ view: draft_query {
       where   {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
       and  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %}
       group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt)
-      where rank<=10
+      where {% condition rank %} rank {% endcondition %}
       group by Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,rank
 
        union all
@@ -255,9 +255,8 @@ view: draft_query {
 
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
-      --where  buyer_desc  =(select distinct buyer_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      --where  mdse_dept_nbr=134 )
-      where  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %}
+      where  buyer_desc  =(select distinct buyer_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
+      where  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %})
       group by mdse_dept_nbr,greg_dt
  ;;
   }
@@ -270,7 +269,7 @@ view: draft_query {
   filter: date_filter {
     description: "Use this date filter in combination with the timeframes dimension for dynamic date filtering"
     type: date_time
-    sql: {% condition date_filter %} cast(${TABLE}.GREG_DT as timestamp) {% endcondition %} ;;
+    sql: {% condition date_filter %} cast(${TABLE}.greg_dt as timestamp) {% endcondition %} ;;
   }
 
   dimension: filter_start_date {
@@ -286,6 +285,7 @@ view: draft_query {
           CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
           as timestamp);;
   }
+
 
   dimension: sno {
     type: number

@@ -23,13 +23,9 @@ persist_with: macys_datagroup_cognos
 explore: price_type {}
 explore: digital_executive_summary_testing {}
 
-explore: pdp_productivity_by_msde_hierarchy_custom_dates {
-  join:  pdp_summary_totals {
-    relationship: one_to_one
-    type: left_outer
-    sql_on: ${pdp_productivity_by_msde_hierarchy_custom_dates.dept_id}=${pdp_summary_totals.mdse_dept_nbr} ;;
-  }
-  }
+explore: pdp_productivity_by_msde_hierarchy_custom_dates {}
+explore: pdp_summary_totals {}
+
 
 explore: price {}
 explore: pdp_draft_version {}
