@@ -86,7 +86,7 @@ view: draft_query {
       sum(Number_of_Reviews) as Number_of_Reviews
       from(
       select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
-      greg_dt,dense_rank() over (PARTITION BY MAX(PRDID) order by sum(TOT_SLS_AMT) desc) as rank,
+      greg_dt,dense_rank() over (partition by sum(TOT_SLS_AMT)  order by sum(TOT_SLS_AMT) desc) as rank,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -134,7 +134,6 @@ view: draft_query {
 
       select 3 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,buyer_desc as  Product_Type,mdse_dept_nbr,greg_dt,null as rank,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
-
       SUM(ITEM_QTY) AS units_Sold,
        SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
       SUM(BUY_SESSN_CNT) as BUY_SESSN_CNT,
@@ -327,6 +326,11 @@ view: draft_query {
     type: number
     sql: ${TABLE}.rank ;;
   }
+
+#   dimension: sequence {
+#     type: number
+#     sql: ${TABLE}.Sequence ;;
+#   }
 
   measure: confirmed_sales {
     type: sum
