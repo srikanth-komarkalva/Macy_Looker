@@ -8,7 +8,7 @@ include: "price.view.lkml"
 include: "pdp_draft_version.view.lkml"
 include: "price_type_a.view.lkml"
 include: "price_type_b.view.lkml"
-include: "draft_query.view.lkml"
+
 
 
 datagroup: macys_datagroup_cognos {
@@ -31,7 +31,6 @@ explore: price {}
 explore: pdp_draft_version {}
 explore: price_type_a {}
 explore: price_type_b {}
-explore: draft_query {}
 
 # explore: price_type_a {
 # explore:  price_type_b {
