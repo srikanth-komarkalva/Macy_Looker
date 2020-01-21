@@ -86,7 +86,7 @@ view: draft_query {
       sum(Number_of_Reviews) as Number_of_Reviews
       from(
       select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
-      greg_dt,dense_rank() over (PARTITION BY MAX(PRDID) order by sum(TOT_SLS_AMT) desc) as rank,
+      greg_dt,rank() over(PARTITION BY Proddesc,Brand,Product_Type,mdse_dept_nbr,greg_dt order by sum(TOT_SLS_AMT) desc) as rank,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
