@@ -85,7 +85,7 @@ view: pdp_draft_version {
       sum(Number_of_Reviews) as Number_of_Reviews
       from(
       select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
-      greg_dt,dense_rank() over(PARTITION BY Proddesc,Brand,Product_Type,mdse_dept_nbr,greg_dt order by sum(TOT_SLS_AMT) desc) as rank,
+      greg_dt,dense_rank() over(order by mdse_dept_nbr) as rank,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -103,9 +103,12 @@ view: pdp_draft_version {
       where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
       where   {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
       and  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %}
-      group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt)
+      group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt
+      order by sum(TOT_SLS_AMT) desc)
+
       where {% condition rank %} rank {% endcondition %}
       group by Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,rank
+
 
       union all
 
