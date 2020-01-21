@@ -68,8 +68,24 @@ view: pdp_draft_version {
       gmm_desc,rpt_date.greg_dt,PRD.web_prod_id ,Prod_desc ,brnd_nm,prod_typ_desc
       )
 
+      select Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,rank,
+      sum(Confirmed_Sales) as Confirmed_Sales,
+      sum(units_Sold) as units_Sold,
+      sum(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
+      sum(BUY_SESSN_CNT) as BUY_SESSN_CNT,
+      sum(SHOP_SESSN_CNT) as SHOP_SESSN_CNT,
+      sum(LST_COST_AMT) as LST_COST_AMT,
+      sum(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
+      sum(Avail_to_Sell) as Avail_to_Sell,
+      sum(On_Order) as On_Order,
+      sum(age) as age,
+      sum(Tot_Unit_Sold_Std_Qty) as Tot_Unit_Sold_Std_Qty,
+      sum(Std_Rtrn_Unit_Qty) as Std_Rtrn_Unit_Qty,
+      sum(Product_Rating) as Product_Rating,
+      sum(Number_of_Reviews) as Number_of_Reviews
+      from(
       select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
-      greg_dt,rank() over(PARTITION BY Proddesc,Brand,Product_Type,mdse_dept_nbr,greg_dt order by sum(TOT_SLS_AMT) desc) as rank,
+      greg_dt,dense_rank() over(PARTITION BY Proddesc,Brand,Product_Type,mdse_dept_nbr,greg_dt order by sum(TOT_SLS_AMT) desc) as rank,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -85,8 +101,11 @@ view: pdp_draft_version {
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews from Table1
       where mdse_dept_desc  =(select distinct mdse_dept_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
-      where  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
-      group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt
+      where   {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
+      and  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %}
+      group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt)
+      where {% condition rank %} rank {% endcondition %}
+      group by Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,rank
 
       union all
 
