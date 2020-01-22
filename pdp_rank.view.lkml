@@ -27,7 +27,7 @@ view: pdp_rank {
     type: yesno
     sql: ${rank} <=
 
-              {% parameter pdp_rank.top_x %} ;;
+              {% parameter pdp_rank.top_x %} +1 ;;
   }
 
 #   parameter: rank_measure_selector {
