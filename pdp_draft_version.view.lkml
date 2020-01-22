@@ -277,8 +277,8 @@ view: pdp_draft_version {
     sql: ${TABLE}.rank ;;
   }
 
-  measure: sno {
-    type: count_distinct
+  dimension: sno {
+    type: number
     sql: ${TABLE}.Sno ;;
   }
 
