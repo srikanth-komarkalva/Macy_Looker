@@ -8,6 +8,7 @@ include: "price.view.lkml"
 include: "pdp_draft_version.view.lkml"
 include: "price_type_a.view.lkml"
 include: "price_type_b.view.lkml"
+include: "pdp_rank.view.lkml"
 
 
 
@@ -25,10 +26,18 @@ explore: digital_executive_summary_testing {}
 
 explore: pdp_productivity_by_msde_hierarchy_custom_dates {}
 explore: pdp_summary_totals {}
-
-
 explore: price {}
-explore: pdp_draft_version {}
+
+explore: pdp_draft_version {
+  join: pdp_rank {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${pdp_draft_version.prdid}=${pdp_rank.prdid};;
+  }
+}
+
+
+
 explore: price_type_a {}
 explore: price_type_b {}
 
