@@ -340,7 +340,7 @@ view: pdp_draft_version {
   measure: rank_measure_dynamic_rank {
     label_from_parameter: rank_measure_selector
     type: sum
-    sql: ${rank_measure_selector} ;;
+    sql: ${rank_measure_selector_dim} ;;
   }
 
 

@@ -3,7 +3,7 @@ view: pdp_rank {
     explore_source: pdp_draft_version {
       column:  prdid {}
       column: confirmed_sales {}
-  #    column: rank_measure_dynamic_rank {}
+      column: rank_measure_dynamic_rank {}
       derived_column: rank {
         sql: row_number() over (order by rank_measure_dynamic_rank desc);;
       }
