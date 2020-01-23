@@ -37,7 +37,7 @@ view: pdp_rank {
 #
 #     allowed_value: {
 #       label: "Confirmed Sales"
-#       value: "Confirmed_Sales"
+#       value: "confirmed_sales"
 #     }
 #     allowed_value: {
 #       label: "Aura"
@@ -45,7 +45,7 @@ view: pdp_rank {
 #     }
 #     allowed_value: {
 #       label: "Units Sold"
-#       value: "units_Sold"
+#       value: "units_sold"
 #     }
 #   }
 #
