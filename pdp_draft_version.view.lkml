@@ -337,6 +337,12 @@ view: pdp_draft_version {
     sql: ${TABLE}.{% parameter rank_measure_selector %};;
   }
 
+  measure: rank_measure_dynamic_rank {
+    label_from_parameter: rank_measure_selector
+    type: sum
+    sql: ${rank_measure_selector} ;;
+  }
+
 
   dimension: prdid {
     label: " Product ID"
