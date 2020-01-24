@@ -20,6 +20,7 @@ view: pdp_rank {
   dimension: confirmed_sales {
     type: number
   }
+
   dimension: units_sold {
     type: number
   }
