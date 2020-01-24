@@ -1,5 +1,8 @@
 view: pdp_draft_version {
   derived_table: {
+    datagroup_trigger: macys_datagroup_cognos
+    partition_keys: ["greg_dt"]
+    cluster_keys: ["Brand"]
     sql: with Table1 as (
       select  brnd_nm,prd.mdse_dept_nbr,mdse_dept_desc,buyer_desc,mdse_divn_mgr_desc,parent_mdse_divn_desc,gmm_desc,rpt_date.greg_dt ,
       PRD.web_prod_id AS PRDID,Prod_desc as Proddesc,brnd_nm as Brand,prod_typ_desc as Product_Type,
@@ -271,10 +274,6 @@ view: pdp_draft_version {
     allowed_value: {
       label: "Confirmed Sales"
       value: "confirmed_sales"
-    }
-    allowed_value: {
-      label: "Aura"
-      value: "aura"
     }
     allowed_value: {
       label: "Units Sold"

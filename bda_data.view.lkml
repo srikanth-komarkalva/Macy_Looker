@@ -5,7 +5,7 @@ view: bda_data {
   derived_table: {
     datagroup_trigger: macys_datagroup
     partition_keys: ["ShiftDate"]
-    cluster_keys: ["ProcessArea","PoNbr"]
+    cluster_keys: ["ProcessArea"]
     sql: WITH  shiftTimings AS   (
                         SELECT  StartTime
                                 , DurationInSec
@@ -373,6 +373,11 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     sql: cast(${TABLE}.ShiftDate as timestamp) ;;
   }
 
+  dimension: max_date {
+    type: date
+    sql: max(cast(${TABLE}.ShiftDate as timestamp)) ;;
+  }
+
   dimension: Shift_date_formatted {
     label: "Date"
     sql: ${shift_date} ;;
@@ -427,11 +432,6 @@ HAVING      RcvdQty > 0 OR TktdQty > 0 OR PrpdQty > 0 OR PtlQty > 0 OR PtwyQty >
     type: string
     sql: ${TABLE}.ShiftName ;;
   }
-
-#   dimension: bda_reports_title {
-#     type: string
-#     html:  <ul> <li> "BDA Reports" </li> </ul>;;
-#   }
 
   dimension: macys_logo {
     type: string
