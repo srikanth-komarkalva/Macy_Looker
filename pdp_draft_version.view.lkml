@@ -64,7 +64,7 @@ view: pdp_draft_version {
       gmm_desc,rpt_date.greg_dt,PRD.web_prod_id ,Prod_desc ,brnd_nm,prod_typ_desc
       )
 
-      select Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,rank,
+      select Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,
       sum(Confirmed_Sales) as Confirmed_Sales,
       sum(units_Sold) as units_Sold,
       sum(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -81,7 +81,7 @@ view: pdp_draft_version {
       sum(Number_of_Reviews) as Number_of_Reviews
       from(
       select 1 as Sno,cast(PRDID as string) as PRDID ,Proddesc as Proddesc,Brand as Brand, Product_Type as Product_Type, mdse_dept_nbr,
-      greg_dt,null as rank,
+      greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -101,12 +101,11 @@ view: pdp_draft_version {
       and  {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %}
       group by PRDID,Proddesc,Brand,Product_Type ,mdse_dept_nbr,greg_dt
       order by sum(TOT_SLS_AMT) desc)
-      where {% condition rank %} rank {% endcondition %}
-      group by Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt,rank
+      group by Sno,PRDID,Proddesc,Brand,Product_Type, mdse_dept_nbr,greg_dt
 
       union all
 
-      select  2 as Sno, '' as PRDID ,'' as Proddesc,'' as Brand, mdse_dept_desc as Product_Type, mdse_dept_nbr,greg_dt,null as rank,
+      select  2 as Sno, '' as PRDID ,'' as Proddesc,'' as Brand, mdse_dept_desc as Product_Type, mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -127,7 +126,7 @@ view: pdp_draft_version {
 
       union all
 
-      select 3 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,buyer_desc as  Product_Type,mdse_dept_nbr,greg_dt,null as rank,
+      select 3 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,buyer_desc as  Product_Type,mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -149,7 +148,7 @@ view: pdp_draft_version {
 
       union all
 
-      select 4 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,mdse_divn_mgr_desc as  Product_Type,mdse_dept_nbr,greg_dt,null as rank,
+      select 4 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,mdse_divn_mgr_desc as  Product_Type,mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -171,7 +170,7 @@ view: pdp_draft_version {
 
       union all
 
-      select 5 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,parent_mdse_divn_desc as  Product_Type, mdse_dept_nbr,greg_dt,null as rank,
+      select 5 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,parent_mdse_divn_desc as  Product_Type, mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -189,12 +188,11 @@ view: pdp_draft_version {
       from Table1
       where    parent_mdse_divn_desc  =(select distinct parent_mdse_divn_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
                                         where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %} )
-
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
       union all
 
-      select 6 as Sno, '' as PRDID ,'' as Proddesc,'' as Brand,gmm_desc  as  Product_Type,  mdse_dept_nbr,greg_dt,null as rank,
+      select 6 as Sno, '' as PRDID ,'' as Proddesc,'' as Brand,gmm_desc  as  Product_Type,  mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -212,12 +210,11 @@ view: pdp_draft_version {
       from Table1
       where   gmm_desc  =(select distinct gmm_desc from `mtech-daas-product-pdata-dev.rfnd_prod_mcy_v.curr_prod_dim_v`
                           where {% condition mdse_dept_nbr %} mdse_dept_nbr {% endcondition %})
-
       group by Product_Type ,mdse_dept_nbr,greg_dt
 
       union all
 
-      select  7 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,'All'  as  Product_Type, mdse_dept_nbr,greg_dt,null as rank,
+      select  7 as Sno,'' as PRDID ,'' as Proddesc,'' as Brand,'All'  as  Product_Type, mdse_dept_nbr,greg_dt,
       sum(TOT_SLS_AMT) as Confirmed_Sales,
       SUM(ITEM_QTY) AS units_Sold,
       SUM(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
@@ -240,11 +237,6 @@ view: pdp_draft_version {
   measure: count {
     type: count
     drill_fields: [detail*]
-  }
-
-  dimension: rank {
-    type: number
-    sql: ${TABLE}.rank ;;
   }
 
   dimension: sno {
@@ -271,16 +263,6 @@ view: pdp_draft_version {
           CASE WHEN {% date_end date_filter %} IS NULL THEN '2020-01-01' ELSE NULLIF({% date_end date_filter %}, 0) END
           as timestamp);;
   }
-
-  parameter: max_rank {
-    type: number
-  }
-
-  dimension: rank_limit {
-    type: number
-    sql: {% parameter max_rank %} ;;
-  }
-
 
   parameter: rank_measure_selector {
     label: "Rank Measure Selector"
@@ -310,13 +292,14 @@ view: pdp_draft_version {
   measure: rank_measure_dynamic_rank {
     label_from_parameter: rank_measure_selector
     type: sum
-    sql: ${rank_measure_selector_dim} ;;
+    sql: ${TABLE}.{% parameter rank_measure_selector %} ;;
   }
 
-
+#sql: ${rank_measure_selector_dim} ;;
   dimension: prdid {
     label: " Product ID"
     type: string
+    primary_key: yes
     sql: ${TABLE}.PRDID ;;
   }
 

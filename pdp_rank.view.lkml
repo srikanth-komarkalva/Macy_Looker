@@ -3,6 +3,7 @@ view: pdp_rank {
     explore_source: pdp_draft_version {
       column:  prdid {}
       column: confirmed_sales {}
+      column: units_sold {}
       column: rank_measure_dynamic_rank {}
       derived_column: rank {
         sql: row_number() over (order by rank_measure_dynamic_rank desc);;
@@ -10,8 +11,6 @@ view: pdp_rank {
       bind_all_filters: yes
     }
   }
-
-  dimension: prdid {}
 
   parameter: top_x {
     type: unquoted
@@ -21,38 +20,15 @@ view: pdp_rank {
   dimension: confirmed_sales {
     type: number
   }
+  dimension: units_sold {
+    type: number
+  }
 
   dimension: rank {}
+  dimension: prdid {}
 
   dimension: is_top_prdid {
     type: yesno
-    sql: ${rank} <=
-
-              {% parameter pdp_rank.top_x %} +1 ;;
+    sql: ${rank} <= {% parameter pdp_rank.top_x %} +1 ;;
   }
-
-#   parameter: rank_measure_selector {
-#     label: "Rank Measure Selector"
-#     type: unquoted
-#
-#     allowed_value: {
-#       label: "Confirmed Sales"
-#       value: "confirmed_sales"
-#     }
-#     allowed_value: {
-#       label: "Aura"
-#       value: "aura"
-#     }
-#     allowed_value: {
-#       label: "Units Sold"
-#       value: "units_sold"
-#     }
-#   }
-#
-#   dimension: rank_measure_selector_dim {
-#     label: "Measure Rank Dimension"
-#     description: "To be used with the Rank Measure selector parameter"
-#     label_from_parameter: rank_measure_selector
-#     sql: ${TABLE}.{% parameter rank_measure_selector %};;
-#   }
 }
