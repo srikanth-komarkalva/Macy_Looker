@@ -1,28 +1,17 @@
 view: pdp_productivity_by_msde_hierarchy_custom_dates {
   derived_table: {
-#      datagroup_trigger: macys_datagroup_cognos
-#      partition_keys: ["GREG_DT"]
-#      cluster_keys: ["Dept_Id"]
+     datagroup_trigger: macys_datagroup_cognos
+     partition_keys: ["greg_dt"]
+     cluster_keys: ["Brand","Dept_id"]
     sql: select  cast(PRDID as string) as Product_ID,Proddesc as Product_Description,
       brnd_nm as Brand,prod_typ_desc as Product_Type,GREG_DT,Dept_Id,Dept_Desc, --display based on prompt
       sum(TOT_SLS_AMT) as Confirmed_Sales,
-      --SUM(TOT_SLS_AMT)/SUM(ITEM_QTY) AS AUR,
       SUM(ITEM_QTY) AS units_Sold,
-
-      --SUM(TOT_SLS_AMT)/SUM(VIEW_SESSN_CNT) AS Productivity,
-      --(SUM(BUY_SESSN_CNT)/SUM(VIEW_SESSN_CNT))*100 AS View_to_Buy_Conv,
-      --(SUM(SHOP_SESSN_CNT)/SUM(VIEW_SESSN_CNT))*100  AS Add_to_Bag_Conv,
-      --(SUM(BUY_SESSN_CNT)/SUM(SHOP_SESSN_CNT) )*100 AS Checkout_Conv,
-      --(((SUM(TOT_SLS_AMT)/SUM(ITEM_QTY)) - (SUM(LST_COST_AMT)/ SUM(ITEM_QTY)))/(SUM(TOT_SLS_AMT)/SUM(ITEM_QTY)))*100 AS MMU,
-
-      --sum(LST_COST_AMT)/SUM(ITEM_QTY) as Item_cost,
       SUM(AVAIL_TO_SELL_QTY) AS Avail_to_Sell,
       sum(oo_qty) AS On_Order,
       sum(prod_age_nbr) as age,
-      --(SUM(FOUR_WK_SLS_QTY)/(SUM(FOUR_WK_SLS_QTY)+SUM(AVAIL_TO_SELL_QTY)))*100 AS Sell_Through_Rate,
       SUM(STD_SLS_QTY) AS Tot_Unit_Sold_Std_Qty,
       SUM(STD_RTRN_QTY) AS Std_Rtrn_Unit_Qty,
-      --(ABS((SUM(STD_RTRN_QTY))/SUM(STD_SLS_QTY)))*100 AS Return_Rate,
       sum(rtng_nbr) as Product_Rating,
       SUM(RVWS_CNT) AS Number_of_Reviews,
       SUM(SHOP_SESSN_CNT) as Shopping_Session,
@@ -30,10 +19,9 @@ view: pdp_productivity_by_msde_hierarchy_custom_dates {
       SUM(FOUR_WK_SLS_QTY) as FOUR_WK_SLS_QTY,
       sum(VIEW_SESSN_CNT) as VIEW_SESSN_CNT,
       SUM(BUY_SESSN_CNT) AS BUY_SESSN_CNT
-
       from
       (
-      select  cast(PRD.web_prod_id as string) AS PRDID,Prod_desc as Proddesc,brnd_nm,prod_typ_desc,--prc_typ_id,
+      select  cast(PRD.web_prod_id as string) AS PRDID,Prod_desc as Proddesc,brnd_nm,prod_typ_desc,
       rpt_date.GREG_DT ,prd.mdse_dept_nbr as Dept_Id,prd.mdse_dept_desc as Dept_Desc,
       sum(VIEW_SESSN_PROD_CNT) AS VIEW_SESSN_PROD_CNT,
       SUM(TOT_SLS_AMT) AS TOT_SLS_AMT,
