@@ -276,10 +276,6 @@ view: pdp_draft_version {
       value: "confirmed_sales"
     }
     allowed_value: {
-      label: "Aura"
-      value: "aura"
-    }
-    allowed_value: {
       label: "Units Sold"
       value: "units_sold"
     }

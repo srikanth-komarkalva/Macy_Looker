@@ -34,12 +34,6 @@ explore: bda_data {
     type: left_outer
     sql_on: ${bda_data.process_area}=${wip_process_area_desc.proc_area_short_desc} ;;
   }
-#   join: bda_shipped_summary {
-#     view_label: "BDA Shipped Summary"
-#     relationship: many_to_one
-#     type: left_outer
-#     sql_on: ${bda_data.process_area}=${bda_shipped_summary.division} ;;
-#   }
 }
 
 # Waves In Progress
